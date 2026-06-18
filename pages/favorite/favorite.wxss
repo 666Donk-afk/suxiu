@@ -1,0 +1,53 @@
+.page {
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin: 24rpx 32rpx;
+  padding: 18rpx 28rpx;
+  background: #fff;
+  border-radius: 999rpx;
+}
+
+.search-icon {
+  color: #A0301F;
+  margin-right: 12rpx;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 28rpx;
+}
+
+.list {
+  padding: 0 32rpx;
+}
+
+.list-item {
+  position: relative;
+}
+
+.remove-btn {
+  position: absolute;
+  right: 32rpx;
+  bottom: 36rpx;
+  font-size: 24rpx;
+  color: #E67E22;
+  padding: 8rpx 16rpx;
+}
+
+.login-cta {
+  margin-top: 32rpx;
+  padding: 20rpx 56rpx;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 28rpx;
+  border-radius: var(--radius-pill);
+}
+
+.guest-empty .empty-text {
+  margin-bottom: 8rpx;
+}

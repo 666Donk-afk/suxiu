@@ -1,0 +1,211 @@
+<view class="journey-page page-fade-in">
+  <view class="journey-bg">
+    <view class="deco-ring ring-1"></view>
+    <view class="deco-ring ring-2"></view>
+    <view class="deco-mountain"></view>
+  </view>
+
+  <scroll-view class="journey-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <!-- 顶部栏（随内容滚动） -->
+    <view class="top-bar safe-top">
+      <view class="back-btn tap-active" wx:if="{{step > 1 && step <= 4}}" bindtap="onBack">
+        <text class="back-icon">‹</text>
+        <text>{{i18n.back}}</text>
+      </view>
+      <view class="back-btn tap-active" wx:elif="{{step === 5}}" bindtap="onBack">
+        <text class="back-icon">‹</text>
+        <text>{{i18n.back}}</text>
+      </view>
+      <view class="back-placeholder" wx:else></view>
+
+      <view class="skip-btn tap-active" wx:if="{{step <= 4}}" bindtap="onSkip">{{i18n.skip}}</view>
+    </view>
+
+    <!-- 进度条 -->
+    <view class="progress-wrap" wx:if="{{step <= 4}}">
+      <text class="progress-label">{{i18n.progress}}</text>
+      <view class="progress-track">
+        <view class="progress-fill" style="width: {{step * 25}}%;"></view>
+      </view>
+    </view>
+
+    <!-- Step 1: 语言 -->
+  <view class="step-body {{showContent ? 'visible' : ''}}" wx:if="{{step === 1}}">
+    <view class="headline">
+      <text class="step-title title-serif">{{i18n.step1Title}}</text>
+      <text class="step-subtitle">{{i18n.step1Subtitle}}</text>
+    </view>
+    <view class="lang-list">
+      <view
+        wx:for="{{languages}}"
+        wx:key="code"
+        class="lang-card tap-active {{selectedLanguage === item.code ? 'selected' : ''}}"
+        data-code="{{item.code}}"
+        bindtap="onSelectLanguage"
+      >
+        <text class="flag">{{item.flag}}</text>
+        <view class="lang-info">
+          <text class="native">{{item.native}}</text>
+          <text class="english">{{item.english}}</text>
+        </view>
+        <view class="check" wx:if="{{selectedLanguage === item.code}}">✓</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Step 2: 城市 -->
+  <view class="step-body {{showContent ? 'visible' : ''}}" wx:if="{{step === 2}}">
+    <view class="headline">
+      <text class="step-title title-serif">{{i18n.step2Title}}</text>
+      <text class="step-subtitle">{{i18n.step2Subtitle}}</text>
+    </view>
+
+    <scroll-view scroll-x class="hot-city-scroll" enable-flex>
+      <view class="hot-city-list">
+        <view
+          wx:for="{{hotCities}}"
+          wx:key="id"
+          class="hot-city-card tap-active {{selectedCity === item.name ? 'selected' : ''}}"
+          data-name="{{item.name}}"
+          bindtap="onSelectCity"
+        >
+          <image class="hot-city-cover" src="{{item.cover}}" mode="aspectFill" />
+          <view class="hot-city-mask"></view>
+          <text class="hot-city-name title-serif">{{item.name}}</text>
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="search-box">
+      <text class="search-icon">⌕</text>
+      <input
+        class="search-input"
+        placeholder="{{i18n.step2Search}}"
+        value="{{citySearch}}"
+        bindinput="onCitySearchInput"
+        bindfocus="onCitySearchFocus"
+        bindblur="onCitySearchBlur"
+      />
+    </view>
+
+    <view class="suggestion-list" wx:if="{{showSuggestions}}">
+      <view
+        wx:for="{{citySuggestions}}"
+        wx:key="id"
+        class="suggestion-item tap-active"
+        data-name="{{item.name}}"
+        bindtap="onPickSuggestion"
+      >
+        <text class="suggestion-name">{{item.name}}</text>
+        <text class="suggestion-pinyin">{{item.pinyin}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Step 3: 兴趣分类 -->
+  <view class="step-body {{showContent ? 'visible' : ''}}" wx:if="{{step === 3}}">
+    <view class="headline">
+      <text class="step-title title-serif">{{i18n.step3Title}}</text>
+      <text class="step-subtitle">{{i18n.step3Subtitle}}</text>
+      <text class="step-hint">{{i18n.step3Hint}}</text>
+    </view>
+    <view class="tag-grid">
+      <view
+        wx:for="{{categories}}"
+        wx:key="key"
+        class="tag-item tap-active {{selectedCategoryMap[item.key] ? 'selected' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="onToggleCategory"
+      >
+        {{item.label}}
+      </view>
+    </view>
+  </view>
+
+  <!-- Step 4: 出行计划 -->
+  <view class="step-body {{showContent ? 'visible' : ''}}" wx:if="{{step === 4}}">
+    <view class="headline">
+      <text class="step-title title-serif">{{i18n.step4Title}}</text>
+      <text class="step-subtitle">{{i18n.step4Subtitle}}</text>
+    </view>
+    <view class="option-list">
+      <view
+        wx:for="{{travelOptions}}"
+        wx:key="key"
+        class="option-card tap-active {{selectedTravel === item.key ? 'selected' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="onSelectTravel"
+      >
+        <view class="radio {{selectedTravel === item.key ? 'checked' : ''}}"></view>
+        <text class="option-label">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Step 5: 结束页 / 摘要 -->
+  <view class="step-body summary-body {{showContent ? 'visible' : ''}}" wx:if="{{step === 5}}">
+    <view class="summary-logo">
+      <image class="logo-img summary-logo-img" src="/images/brand/logo.png" mode="aspectFit" />
+      <text class="app-name title-serif">{{i18n.summaryTitle}}</text>
+    </view>
+    <text class="summary-subtitle">{{i18n.summarySubtitle}}</text>
+
+    <view class="summary-illus">
+      <view class="illus-card c1"></view>
+      <view class="illus-card c2"></view>
+      <view class="illus-card c3"></view>
+      <view class="illus-dot d1"></view>
+      <view class="illus-dot d2"></view>
+    </view>
+
+    <view class="summary-card" wx:if="{{summary}}">
+      <view class="summary-row">
+        <text class="summary-key">{{i18n.summaryLanguage}}</text>
+        <text class="summary-val">{{summary.language}}</text>
+      </view>
+      <view class="summary-row">
+        <text class="summary-key">{{i18n.summaryCity}}</text>
+        <text class="summary-val">{{summary.city}}</text>
+      </view>
+      <view class="summary-row">
+        <text class="summary-key">{{i18n.summaryInterests}}</text>
+        <text class="summary-val">{{summary.interests}}</text>
+      </view>
+      <view class="summary-row">
+        <text class="summary-key">{{i18n.summaryTravel}}</text>
+        <text class="summary-val">{{summary.travel}}</text>
+      </view>
+    </view>
+  </view>
+  </scroll-view>
+
+  <!-- 底部按钮（固定底部） -->
+  <view class="footer safe-bottom">
+    <view
+      class="primary-btn tap-active"
+      wx:if="{{step < 4}}"
+      bindtap="onNext"
+    >{{i18n.next}}</view>
+    <view
+      class="primary-btn tap-active"
+      wx:elif="{{step === 4}}"
+      bindtap="onNext"
+    >{{i18n.next}}</view>
+    <view
+      class="primary-btn tap-active glow"
+      wx:elif="{{step === 5}}"
+      bindtap="onStartExplore"
+    >{{i18n.startExplore}}</view>
+  </view>
+
+  <!-- 体验推荐弹窗 -->
+  <view class="modal-mask" wx:if="{{showExperienceModal}}" bindtap="onCloseExperienceModal">
+    <view class="modal-card" catchtap="">
+      <text class="modal-title title-serif">{{i18n.experienceModalTitle}}</text>
+      <view class="modal-actions">
+        <view class="modal-btn tap-active" data-value="yes" bindtap="onExperiencePrefer">{{i18n.experienceModalYes}}</view>
+        <view class="modal-btn outline tap-active" data-value="no" bindtap="onExperiencePrefer">{{i18n.experienceModalNo}}</view>
+      </view>
+    </view>
+  </view>
+</view>

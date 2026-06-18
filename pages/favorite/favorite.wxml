@@ -1,0 +1,36 @@
+<view class="page page-fade-in safe-bottom">
+  <view wx:if="{{isGuest}}" class="empty-wrap guest-empty">
+    <text class="empty-icon">♡</text>
+    <text class="empty-text">{{i18n.guestTitle}}</text>
+    <view class="login-cta tap-active" bindtap="goLogin">{{i18n.goLogin}}</view>
+  </view>
+
+  <block wx:else>
+  <view class="search-bar" wx:if="{{list.length}}">
+    <text class="search-icon">⌕</text>
+    <input
+      class="search-input"
+      placeholder="{{i18n.searchPlaceholder}}"
+      value="{{keyword}}"
+      bindinput="onInput"
+    />
+  </view>
+
+  <view wx:if="{{filteredList.length}}" class="list">
+    <view wx:for="{{filteredList}}" wx:key="id" class="list-item">
+      <heritage-card
+        item="{{item}}"
+        like-count="{{item.likeCount}}"
+        favorited="{{true}}"
+        show-favorite="{{false}}"
+      />
+      <view class="remove-btn tap-active" data-id="{{item.id}}" bindtap="onRemove">{{i18n.remove}}</view>
+    </view>
+  </view>
+
+  <view wx:else class="empty-wrap">
+    <text class="empty-icon">♡</text>
+    <text class="empty-text">{{i18n.empty}}</text>
+  </view>
+  </block>
+</view>

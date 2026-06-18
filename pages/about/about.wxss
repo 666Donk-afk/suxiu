@@ -1,0 +1,47 @@
+.page {
+  min-height: 100vh;
+  background: #F9F3E7;
+  padding: 40rpx 32rpx;
+}
+
+.hero {
+  text-align: center;
+  padding: 60rpx 0;
+}
+
+.about-logo {
+  width: 120rpx;
+  height: 120rpx;
+  margin: 0 auto 24rpx;
+}
+
+.app-name {
+  font-size: 44rpx;
+  color: #A0301F;
+  display: block;
+}
+
+.slogan {
+  font-size: 24rpx;
+  color: #8B7D6B;
+  margin-top: 8rpx;
+}
+
+.content {
+  padding: 32rpx;
+  border-radius: 24rpx;
+}
+
+.text {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.7;
+  text-align: justify;
+}
+
+.version {
+  text-align: center;
+  font-size: 24rpx;
+  color: #8B7D6B;
+  display: block;
+}

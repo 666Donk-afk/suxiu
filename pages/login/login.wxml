@@ -1,0 +1,47 @@
+<view class="login page-fade-in">
+  <view class="login-bg">
+    <view class="bg-pattern"></view>
+    <view class="bg-glow"></view>
+  </view>
+
+  <view class="login-body {{showContent ? 'visible' : ''}}" style="padding-top: {{statusBarHeight + 40}}px">
+    <!-- Logo -->
+    <view class="logo-section">
+      <image class="logo-img login-logo fade-in-item" src="/images/brand/logo.png" mode="aspectFit" />
+      <text class="app-name title-serif fade-in-item delay-1">{{i18n.appName}}</text>
+      <text class="tagline fade-in-item delay-2">{{i18n.tagline}}</text>
+    </view>
+
+    <!-- 品牌插画 -->
+    <view class="illus-section float-anim fade-in-item delay-3">
+      <view class="scroll-frame">
+        <view class="scroll-inner">
+          <image
+            wx:for="{{heritageCovers}}"
+            wx:key="*this"
+            class="heritage-thumb"
+            src="{{item}}"
+            mode="aspectFill"
+          />
+        </view>
+        <view class="scroll-deco left"></view>
+        <view class="scroll-deco right"></view>
+      </view>
+      <view class="pattern-overlay"></view>
+    </view>
+
+    <!-- 登录按钮 -->
+    <view class="action-section fade-in-item delay-4">
+      <button class="login-btn tap-active" bindtap="onLogin">{{i18n.loginBtn}}</button>
+      <view class="guest-btn tap-active" bindtap="onGuest">{{i18n.guestBtn}}</view>
+    </view>
+
+    <!-- 协议 -->
+    <view class="agreement fade-in-item delay-5">
+      <text class="agree-text">{{i18n.agreePrefix}}</text>
+      <text class="agree-link" data-type="user" bindtap="goAgreement">{{i18n.userAgreement}}</text>
+      <text class="agree-text">{{i18n.agreeAnd}}</text>
+      <text class="agree-link" data-type="privacy" bindtap="goAgreement">{{i18n.privacyPolicy}}</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,24 @@
+<view class="heritage-card card tap-active" bindtap="onTap">
+  <image class="cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+  <view class="info">
+    <view class="row-top">
+      <text class="name title-serif ellipsis">{{item.name}}</text>
+      <text class="tag-pill tag-level">{{item.level}}</text>
+    </view>
+    <view class="meta">
+      <text class="city">{{item.city}}</text>
+      <text class="dot">·</text>
+      <text class="category">{{item.category}}</text>
+    </view>
+    <text class="summary ellipsis-2">{{item.summary}}</text>
+    <view class="footer" wx:if="{{showFavorite}}">
+      <view class="like">
+        <text class="heart">♥</text>
+        <text class="count">{{likeCount}}</text>
+      </view>
+      <view class="fav-btn {{favorited ? 'favorited' : ''}}" catchtap="onFavorite">
+        <text>{{favorited ? favoritedLabel : favLabel}}</text>
+      </view>
+    </view>
+  </view>
+</view>

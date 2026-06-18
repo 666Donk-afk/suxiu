@@ -1,0 +1,15 @@
+<view class="splash {{fading ? 'fade-out' : ''}}">
+  <view class="splash-bg">
+    <view class="deco-circle deco-1"></view>
+    <view class="deco-circle deco-2"></view>
+    <view class="deco-line"></view>
+  </view>
+
+  <view class="splash-content">
+    <view class="logo-wrap {{showLogo ? 'visible' : ''}}">
+      <image class="logo-img splash-logo" src="/images/brand/logo.png" mode="aspectFit" />
+    </view>
+    <text class="brand-name title-serif {{showName ? 'visible' : ''}}">{{i18n.appName}}</text>
+    <text class="brand-slogan {{showSlogan ? 'visible' : ''}}">{{i18n.slogan}}</text>
+  </view>
+</view>

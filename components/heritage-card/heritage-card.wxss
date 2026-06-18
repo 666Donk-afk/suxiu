@@ -1,0 +1,78 @@
+.heritage-card {
+  display: flex;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.cover {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: var(--radius-sm, 8rpx);
+  flex-shrink: 0;
+  background: #F0EBE3;
+}
+
+.info {
+  flex: 1;
+  margin-left: 20rpx;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.row-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12rpx;
+}
+
+.name {
+  font-size: 32rpx;
+  flex: 1;
+}
+
+.meta {
+  font-size: 24rpx;
+  color: var(--color-text-secondary, #8B7D6B);
+  margin: 8rpx 0;
+}
+
+.summary {
+  font-size: 24rpx;
+  color: var(--color-text-muted, #8E8E8E);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12rpx;
+}
+
+.like {
+  display: flex;
+  align-items: center;
+  color: #E67E22;
+  font-size: 22rpx;
+}
+
+.heart {
+  margin-right: 6rpx;
+}
+
+.fav-btn {
+  padding: 6rpx 20rpx;
+  border: 1rpx solid #A0301F;
+  color: #A0301F;
+  font-size: 22rpx;
+  border-radius: 999rpx;
+  transition: all 200ms;
+}
+
+.fav-btn.favorited {
+  background: #A0301F;
+  color: #fff;
+}

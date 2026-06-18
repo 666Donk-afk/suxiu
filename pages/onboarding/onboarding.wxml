@@ -1,0 +1,99 @@
+<view class="onboarding page-fade-in">
+  <view class="skip-btn tap-active" bindtap="onSkip">{{i18n.skip}}</view>
+
+  <swiper
+    class="swiper"
+    current="{{current}}"
+    bindchange="onSwiperChange"
+    duration="350"
+    easing-function="easeInOutCubic"
+  >
+    <!-- 第一页：城市 -->
+    <swiper-item>
+      <view class="slide">
+        <view class="illus illus-city float-anim">
+          <view class="city-skyline">
+            <view class="building b1"></view>
+            <view class="building b2"></view>
+            <view class="building b3"></view>
+            <view class="building b4"></view>
+            <view class="building b5"></view>
+          </view>
+          <view class="heritage-float h1">戏</view>
+          <view class="heritage-float h2">绣</view>
+          <view class="heritage-float h3">舞</view>
+          <view class="moon"></view>
+        </view>
+        <view class="text-block fade-up">
+          <text class="slide-title title-serif">{{slides[0].title}}</text>
+          <text class="slide-subtitle">{{slides[0].subtitle}}</text>
+        </view>
+      </view>
+    </swiper-item>
+
+    <!-- 第二页：故事 -->
+    <swiper-item>
+      <view class="slide">
+        <view class="illus illus-story float-anim">
+          <view class="timeline">
+            <view class="tl-dot active"></view>
+            <view class="tl-line"></view>
+            <view class="tl-dot"></view>
+            <view class="tl-line short"></view>
+            <view class="tl-dot"></view>
+          </view>
+          <view class="story-scene">
+            <view class="scene-card c1">
+              <text class="scene-label">{{i18n.decoOrigin}}</text>
+            </view>
+            <view class="scene-card c2">
+              <text class="scene-label">{{i18n.decoInherit}}</text>
+            </view>
+            <view class="scene-figure"></view>
+          </view>
+        </view>
+        <view class="text-block fade-up">
+          <text class="slide-title title-serif">{{slides[1].title}}</text>
+          <text class="slide-subtitle">{{slides[1].subtitle}}</text>
+        </view>
+      </view>
+    </swiper-item>
+
+    <!-- 第三页：收藏分享 -->
+    <swiper-item>
+      <view class="slide">
+        <view class="illus illus-share float-anim">
+          <view class="phone-mock">
+            <view class="phone-screen">
+              <view class="screen-card"></view>
+              <view class="screen-card small"></view>
+            </view>
+          </view>
+          <view class="heart-badge">♥</view>
+          <view class="share-rays"></view>
+        </view>
+        <view class="text-block fade-up">
+          <text class="slide-title title-serif">{{slides[2].title}}</text>
+          <text class="slide-subtitle">{{slides[2].subtitle}}</text>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <view class="footer">
+    <view class="dots">
+      <view
+        wx:for="{{slides}}"
+        wx:key="title"
+        class="dot {{current === index ? 'active' : ''}}"
+      ></view>
+    </view>
+
+    <view wx:if="{{current < 2}}" class="hint-text">{{i18n.swipeHint}}</view>
+    <view
+      wx:else
+      class="start-btn tap-active"
+      bindtap="onStart"
+    >{{i18n.start}}</view>
+  </view>
+</view>

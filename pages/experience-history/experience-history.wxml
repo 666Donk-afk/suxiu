@@ -1,0 +1,22 @@
+<view class="page page-fade-in safe-bottom">
+  <view wx:if="{{list.length}}" class="list">
+    <view wx:for="{{list}}" wx:key="experienceId" class="item card">
+      <view class="item-main tap-active" data-id="{{item.experienceId}}" bindtap="goGuide">
+        <image class="cover" src="{{item.cover}}" mode="aspectFill" />
+        <view class="info">
+          <text class="name title-serif">{{item.title}}</text>
+          <text class="meta">{{item.city}} · {{item.viewedAtText}}</text>
+          <text class="heritage-link tap-active" data-id="{{item.heritageId}}" catchtap="goHeritage">
+            {{i18n.heritage}}：{{item.heritageName}}
+          </text>
+        </view>
+      </view>
+      <text class="remove tap-active" data-id="{{item.experienceId}}" catchtap="onRemove">{{i18n.remove}}</text>
+    </view>
+  </view>
+
+  <view wx:else class="empty-wrap">
+    <text class="empty-icon">🎭</text>
+    <text class="empty-text">{{i18n.empty}}</text>
+  </view>
+</view>

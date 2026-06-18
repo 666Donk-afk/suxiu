@@ -1,0 +1,40 @@
+<view class="page page-fade-in" wx:if="{{city}}">
+  <view class="hero">
+    <image class="hero-img" src="{{city.cover}}" mode="aspectFill" />
+    <view class="hero-mask"></view>
+    <view class="hero-info">
+      <text class="hero-name title-serif">{{city.name}}</text>
+      <text class="hero-count">{{heritageTotal}}</text>
+    </view>
+  </view>
+
+  <view class="content-card">
+    <view class="desc-section">
+      <text class="section-bar-title">{{i18n.cityIntro}}</text>
+      <text class="desc-text">{{city.description}}</text>
+    </view>
+
+    <view class="heritage-section">
+      <text class="section-bar-title">{{i18n.heritageList}}</text>
+      <view
+        wx:for="{{displayList}}"
+        wx:key="id"
+        class="heritage-item card tap-active"
+        data-id="{{item.id}}"
+        bindtap="goDetail"
+      >
+        <image class="item-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+        <view class="item-info">
+          <view class="item-top">
+            <text class="item-name title-serif">{{item.name}}</text>
+            <text class="tag-pill">{{item.category}}</text>
+          </view>
+          <text class="tag-pill tag-level item-level">{{item.level}}</text>
+          <text class="item-summary ellipsis-2">{{item.summary}}</text>
+        </view>
+      </view>
+      <view class="load-more" wx:if="{{hasMore}}">{{loading ? i18n.loading : i18n.pullMore}}</view>
+      <view class="load-more" wx:elif="{{displayList.length}}">{{i18n.allLoaded}}</view>
+    </view>
+  </view>
+</view>

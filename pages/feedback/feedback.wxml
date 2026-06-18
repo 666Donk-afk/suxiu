@@ -1,0 +1,14 @@
+<view class="page page-fade-in">
+  <view class="form card">
+    <text class="label">{{i18n.label}}</text>
+    <textarea
+      class="textarea"
+      placeholder="{{i18n.placeholder}}"
+      maxlength="500"
+      value="{{content}}"
+      bindinput="onInput"
+    />
+    <text class="count">{{content.length}}/500</text>
+    <button class="btn-primary submit" bindtap="onSubmit">{{i18n.submit}}</button>
+  </view>
+</view>

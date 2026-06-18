@@ -1,0 +1,71 @@
+<view class="page page-fade-in safe-bottom">
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <text class="search-icon">⌕</text>
+      <input
+        class="search-input"
+        placeholder="{{i18n.placeholder}}"
+        value="{{keyword}}"
+        focus
+        bindinput="onInput"
+        confirm-type="search"
+        bindconfirm="onSearch"
+      />
+    </view>
+    <text class="search-action tap-active" bindtap="onSearch">{{i18n.search}}</text>
+  </view>
+
+  <view wx:if="{{!keyword && searchHistory.length}}" class="history">
+    <view class="history-header">
+      <text>{{i18n.history}}</text>
+      <text class="clear tap-active" bindtap="clearHistory">{{i18n.clear}}</text>
+    </view>
+    <view class="history-tags">
+      <text
+        wx:for="{{searchHistory}}"
+        wx:key="*this"
+        class="history-tag tap-active"
+        data-keyword="{{item}}"
+        bindtap="onHistoryTap"
+      >{{item}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{empty && keyword}}" class="empty-wrap">
+    <text class="empty-text">{{i18n.noResult}}</text>
+  </view>
+
+  <view wx:if="{{cities.length}}" class="result-section">
+    <text class="result-label">{{i18n.cityTag}}</text>
+    <view
+      wx:for="{{cities}}"
+      wx:key="id"
+      class="result-item tap-active"
+      data-id="{{item.id}}"
+      bindtap="goCity"
+    >
+      <image class="result-cover" src="{{item.cover}}" mode="aspectFill" />
+      <view>
+        <text class="result-name">{{item.name}}</text>
+        <text class="result-desc">{{item.heritageCount}} {{i18n.heritageUnit}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{heritages.length}}" class="result-section">
+    <text class="result-label">{{i18n.heritageTag}}</text>
+    <view
+      wx:for="{{heritages}}"
+      wx:key="id"
+      class="result-item tap-active"
+      data-id="{{item.id}}"
+      bindtap="goHeritage"
+    >
+      <image class="result-cover" src="{{item.cover}}" mode="aspectFill" />
+      <view>
+        <text class="result-name title-serif">{{item.name}}</text>
+        <text class="result-desc">{{item.city}} · {{item.category}}</text>
+      </view>
+    </view>
+  </view>
+</view>

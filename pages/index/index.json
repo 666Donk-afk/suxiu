@@ -1,0 +1,6 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "heritage-card": "/components/heritage-card/heritage-card"
+  }
+}

@@ -1,0 +1,67 @@
+<view class="page page-fade-in safe-bottom">
+  <view class="profile-header">
+    <view class="header-deco"></view>
+    <view class="user-row">
+      <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill" />
+      <view class="user-info">
+        <text class="nickname">{{userInfo.nickName}}</text>
+        <text class="user-id" wx:if="{{!isGuest}}">{{i18n.enthusiast}}</text>
+        <text class="user-id guest-hint" wx:else bindtap="goLogin">{{i18n.guestHint}}</text>
+      </view>
+    </view>
+    <view class="stats-row">
+      <view class="stat-item">
+        <text class="stat-num">{{favoriteCount}}</text>
+        <text class="stat-label">{{i18n.favorites}}</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-num">{{historyCount}}</text>
+        <text class="stat-label">{{i18n.history}}</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-num">4</text>
+        <text class="stat-label">{{i18n.cities}}</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-num">5</text>
+        <text class="stat-label">{{i18n.heritages}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="content-card">
+    <view class="menu-list">
+      <view class="menu-item tap-active" bindtap="goFavorite">
+        <view class="menu-icon icon-fav"></view>
+        <text class="menu-text">{{i18n.myFavorites}}</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item tap-active" bindtap="goHistory">
+        <view class="menu-icon icon-history"></view>
+        <text class="menu-text">{{i18n.myHistory}}</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item tap-active" bindtap="goMyExperience">
+        <view class="menu-icon icon-exp"></view>
+        <text class="menu-text">{{i18n.myExperience}}</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item tap-active" bindtap="goFeedback">
+        <view class="menu-icon icon-feedback"></view>
+        <text class="menu-text">{{i18n.feedback}}</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item tap-active" bindtap="onLangTap">
+        <view class="menu-icon icon-lang"></view>
+        <text class="menu-text">{{i18n.language}}</text>
+        <text class="menu-extra">{{langLabel}}</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item tap-active" bindtap="goAbout">
+        <view class="menu-icon icon-about"></view>
+        <text class="menu-text">{{i18n.about}}</text>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,56 @@
+{
+  "pages": [
+    "pages/splash/splash",
+    "pages/journey-setup/journey-setup",
+    "pages/language-select/language-select",
+    "pages/onboarding/onboarding",
+    "pages/login/login",
+    "pages/index/index",
+    "pages/city/city",
+    "pages/favorite/favorite",
+    "pages/profile/profile",
+    "pages/city-detail/city-detail",
+    "pages/heritage-detail/heritage-detail",
+    "pages/search/search",
+    "pages/history/history",
+    "pages/about/about",
+    "pages/feedback/feedback",
+    "pages/agreement/agreement",
+    "pages/experience-guide/experience-guide",
+    "pages/experience-history/experience-history"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#A0301F",
+    "navigationBarTitleText": "非遗寻迹",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#FFF9F0",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#999999",
+    "selectedColor": "#A0301F",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/city/city",
+        "text": "城市"
+      },
+      {
+        "pagePath": "pages/favorite/favorite",
+        "text": "收藏"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
+}

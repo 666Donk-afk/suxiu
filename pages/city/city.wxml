@@ -1,0 +1,94 @@
+<view class="page page-fade-in safe-bottom">
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <text class="search-icon">⌕</text>
+      <input
+        class="search-input"
+        placeholder="{{i18n.searchPlaceholder}}"
+        placeholder-class="placeholder"
+        value="{{keyword}}"
+        bindinput="onInput"
+        confirm-type="search"
+        bindconfirm="onSearch"
+      />
+    </view>
+    <view class="search-btn tap-active" bindtap="onSearch">{{i18n.search}}</view>
+  </view>
+
+  <view class="suggestions" wx:if="{{showSuggestions && suggestions.length}}">
+    <view
+      wx:for="{{suggestions}}"
+      wx:key="text"
+      class="suggestion-item tap-active"
+      data-type="{{item.type}}"
+      data-id="{{item.id}}"
+      data-text="{{item.text}}"
+      bindtap="onSuggestionTap"
+    >
+      <text class="sug-type">{{item.type === 'city' ? i18n.cityType : i18n.heritageType}}</text>
+      <text>{{item.text}}</text>
+      <text wx:if="{{item.city}}" class="sug-city">{{item.city}}</text>
+    </view>
+  </view>
+
+  <view class="history-section" wx:if="{{searchHistory.length && !showSuggestions}}">
+    <text class="history-label">{{i18n.searchHistory}}</text>
+    <view class="history-tags">
+      <text
+        wx:for="{{searchHistory}}"
+        wx:key="*this"
+        class="history-tag tap-active"
+        data-keyword="{{item}}"
+        bindtap="onHistoryTap"
+      >{{item}}</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <text class="section-title">{{i18n.hotCities}}</text>
+    <view class="hot-grid">
+      <view
+        wx:for="{{hotCities}}"
+        wx:key="id"
+        class="hot-item tap-active"
+        data-id="{{item.id}}"
+        bindtap="goCityDetail"
+      >
+        <image class="hot-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+        <text class="hot-name title-serif">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <text class="section-title">{{i18n.cityIndex}}</text>
+    <view class="index-list">
+      <block wx:for="{{indexGroups}}" wx:key="letter">
+        <view class="index-group" id="letter-{{item.letter}}">
+          <text class="index-letter">{{item.letter}}</text>
+          <view
+            wx:for="{{item.cities}}"
+            wx:for-item="city"
+            wx:key="id"
+            class="index-city tap-active"
+            data-id="{{city.id}}"
+            bindtap="goCityDetail"
+          >
+            <text>{{city.name}}</text>
+            <text class="index-count">{{city.heritageCount}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="side-index">
+    <text
+      wx:for="{{indexLetters}}"
+      wx:key="*this"
+      class="side-letter tap-active"
+      data-letter="{{item}}"
+      bindtap="scrollToLetter"
+    >{{item}}</text>
+  </view>
+</view>

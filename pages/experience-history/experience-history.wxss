@@ -1,0 +1,61 @@
+.page {
+  min-height: 100vh;
+  background: var(--color-bg);
+  padding: 24rpx 32rpx;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.item-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.cover {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-paper);
+}
+
+.info {
+  flex: 1;
+  margin-left: 20rpx;
+}
+
+.name {
+  display: block;
+  font-size: 30rpx;
+}
+
+.meta {
+  display: block;
+  font-size: 24rpx;
+  color: var(--color-text-muted);
+  margin-top: 8rpx;
+}
+
+.heritage-link {
+  display: block;
+  font-size: 24rpx;
+  color: var(--color-primary);
+  margin-top: 8rpx;
+}
+
+.remove {
+  font-size: 24rpx;
+  color: #E67E22;
+  padding: 8rpx 16rpx;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 24rpx;
+  opacity: 0.5;
+}

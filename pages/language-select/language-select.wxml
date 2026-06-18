@@ -1,0 +1,37 @@
+<view class="lang-page page-fade-in">
+  <view class="lang-bg">
+    <view class="deco-ring ring-1"></view>
+    <view class="deco-ring ring-2"></view>
+  </view>
+
+  <view class="lang-body {{showContent ? 'visible' : ''}}">
+    <view class="logo-section">
+      <image class="logo-img lang-logo" src="/images/brand/logo.png" mode="aspectFit" />
+      <text class="app-name title-serif">{{i18n.appName}}</text>
+    </view>
+
+    <view class="headline">
+      <text class="title title-serif">{{i18n.title}}</text>
+      <text class="subtitle">{{i18n.subtitle}}</text>
+    </view>
+
+    <view class="lang-list">
+      <view
+        wx:for="{{languages}}"
+        wx:key="code"
+        class="lang-card tap-active {{selected === item.code ? 'selected' : ''}}"
+        data-code="{{item.code}}"
+        bindtap="onSelect"
+      >
+        <text class="flag">{{item.flag}}</text>
+        <view class="lang-info">
+          <text class="native">{{item.native}}</text>
+          <text class="english">{{item.english}}</text>
+        </view>
+        <view class="check" wx:if="{{selected === item.code}}">✓</view>
+      </view>
+    </view>
+
+    <view class="start-btn tap-active" bindtap="onStart">{{i18n.start}}</view>
+  </view>
+</view>

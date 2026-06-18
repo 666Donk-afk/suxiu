@@ -1,0 +1,16 @@
+<view class="page page-fade-in">
+  <view class="hero">
+    <image class="logo-img about-logo" src="/images/brand/logo.png" mode="aspectFit" />
+    <text class="app-name title-serif">{{i18n.appName}}</text>
+    <text class="slogan">{{i18n.subtitle}}</text>
+  </view>
+  <view class="content card">
+    <text class="section-bar-title">{{i18n.introTitle}}</text>
+    <text class="text">{{i18n.intro}}</text>
+    <view class="divider"></view>
+    <text class="section-bar-title">{{i18n.visionTitle}}</text>
+    <text class="text">{{i18n.vision}}</text>
+    <view class="divider"></view>
+    <text class="version">{{i18n.version}}</text>
+  </view>
+</view>

@@ -1,0 +1,10 @@
+<view class="page page-fade-in">
+  <view class="content card">
+    <text class="doc-title title-serif">{{title}}</text>
+    <view wx:for="{{sections}}" wx:key="heading" class="section">
+      <text class="section-heading">{{item.heading}}</text>
+      <text class="section-text">{{item.text}}</text>
+    </view>
+    <text class="update-date">{{updateDate}}</text>
+  </view>
+</view>

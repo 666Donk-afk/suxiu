@@ -1,0 +1,154 @@
+<view class="page page-fade-in" wx:if="{{heritage}}">
+  <view class="hero">
+    <image class="hero-img" src="{{heritage.cover}}" mode="aspectFill" />
+    <view class="hero-mask"></view>
+    <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
+      <view class="nav-btn tap-active" bindtap="goBack">‹</view>
+      <view class="nav-actions">
+        <view class="nav-btn tap-active {{favorited ? 'active' : ''}}" bindtap="toggleFavorite">♥</view>
+        <button class="nav-btn share-btn" open-type="share">↗</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="content-card">
+    <view class="info-card card">
+      <view class="title-row">
+        <text class="title title-serif">{{heritage.name}}</text>
+        <text class="tag-pill">{{heritage.category}}</text>
+      </view>
+      <view class="stats-row">
+        <text class="heart-stat">♥ {{likeCount}}</text>
+        <text class="subtitle">{{heritage.summary}}</text>
+      </view>
+      <view class="meta-grid">
+        <view class="meta-item">
+          <text class="meta-icon">📍</text>
+          <text>{{heritage.location || heritage.city}}</text>
+        </view>
+        <view class="meta-item">
+          <text class="meta-icon">📅</text>
+          <text>{{heritage.declareYear}}</text>
+        </view>
+        <view class="meta-item">
+          <text class="meta-icon">🏷</text>
+          <text class="tag-pill tag-level">{{heritage.level}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-card card">
+      <text class="section-bar-title">{{i18n.overview}}</text>
+      <text class="body-text {{expanded ? '' : 'ellipsis-3'}}">{{heritage.summary}}。{{heritage.origin}}</text>
+      <text class="expand-btn tap-active" bindtap="toggleExpand">{{expanded ? i18n.collapse : i18n.expand}}</text>
+    </view>
+
+    <view class="section-card card" wx:if="{{heritage.history && heritage.history.length}}">
+      <text class="section-bar-title">{{i18n.history}}</text>
+      <view class="timeline">
+        <view wx:for="{{heritage.history}}" wx:key="year" class="timeline-item">
+          <view class="timeline-dot"></view>
+          <view class="timeline-content">
+            <text class="timeline-year">{{item.year}}</text>
+            <text class="timeline-event">{{item.event}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-card card" wx:if="{{heritage.story}}">
+      <text class="section-bar-title">{{i18n.story}}</text>
+      <text class="body-text">{{heritage.story}}</text>
+    </view>
+
+    <view class="section-card card" wx:if="{{heritage.meaning}}">
+      <text class="section-bar-title">{{i18n.meaning}}</text>
+      <text class="body-text">{{heritage.meaning}}</text>
+    </view>
+
+    <view class="section-card card" wx:if="{{heritage.inheritance}}">
+      <text class="section-bar-title">{{i18n.inheritance}}</text>
+      <view class="inherit-block">
+        <text class="inherit-label">{{i18n.masters}}</text>
+        <text class="inherit-value">{{heritage.inheritance.mastersText}}</text>
+      </view>
+      <view class="inherit-block">
+        <text class="inherit-label">{{i18n.methods}}</text>
+        <text class="inherit-value">{{heritage.inheritance.methods}}</text>
+      </view>
+      <view class="inherit-block">
+        <text class="inherit-label">{{i18n.development}}</text>
+        <text class="inherit-value">{{heritage.inheritance.development}}</text>
+      </view>
+      <view class="inherit-block">
+        <text class="inherit-label">{{i18n.challenges}}</text>
+        <text class="inherit-value">{{heritage.inheritance.challenges}}</text>
+      </view>
+      <view class="inherit-block" wx:if="{{heritage.materials}}">
+        <text class="inherit-label">{{i18n.materials}}</text>
+        <text class="inherit-value">{{heritage.materials}}</text>
+      </view>
+    </view>
+
+    <view class="section-card card" wx:if="{{heritage.gallery && heritage.gallery.length}}">
+      <text class="section-bar-title">{{i18n.gallery}}</text>
+      <scroll-view scroll-x class="gallery-scroll">
+        <view class="gallery-list">
+          <image
+            wx:for="{{heritage.gallery}}"
+            wx:key="*this"
+            class="gallery-img tap-active"
+            src="{{item}}"
+            mode="aspectFill"
+            data-url="{{item}}"
+            bindtap="previewImage"
+            lazy-load
+          />
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="section-card card" wx:if="{{experiences.length}}">
+      <text class="section-bar-title">{{i18n.experience}}</text>
+      <text class="section-subtitle">{{i18n.experienceSubtitle}}</text>
+      <view
+        wx:for="{{experiences}}"
+        wx:key="id"
+        class="exp-card tap-active"
+        data-id="{{item.id}}"
+        bindtap="goExperience"
+      >
+        <image class="exp-cover" src="{{item.cover}}" mode="aspectFill" />
+        <view class="exp-info">
+          <text class="exp-name title-serif">{{item.title}}</text>
+          <text class="exp-location">{{item.location}}</text>
+          <text class="exp-desc ellipsis-2">{{item.description}}</text>
+          <view class="exp-meta">
+            <text class="exp-time">{{i18n.openTime}}：{{item.openTime}}</text>
+            <text class="exp-status">{{i18n.reservation}}：{{i18n.reservationAvailable}}</text>
+          </view>
+          <view class="exp-btn">{{i18n.bookNow}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-card" wx:if="{{recommendations.length}}">
+      <text class="section-bar-title">{{i18n.recommend}}</text>
+      <scroll-view scroll-x class="recommend-scroll">
+        <view class="recommend-list">
+          <view
+            wx:for="{{recommendations}}"
+            wx:key="id"
+            class="recommend-card tap-active"
+            data-id="{{item.id}}"
+            bindtap="goDetail"
+          >
+            <image class="rec-cover" src="{{item.cover}}" mode="aspectFill" />
+            <text class="rec-name title-serif ellipsis">{{item.name}}</text>
+            <text class="rec-city">{{item.city}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>
