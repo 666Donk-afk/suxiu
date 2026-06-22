@@ -12,7 +12,10 @@ const CATEGORY_KEYS = [
   'medicine',
   'sports',
   'food',
-  'festival'
+  'festival',
+  'literature',
+  'dance',
+  'music'
 ];
 
 function getJourneyCategories(locale) {

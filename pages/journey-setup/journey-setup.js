@@ -1,7 +1,17 @@
 const storage = require('../../utils/storage');
-const { getJourneyHotCities, searchJourneyCities } = require('../../data/journey-cities');
+const {
+  getProvinceByCode,
+  getProvinceByCity
+} = require('../../data/provinces.js');
+const { getCitiesByProvinceCode } = require('../../data/province-cities.js');
+const { hasProvinceMap } = require('../../data/province-maps.js');
+const { buildCityCards } = require('../../data/city-covers.js');
 const { getJourneyCategories } = require('../../data/journey-categories');
-const { getTravelPlanLabel } = require('../../utils/recommendation');
+const { buildInterestBubbles } = require('../../data/category-covers.js');
+const {
+  SoftBodyBubbleEngine,
+  computeFieldMetrics
+} = require('../../utils/soft-body-bubble-engine.js');
 const {
   t,
   getLocale,
@@ -21,13 +31,18 @@ Page({
     languages: [],
     selectedLanguage: 'zh-CN',
 
-    hotCities: [],
+    selectedProvince: '',
+    selectedProvinceCode: '',
+    activeProvinceCode: '',
     selectedCity: '',
-    citySearch: '',
-    citySuggestions: [],
-    showSuggestions: false,
+    mapView: 'china',
+    showCitySheet: false,
+    sheetProvinceName: '',
+    sheetCityCards: [],
+    selectionSummary: null,
 
     categories: [],
+    interestBubbles: [],
     selectedCategories: [],
     selectedCategoryMap: {},
 
@@ -36,7 +51,9 @@ Page({
     preferExperience: null,
     showExperienceModal: false,
 
-    summary: null,
+    interestCanvasW: 300,
+    interestCanvasH: 360,
+
     i18n: {}
   },
 
@@ -46,6 +63,25 @@ Page({
     return map;
   },
 
+  buildStep3NextLabel(count, locale) {
+    if (count > 0) {
+      return t('journeySetup.step3.nextWithCount', locale).replace('{count}', count);
+    }
+    return t('journeySetup.next', locale);
+  },
+
+  buildStep3SelectedText(count, locale) {
+    return t('journeySetup.step3.selectedCount', locale).replace('{count}', count);
+  },
+
+  refreshInterestBubbles(locale) {
+    const categories = getJourneyCategories(locale);
+    return {
+      categories,
+      interestBubbles: buildInterestBubbles(categories)
+    };
+  },
+
   onLoad() {
     const locale = getLocale();
     const prefs = storage.getJourneyPreferences();
@@ -53,8 +89,8 @@ Page({
     this.setData({
       languages: getSupportedLanguages(),
       selectedLanguage: locale,
-      hotCities: getJourneyHotCities(locale),
-      categories: getJourneyCategories(locale),
+      ...this.refreshInterestBubbles(locale),
+      selectedProvince: prefs.selectedProvince || '',
       selectedCity: prefs.selectedCity || '',
       selectedCategories: prefs.interestedCategories || [],
       selectedCategoryMap: this.buildCategoryMap(prefs.interestedCategories || []),
@@ -62,8 +98,51 @@ Page({
       preferExperience: prefs.preferExperience ? true : (prefs.preferExperience === false ? false : null)
     });
 
+    this.restoreCitySelection(prefs.selectedCity, prefs.selectedProvince);
+    this._interestMetrics = computeFieldMetrics(this._getWindowInfo());
     this.refreshI18n();
     setTimeout(() => this.setData({ showContent: true }), 80);
+  },
+
+  onUnload() {
+    this._destroyInterestCanvas();
+  },
+
+  onReady() {
+    if (this.data.step === 3) {
+      this._scheduleInterestCanvasInit();
+    }
+  },
+
+  _getWindowInfo() {
+    if (wx.getWindowInfo) return wx.getWindowInfo();
+    return wx.getSystemInfoSync();
+  },
+
+  restoreCitySelection(city, provinceName) {
+    if (!city) return;
+    const locale = getLocale();
+    let province = provinceName
+      ? getProvinceByCode(this.findProvinceCodeByName(provinceName), locale)
+      : null;
+    if (!province) province = getProvinceByCity(city);
+    if (!province) return;
+
+    this.setData({
+      selectedProvince: province.name,
+      selectedProvinceCode: province.code,
+      activeProvinceCode: province.code,
+      selectionSummary: this.buildSelectionSummary(province, city)
+    });
+  },
+
+  findProvinceCodeByName(name) {
+    const { RAW } = require('../../data/provinces.js');
+    const item = RAW.find(p => {
+      const zh = p.name['zh-CN'];
+      return name === zh || name.includes(zh) || zh.includes(name);
+    });
+    return item ? item.code : '';
   },
 
   refreshI18n() {
@@ -85,18 +164,22 @@ Page({
         step2Title: t('journeySetup.step2.title', locale),
         step2Subtitle: t('journeySetup.step2.subtitle', locale),
         step2Search: t('journeySetup.step2.searchPlaceholder', locale),
+        step2SelectedLabel: t('journeySetup.step2.selectedLabel', locale),
+        step2Destination: t('journeySetup.step2.destination', locale),
+        step2Province: t('journeySetup.step2.province', locale),
+        step2HeritageDirections: t('journeySetup.step2.heritageDirections', locale),
+        step2TapMapHint: t('journeySetup.step2.tapMapHint', locale),
+        step2TapProvinceMapHint: t('journeySetup.step2.tapProvinceMapHint', locale),
+        step2TapCityCardHint: t('journeySetup.step2.tapCityCardHint', locale),
+        step2BackToChina: t('journeySetup.step2.backToChina', locale),
+        step2PrevStep: t('journeySetup.step2.prevStep', locale),
         step3Title: t('journeySetup.step3.title', locale),
         step3Subtitle: t('journeySetup.step3.subtitle', locale),
         step3Hint: t('journeySetup.step3.hint', locale),
+        step3SelectedText: this.buildStep3SelectedText(this.data.selectedCategories.length, locale),
+        step3NextLabel: this.buildStep3NextLabel(this.data.selectedCategories.length, locale),
         step4Title: t('journeySetup.step4.title', locale),
         step4Subtitle: t('journeySetup.step4.subtitle', locale),
-        summaryTitle: t('journeySetup.summary.title', locale),
-        summarySubtitle: t('journeySetup.summary.subtitle', locale),
-        summaryLanguage: t('journeySetup.summary.language', locale),
-        summaryCity: t('journeySetup.summary.city', locale),
-        summaryInterests: t('journeySetup.summary.interests', locale),
-        summaryTravel: t('journeySetup.summary.travel', locale),
-        summaryNotSet: t('journeySetup.summary.notSet', locale),
         experienceModalTitle: t('journeySetup.experienceModal.title', locale),
         experienceModalYes: t('journeySetup.experienceModal.yes', locale),
         experienceModalNo: t('journeySetup.experienceModal.no', locale),
@@ -109,15 +192,87 @@ Page({
         { key: 'within_three_months', label: t('journeySetup.travelOptions.withinThreeMonths', locale) },
         { key: 'no_plan', label: t('journeySetup.travelOptions.noPlan', locale) }
       ],
-      hotCities: getJourneyHotCities(locale),
-      categories: getJourneyCategories(locale)
+      ...this.refreshInterestBubbles(locale)
     });
   },
 
-  getProgressPercent() {
-    const step = this.data.step;
-    if (step > TOTAL_STEPS) return 100;
-    return Math.round((step / TOTAL_STEPS) * 100);
+  buildSelectionSummary(province, city) {
+    const locale = getLocale();
+    const sep = locale === 'en-US' ? ', ' : ' · ';
+    return {
+      city,
+      province: province.name,
+      heritageDirections: province.heritageDirections.join(sep)
+    };
+  },
+
+  openCityPicker(code) {
+    const locale = getLocale();
+    const province = getProvinceByCode(code, locale);
+    if (!province) return;
+
+    const cities = getCitiesByProvinceCode(code);
+    this.setData({
+      showCitySheet: true,
+      sheetProvinceName: province.name,
+      sheetCityCards: buildCityCards(cities)
+    });
+  },
+
+  onProvinceMapChange(e) {
+    const { code } = e.detail;
+    this.setData({
+      activeProvinceCode: code,
+      selectedCity: '',
+      selectionSummary: null,
+      showCitySheet: false
+    });
+
+    if (hasProvinceMap(code)) {
+      this.setData({ mapView: 'province' });
+      return;
+    }
+
+    this.openCityPicker(code);
+  },
+
+  onProvinceCityChange(e) {
+    const { city } = e.detail;
+    if (city) this.applyCitySelection(city);
+  },
+
+  onBackToChinaMap() {
+    this.setData({
+      mapView: 'china',
+      showCitySheet: false,
+      activeProvinceCode: this.data.selectedProvinceCode || ''
+    });
+  },
+
+  onCloseCitySheet() {
+    this.setData({ showCitySheet: false });
+  },
+
+  onPickCityCard(e) {
+    const { name } = e.currentTarget.dataset;
+    this.applyCitySelection(name);
+    this.setData({ showCitySheet: false });
+  },
+
+  applyCitySelection(cityName) {
+    const locale = getLocale();
+    const code = this.data.activeProvinceCode || this.data.selectedProvinceCode;
+    const province = getProvinceByCode(code, locale);
+    if (!province) return;
+
+    this.setData({
+      selectedCity: cityName,
+      selectedProvince: province.name,
+      selectedProvinceCode: province.code,
+      activeProvinceCode: province.code,
+      selectionSummary: this.buildSelectionSummary(province, cityName),
+      showCitySheet: false
+    });
   },
 
   onSelectLanguage(e) {
@@ -127,59 +282,11 @@ Page({
     if (app && app.globalData) app.globalData.locale = code;
     this.setData({ selectedLanguage: code });
     this.refreshI18n();
-    if (this.data.selectedCity) {
-      this.updateCitySuggestions(this.data.citySearch);
-    }
-  },
-
-  onSelectCity(e) {
-    const { name } = e.currentTarget.dataset;
-    this.setData({
-      selectedCity: name,
-      citySearch: name,
-      showSuggestions: false,
-      citySuggestions: []
-    });
-  },
-
-  onCitySearchInput(e) {
-    const value = e.detail.value;
-    this.setData({ citySearch: value, selectedCity: '' });
-    this.updateCitySuggestions(value);
-  },
-
-  onCitySearchFocus() {
-    if (this.data.citySearch) {
-      this.updateCitySuggestions(this.data.citySearch);
-    }
-  },
-
-  onCitySearchBlur() {
-    setTimeout(() => {
-      this.setData({ showSuggestions: false });
-    }, 200);
-  },
-
-  updateCitySuggestions(keyword) {
-    const list = searchJourneyCities(keyword, getLocale());
-    this.setData({
-      citySuggestions: list,
-      showSuggestions: keyword.trim().length > 0 && list.length > 0
-    });
-  },
-
-  onPickSuggestion(e) {
-    const { name } = e.currentTarget.dataset;
-    this.setData({
-      selectedCity: name,
-      citySearch: name,
-      showSuggestions: false,
-      citySuggestions: []
-    });
   },
 
   onToggleCategory(e) {
-    const { key } = e.currentTarget.dataset;
+    const key = (e && e.detail && e.detail.key) || (e && e.currentTarget && e.currentTarget.dataset.key) || e;
+    if (!key || typeof key !== 'string') return;
     let selected = [...this.data.selectedCategories];
     const idx = selected.indexOf(key);
     if (idx >= 0) {
@@ -187,7 +294,184 @@ Page({
     } else {
       selected.push(key);
     }
-    this.setData({ selectedCategories: selected, selectedCategoryMap: this.buildCategoryMap(selected) });
+    const locale = getLocale();
+    this.setData({
+      selectedCategories: selected,
+      selectedCategoryMap: this.buildCategoryMap(selected),
+      'i18n.step3SelectedText': this.buildStep3SelectedText(selected.length, locale),
+      'i18n.step3NextLabel': this.buildStep3NextLabel(selected.length, locale)
+    }, () => this._syncInterestEngineSelection());
+  },
+
+  _syncInterestEngineSelection() {
+    if (!this._interestEngine) return;
+    this._interestEngine.setSelectedMap(this.data.selectedCategoryMap);
+    this._interestEngine.setPressingKey(this._interestPressingKey || '');
+    this._requestInterestRedraw();
+  },
+
+  _destroyInterestCanvas() {
+    if (this._interestRafId != null) {
+      if (this._interestCanvas && this._interestCanvas.cancelAnimationFrame) {
+        this._interestCanvas.cancelAnimationFrame(this._interestRafId);
+      } else {
+        clearTimeout(this._interestRafId);
+      }
+    }
+    this._interestRafId = null;
+    this._interestRunning = false;
+    this._interestEngine = null;
+    this._interestCtx = null;
+    this._interestCanvas = null;
+    this._interestCanvasReady = false;
+    if (this._canvasInitTimer) {
+      clearTimeout(this._canvasInitTimer);
+      this._canvasInitTimer = null;
+    }
+  },
+
+  _scheduleInterestCanvasInit() {
+    if (this._canvasInitTimer) clearTimeout(this._canvasInitTimer);
+    this._canvasInitTimer = setTimeout(() => this._initInterestCanvas(0), 320);
+  },
+
+  _initInterestCanvas(retry) {
+    if (this.data.step !== 3 || this._interestCanvasReady) return;
+
+    const metrics = this._interestMetrics || computeFieldMetrics(this._getWindowInfo());
+    wx.createSelectorQuery()
+      .in(this)
+      .select('#interestCanvas')
+      .fields({ node: true, size: true })
+      .exec(res => {
+        const item = res && res[0];
+        if (!item || !item.node) {
+          if (retry < 12) {
+            this._canvasInitTimer = setTimeout(() => this._initInterestCanvas(retry + 1), 120);
+          }
+          return;
+        }
+
+        let cssWidth = Number(item.width);
+        let cssHeight = Number(item.height);
+        const win = this._getWindowInfo();
+        if (!cssWidth || cssWidth < 10) cssWidth = win.windowWidth;
+        if (cssWidth < win.windowWidth * 0.98) cssWidth = win.windowWidth;
+        if (!cssHeight || cssHeight < 10) {
+          cssHeight = Math.min(metrics.height, Math.floor(win.windowHeight * 0.42));
+        }
+
+        cssWidth = Math.floor(cssWidth);
+        cssHeight = Math.floor(cssHeight);
+
+        if ((!cssWidth || !cssHeight) && retry < 12) {
+          this._canvasInitTimer = setTimeout(() => this._initInterestCanvas(retry + 1), 120);
+          return;
+        }
+
+        const canvas = item.node;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          if (retry < 12) {
+            this._canvasInitTimer = setTimeout(() => this._initInterestCanvas(retry + 1), 120);
+          }
+          return;
+        }
+
+        const dpr = this._getWindowInfo().pixelRatio || 2;
+        canvas.width = Math.max(1, Math.floor(cssWidth * dpr));
+        canvas.height = Math.max(1, Math.floor(cssHeight * dpr));
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        this._interestCanvas = canvas;
+        this._interestCtx = ctx;
+        this._interestCssW = cssWidth;
+        this._interestCssH = cssHeight;
+        this._interestLastTime = Date.now();
+        this._interestCanvasReady = true;
+
+        this.setData({
+          interestCanvasW: Math.floor(cssWidth),
+          interestCanvasH: Math.floor(cssHeight)
+        });
+
+        const bubbles = this.data.interestBubbles || [];
+        if (!bubbles.length) return;
+
+        this._interestEngine = new SoftBodyBubbleEngine({
+          width: cssWidth,
+          height: cssHeight,
+          windowWidth: metrics.windowWidth
+        });
+        this._interestEngine.initFromConfigs(bubbles);
+        this._interestEngine.bindCanvas(canvas, () => this._requestInterestRedraw());
+        this._syncInterestEngineSelection();
+
+        this._interestRunning = true;
+        this._interestLoop(true);
+      });
+  },
+
+  _interestLoop(force) {
+    if (!this._interestRunning || !this._interestEngine || !this._interestCtx) return;
+    if (!this._interestCssW || !this._interestCssH) return;
+
+    const now = Date.now();
+    const dt = Math.min((now - (this._interestLastTime || now)) / 1000, 0.05);
+    this._interestLastTime = now;
+
+    const needsFrame = force || this._interestEngine.step(dt) || this._interestEngine.needsRender();
+    if (needsFrame) {
+      const ctx = this._interestCtx;
+      ctx.clearRect(0, 0, this._interestCssW, this._interestCssH);
+      this._interestEngine.render(ctx);
+    }
+
+    const stillAnimating = this._interestEngine.bubbles.some(b => b.isAnimating());
+    if (stillAnimating || force) {
+      if (this._interestCanvas && this._interestCanvas.requestAnimationFrame) {
+        this._interestRafId = this._interestCanvas.requestAnimationFrame(() => this._interestLoop(false));
+      } else {
+        this._interestRafId = setTimeout(() => this._interestLoop(false), 16);
+      }
+    } else {
+      this._interestRafId = null;
+    }
+  },
+
+  _requestInterestRedraw() {
+    if (!this._interestEngine || !this._interestCtx) return;
+    this._interestEngine._dirty = true;
+    if (this._interestRafId == null && this._interestRunning) {
+      this._interestLastTime = Date.now();
+      this._interestLoop(true);
+    }
+  },
+
+  _interestTouchPoint(e) {
+    const touch = (e.touches && e.touches[0]) || (e.changedTouches && e.changedTouches[0]);
+    if (!touch) return null;
+    return { x: touch.x, y: touch.y };
+  },
+
+  onInterestCanvasTouchStart(e) {
+    if (!this._interestEngine) return;
+    const pt = this._interestTouchPoint(e);
+    if (!pt) return;
+    const key = this._interestEngine.hitTest(pt.x, pt.y);
+    this._interestPressingKey = key || '';
+    this._interestEngine.setPressingKey(this._interestPressingKey);
+    this._requestInterestRedraw();
+  },
+
+  onInterestCanvasTouchEnd(e) {
+    if (!this._interestEngine) return;
+    const pt = this._interestTouchPoint(e);
+    const key = pt ? this._interestEngine.hitTest(pt.x, pt.y) : this._interestPressingKey;
+    this._interestPressingKey = '';
+    this._interestEngine.setPressingKey('');
+    this._requestInterestRedraw();
+    if (key) this.onToggleCategory(key);
   },
 
   onSelectTravel(e) {
@@ -215,6 +499,7 @@ Page({
 
   persistCurrentStep() {
     storage.setJourneyPreferences({
+      selectedProvince: this.data.selectedProvince,
       selectedCity: this.data.selectedCity,
       interestedCategories: this.data.selectedCategories,
       travelPlan: this.data.selectedTravel,
@@ -224,6 +509,7 @@ Page({
 
   applySkipDefaults() {
     const defaults = {
+      selectedProvince: this.data.selectedProvince || '',
       selectedCity: this.data.selectedCity || '',
       interestedCategories: this.data.selectedCategories.length
         ? this.data.selectedCategories
@@ -233,6 +519,7 @@ Page({
     };
     storage.setJourneyPreferences(defaults);
     this.setData({
+      selectedProvince: defaults.selectedProvince,
       selectedCity: defaults.selectedCity,
       selectedCategories: defaults.interestedCategories,
       selectedCategoryMap: this.buildCategoryMap(defaults.interestedCategories),
@@ -242,52 +529,39 @@ Page({
     return defaults;
   },
 
-  buildSummary() {
-    const locale = getLocale();
-    const lang = this.data.languages.find(l => l.code === this.data.selectedLanguage);
-    const categoryLabels = this.data.selectedCategories.map(key => {
-      const item = this.data.categories.find(c => c.key === key);
-      return item ? item.label : key;
-    });
-    const sep = locale === 'en-US' ? ', ' : '、';
-
-    return {
-      language: lang ? lang.native : t('journeySetup.summary.notSet', locale),
-      city: this.data.selectedCity || t('journeySetup.summary.notSet', locale),
-      interests: categoryLabels.length
-        ? categoryLabels.join(sep)
-        : t('journeySetup.summary.notSet', locale),
-      travel: this.data.selectedTravel
-        ? getTravelPlanLabel(this.data.selectedTravel, locale)
-        : t('journeySetup.summary.notSet', locale)
-    };
+  finishJourneySetup() {
+    this.persistCurrentStep();
+    wx.redirectTo({ url: '/pages/login/login' });
   },
 
   goToStep(nextStep) {
     if (this.data.animating) return;
-    this.setData({ animating: true, showContent: false });
+    if (this.data.step === 3) this._destroyInterestCanvas();
+    this.setData({ animating: true, showContent: false, showCitySheet: false });
     setTimeout(() => {
       this.setData({ step: nextStep, animating: false });
       this.refreshI18n();
-      setTimeout(() => this.setData({ showContent: true }), 60);
+      setTimeout(() => {
+        this.setData({ showContent: true });
+        if (nextStep === 3) this._scheduleInterestCanvasInit();
+      }, 60);
     }, 280);
   },
 
   onBack() {
-    const { step } = this.data;
+    const { step, mapView } = this.data;
     if (step <= 1) return;
-    if (step === 5) {
-      this.goToStep(4);
+    if (step === 2 && mapView === 'province') {
+      this.onBackToChinaMap();
       return;
     }
     this.goToStep(step - 1);
   },
 
   onSkip() {
+    if (this.data.step === 3) this._destroyInterestCanvas();
     this.applySkipDefaults();
-    const summary = this.buildSummary();
-    this.setData({ summary });
-    this.goToStep(5);
+    this.finishJourneySetup();
   },
 
   onNext() {
@@ -323,15 +597,7 @@ Page({
       if (!selectedTravel) {
         this.setData({ selectedTravel: 'no_plan', preferExperience: false });
       }
-      this.persistCurrentStep();
-      const summary = this.buildSummary();
-      this.setData({ summary });
-      this.goToStep(5);
+      this.finishJourneySetup();
     }
-  },
-
-  onStartExplore() {
-    this.persistCurrentStep();
-    wx.redirectTo({ url: '/pages/login/login' });
   }
 });

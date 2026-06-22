@@ -1,0 +1,51 @@
+.china-map {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 8rpx 0 16rpx;
+}
+
+.map-frame {
+  position: relative;
+  width: 90%;
+}
+
+.map-image {
+  width: 100%;
+  display: block;
+  border-radius: var(--radius-md);
+  box-shadow: 0 8rpx 32rpx rgba(160, 48, 31, 0.08);
+}
+
+.map-tap-catcher {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.pin-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.map-pin {
+  position: absolute;
+  width: 56rpx;
+  height: 72rpx;
+  transform: translate(-50%, -100%);
+  filter: drop-shadow(0 6rpx 12rpx rgba(160, 48, 31, 0.35));
+  animation: pinDrop 280ms ease;
+}
+
+@keyframes pinDrop {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -100%) scale(0.6) translateY(16rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -100%) scale(1) translateY(0);
+  }
+}

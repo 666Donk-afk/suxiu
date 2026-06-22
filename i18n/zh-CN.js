@@ -117,16 +117,33 @@ module.exports = {
       subtitle: '让文化跨越语言，与更多人相遇。'
     },
     step2: {
-      title: '你的下一站是哪里？',
-      subtitle: '从一座城市开始，遇见属于它的非遗故事。',
+      title: '点亮你的目的地',
+      subtitle: '从地图上探索中国，选择一座城市开启非遗之旅。',
       searchPlaceholder: '请输入城市名称',
-      requiredToast: '请选择或搜索一个城市'
+      requiredToast: '请点击地图或城市图片选择目的地',
+      selectedLabel: '已选择目的地',
+      destination: '目的地',
+      province: '所属省份',
+      heritageDirections: '推荐非遗方向',
+      nationalHeritage: '国家级非遗项目',
+      hotCities: '热门城市',
+      hotDestinations: '热门目的地',
+      selectProvince: '选择{province}',
+      reselect: '重新选择',
+      allCities: '全部城市',
+      prevStep: '上一步',
+      tapMapHint: '轻点地图选择省份',
+      tapProvinceMapHint: '轻点省级地图选择城市',
+      tapCityCardHint: '轻点城市图片选择目的地',
+      backToChina: '返回全国地图'
     },
     step3: {
       title: '哪些非遗更吸引你？',
       subtitle: '选择你感兴趣的文化，我们会为你推荐更多精彩内容。',
       hint: '至少选择 1 项，建议选择 3～5 项',
-      minToast: '请至少选择一项兴趣'
+      minToast: '请至少选择一项兴趣',
+      nextWithCount: '下一步（已选{count}项）',
+      selectedCount: '已选{count}项'
     },
     step4: {
       title: '未来，你想去哪里感受非遗？',
@@ -148,6 +165,7 @@ module.exports = {
       subtitle: '每一座城市，都藏着等待被发现的文化记忆。',
       language: '语言',
       city: '目的地',
+      province: '省份',
       interests: '兴趣',
       travel: '出行计划',
       notSet: '暂未设置'
@@ -158,10 +176,13 @@ module.exports = {
       folk: '民俗',
       quyi: '曲艺',
       art: '传统美术',
-      medicine: '医药',
+      medicine: '传统医药',
       sports: '体育游艺',
       food: '饮食文化',
-      festival: '节庆活动'
+      festival: '节庆活动',
+      literature: '民间文学',
+      dance: '传统舞蹈',
+      music: '传统音乐'
     }
   },
   heritageDetail: {

@@ -10,6 +10,7 @@ const KEYS = {
   IS_GUEST: 'is_guest',
   EXPERIENCE_HISTORY: 'experience_history',
   SELECTED_CITY: 'selectedCity',
+  SELECTED_PROVINCE: 'selectedProvince',
   INTERESTED_CATEGORIES: 'interestedCategories',
   TRAVEL_PLAN: 'travelPlan',
   PREFER_EXPERIENCE: 'preferExperience'
@@ -198,6 +199,7 @@ function getExperienceHistoryCount() {
 
 function getJourneyPreferences() {
   return {
+    selectedProvince: safeGet(KEYS.SELECTED_PROVINCE, ''),
     selectedCity: safeGet(KEYS.SELECTED_CITY, ''),
     interestedCategories: safeGet(KEYS.INTERESTED_CATEGORIES, []),
     travelPlan: safeGet(KEYS.TRAVEL_PLAN, ''),
@@ -207,6 +209,9 @@ function getJourneyPreferences() {
 
 function setJourneyPreferences(prefs) {
   if (!prefs) return;
+  if (prefs.selectedProvince !== undefined) {
+    safeSet(KEYS.SELECTED_PROVINCE, prefs.selectedProvince || '');
+  }
   if (prefs.selectedCity !== undefined) {
     safeSet(KEYS.SELECTED_CITY, prefs.selectedCity || '');
   }
@@ -222,6 +227,7 @@ function setJourneyPreferences(prefs) {
 }
 
 function clearJourneyPreferences() {
+  safeSet(KEYS.SELECTED_PROVINCE, '');
   safeSet(KEYS.SELECTED_CITY, '');
   safeSet(KEYS.INTERESTED_CATEGORIES, []);
   safeSet(KEYS.TRAVEL_PLAN, '');

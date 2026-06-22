@@ -1,4 +1,8 @@
-{
-  "navigationStyle": "custom",
-  "usingComponents": {}
-}
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "china-map": "/components/china-map/china-map",
+    "province-map": "/components/province-map/province-map"
+  }
+}
+

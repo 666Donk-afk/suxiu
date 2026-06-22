@@ -117,16 +117,33 @@ module.exports = {
       subtitle: 'Let heritage travel beyond language.'
     },
     step2: {
-      title: 'Where is your next destination?',
-      subtitle: 'Start with a city and discover its heritage stories.',
+      title: 'Light Up Your Destination',
+      subtitle: 'Explore China on the map and choose a city to begin your heritage journey.',
       searchPlaceholder: 'Enter a city name',
-      requiredToast: 'Please select or search for a city'
+      requiredToast: 'Please tap the map or a city image to choose a destination',
+      selectedLabel: 'Selected destination',
+      destination: 'Destination',
+      province: 'Province',
+      heritageDirections: 'Recommended heritage',
+      nationalHeritage: 'National heritage items',
+      hotCities: 'Popular cities',
+      hotDestinations: 'Popular destinations',
+      selectProvince: 'Select {province}',
+      reselect: 'Choose again',
+      allCities: 'All cities',
+      prevStep: 'Previous',
+      tapMapHint: 'Tap the map to choose a province',
+      tapProvinceMapHint: 'Tap the provincial map to choose a city',
+      tapCityCardHint: 'Tap a city image to choose your destination',
+      backToChina: 'Back to China map'
     },
     step3: {
       title: 'What heritage interests you?',
       subtitle: 'Pick what you love and we will recommend more for you.',
       hint: 'Select at least 1 item; 3–5 is ideal',
-      minToast: 'Please select at least one interest'
+      minToast: 'Please select at least one interest',
+      nextWithCount: 'Next ({count} selected)',
+      selectedCount: '{count} selected'
     },
     step4: {
       title: 'Where would you like to experience heritage?',
@@ -148,6 +165,7 @@ module.exports = {
       subtitle: 'Every city holds cultural memories waiting to be discovered.',
       language: 'Language',
       city: 'Destination',
+      province: 'Province',
       interests: 'Interests',
       travel: 'Travel Plan',
       notSet: 'Not set'
@@ -161,7 +179,10 @@ module.exports = {
       medicine: 'Traditional Medicine',
       sports: 'Sports & Games',
       food: 'Food Culture',
-      festival: 'Festivals'
+      festival: 'Festivals',
+      literature: 'Folk Literature',
+      dance: 'Traditional Dance',
+      music: 'Traditional Music'
     }
   },
   heritageDetail: {
