@@ -17,7 +17,8 @@
     "pages/feedback/feedback",
     "pages/agreement/agreement",
     "pages/experience-guide/experience-guide",
-    "pages/experience-history/experience-history"
+    "pages/experience-history/experience-history",
+    "pages/ai-guide/ai-guide"
   ],
   "window": {
     "navigationBarBackgroundColor": "#A0301F",
@@ -52,5 +53,27 @@
     ]
   },
   "usingComponents": {},
+  "subPackages": [
+    {
+      "root": "package-media-a",
+      "name": "mediaA",
+      "pages": ["pages/stub/stub"]
+    },
+    {
+      "root": "package-media-b",
+      "name": "mediaB",
+      "pages": ["pages/stub/stub"]
+    }
+  ],
+  "preloadRule": {
+    "pages/index/index": {
+      "network": "all",
+      "packages": ["mediaA"]
+    },
+    "pages/heritage-detail/heritage-detail": {
+      "network": "all",
+      "packages": ["mediaA", "mediaB"]
+    }
+  },
   "sitemapLocation": "sitemap.json"
 }

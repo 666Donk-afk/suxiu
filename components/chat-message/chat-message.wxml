@@ -1,0 +1,17 @@
+<view class="msg-row {{message.role === 'user' ? 'msg-user' : 'msg-assistant'}}">
+  <view wx:if="{{message.role === 'assistant'}}" class="msg-avatar-slot">
+    <ai-mascot status="{{mascotStatus}}" size="sm" animated />
+  </view>
+
+  <view wx:if="{{message.type === 'route' && message.route}}" class="msg-body">
+    <route-card
+      route="{{message.route}}"
+      duration-label="{{durationLabel}}"
+      reason-label="{{reasonLabel}}"
+    />
+  </view>
+
+  <view wx:else class="msg-bubble {{message.isError ? 'msg-error' : ''}}">
+    <text class="msg-text" user-select>{{message.content}}</text>
+  </view>
+</view>

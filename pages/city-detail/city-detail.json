@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "城市详情",
   "enablePullDownRefresh": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "heritage-card": "/components/heritage-card/heritage-card"
+  }
 }

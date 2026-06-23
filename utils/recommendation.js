@@ -4,44 +4,24 @@
 const storage = require('./storage');
 const { getHotCities, getCityByName } = require('../data/cities');
 const { findJourneyCityByName } = require('../data/journey-cities');
-const { getAllHeritages, getHeritagesByCity } = require('../data/heritages');
+const { getAllHeritages, getCityHeritageIds } = require('../data/heritages');
 const { getHotExperiences } = require('../data/experience.js');
 const { t, getLocale } = require('../i18n.js');
 
-const CATEGORY_MAP_BY_NAME = {
-  汉剧: 'opera',
-  黄梅戏: 'opera',
-  土家族摆手舞: 'folk',
-  西兰卡普: 'craft',
-  武当武术: 'sports'
-};
-
 const TRAVEL_BOOST_PLANS = ['within_week', 'within_month', 'within_three_months'];
 
-function getHeritageCategoryKey(heritage) {
-  const raw = require('../data/excel_demo.js');
-  const item = raw[heritage.id - 1];
-  if (!item) return 'folk';
-  return CATEGORY_MAP_BY_NAME[item.name] || 'folk';
-}
-
-function scoreHeritage(heritage, prefs) {
-  let score = 0;
+function buildHeritageScores(prefs, locale) {
+  const all = getAllHeritages(locale);
   const city = prefs.selectedCity;
   const categories = prefs.interestedCategories || [];
+  const cityIds = city ? getCityHeritageIds(city) : null;
 
-  if (city) {
-    const zhMatches = getHeritagesByCity(city, 'zh-CN');
-    const enMatches = getHeritagesByCity(city, 'en-US');
-    if (zhMatches.some(h => h.id === heritage.id) || enMatches.some(h => h.id === heritage.id)) {
-      score += 100;
-    }
-  }
-  if (categories.length) {
-    const key = getHeritageCategoryKey(heritage);
-    if (categories.includes(key)) score += 50;
-  }
-  return score;
+  return all.map(heritage => {
+    let score = 0;
+    if (cityIds && cityIds.has(heritage.id)) score += 100;
+    if (categories.length && categories.includes(heritage.categoryKey)) score += 50;
+    return { heritage, score };
+  });
 }
 
 function getPersonalizedCities(limit, locale) {
@@ -61,11 +41,7 @@ function getPersonalizedCities(limit, locale) {
   }
 
   if (journeyCity) {
-    const virtual = {
-      ...journeyCity,
-      heritageCount: journeyCity.heritageCount || 0
-    };
-    return [virtual, ...demoList].slice(0, limit);
+    return [{ ...journeyCity, heritageCount: journeyCity.heritageCount || 0 }, ...demoList].slice(0, limit);
   }
 
   return demoList;
@@ -74,10 +50,9 @@ function getPersonalizedCities(limit, locale) {
 function getPersonalizedHeritages(limit, locale) {
   const loc = locale || getLocale();
   const prefs = storage.getJourneyPreferences();
-  const all = getAllHeritages(loc);
-
-  const sorted = [...all].sort((a, b) => scoreHeritage(b, prefs) - scoreHeritage(a, prefs));
-  return sorted.slice(0, limit);
+  const scored = buildHeritageScores(prefs, loc);
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, limit).map(s => s.heritage);
 }
 
 function getPersonalizedExperiences(limit, locale) {
@@ -86,17 +61,13 @@ function getPersonalizedExperiences(limit, locale) {
   let list = getHotExperiences(limit * 2, loc);
 
   const city = prefs.selectedCity;
-  const boostExperience = prefs.preferExperience
-    || TRAVEL_BOOST_PLANS.includes(prefs.travelPlan);
+  const cityIds = city ? getCityHeritageIds(city) : null;
+  const boostExperience = prefs.preferExperience || TRAVEL_BOOST_PLANS.includes(prefs.travelPlan);
 
-  if (city) {
+  if (cityIds) {
     list = [...list].sort((a, b) => {
-      const aZh = getHeritagesByCity(city, 'zh-CN').some(h => h.id === a.heritageId) ? 1 : 0;
-      const bZh = getHeritagesByCity(city, 'zh-CN').some(h => h.id === b.heritageId) ? 1 : 0;
-      const aEn = getHeritagesByCity(city, 'en-US').some(h => h.id === a.heritageId) ? 1 : 0;
-      const bEn = getHeritagesByCity(city, 'en-US').some(h => h.id === b.heritageId) ? 1 : 0;
-      const aMatch = a.city === city || aZh || aEn ? 1 : 0;
-      const bMatch = b.city === city || bZh || bEn ? 1 : 0;
+      const aMatch = a.city === city || cityIds.has(a.heritageId) ? 1 : 0;
+      const bMatch = b.city === city || cityIds.has(b.heritageId) ? 1 : 0;
       return bMatch - aMatch;
     });
   }

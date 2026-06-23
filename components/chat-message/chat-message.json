@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "route-card": "/components/route-card/route-card",
+    "ai-mascot": "/components/ai-mascot/ai-mascot"
+  }
+}

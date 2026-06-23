@@ -29,6 +29,7 @@ Page({
   },
 
   onLoad() {
+    this._firstShow = true;
     const app = getApp();
     const statusBarHeight = app.globalData.statusBarHeight || 20;
     const favoriteIds = storage.getFavorites();
@@ -40,10 +41,8 @@ Page({
     });
 
     this.refreshI18n();
-    wx.nextTick(() => {
-      this.refreshContent();
-      this.updateHeaderLayout();
-    });
+    this.refreshContent();
+    wx.nextTick(() => this.updateHeaderLayout());
   },
 
   onReady() {
@@ -80,7 +79,18 @@ Page({
       tabBar.setData({ selected: 0 });
       if (tabBar.refreshLocale) tabBar.refreshLocale();
     }
-    this.refreshI18n();
+
+    const locale = getLocale();
+    const localeChanged = locale !== this._lastLocale;
+    this._lastLocale = locale;
+
+    if (this._firstShow) {
+      this._firstShow = false;
+      if (localeChanged) this.refreshI18n();
+      return;
+    }
+
+    if (localeChanged) this.refreshI18n();
     this.refreshContent();
   },
 
@@ -98,7 +108,9 @@ Page({
         travelSubtitle: t('home.travelSubtitle'),
         bookNow: t('heritageDetail.bookNow'),
         swipeHint: t('common.swipeHint'),
-        heritageUnit: t('common.heritageUnit')
+        heritageUnit: t('common.heritageUnit'),
+        mascotLabel: t('home.mascotLabel'),
+        mascotHint: t('home.mascotHint')
       },
       banners: [
         { id: 1, image: images.banners[0], title: t('home.banner1') },
@@ -132,12 +144,13 @@ Page({
     wx.navigateTo({ url: '/pages/search/search' });
   },
 
+  goAiGuide() {
+    wx.navigateTo({ url: '/pages/ai-guide/ai-guide' });
+  },
+
   goCityDetail(e) {
     const { id } = e.currentTarget.dataset;
-    if (!id || id > 4) {
-      wx.showToast({ title: t('home.cityComingSoon'), icon: 'none' });
-      return;
-    }
+    if (!id) return;
     wx.navigateTo({ url: `/pages/city-detail/city-detail?id=${id}` });
   },
 

@@ -1,5 +1,7 @@
 const { getProvinceMap, findCityAtPoint } = require('../../data/province-maps.js');
-const { getCityCover } = require('../../data/city-covers.js');
+const { getCityCover, buildCityCards } = require('../../data/city-covers.js');
+const { getProvinceByCode } = require('../../data/provinces.js');
+const { pickLocale } = require('../../i18n/locale-field.js');
 
 Component({
   properties: {
@@ -17,7 +19,8 @@ Component({
     mapData: null,
     pinCity: null,
     mapWidth: 0,
-    mapHeight: 0
+    mapHeight: 0,
+    provinceShort: ''
   },
 
   observers: {
@@ -32,7 +35,11 @@ Component({
       const found = this.data.mapData.cities.find(c => c.name === city);
       if (found) {
         this.setData({
-          pinCity: { name: city, marker: found.marker, cover: getCityCover(city) }
+          pinCity: {
+            name: city,
+            marker: found.marker,
+            cover: found.cover || getCityCover(city, this.data.provinceShort)
+          }
         });
       }
     }
@@ -48,14 +55,26 @@ Component({
     loadMap(code) {
       const mapData = getProvinceMap(code);
       if (!mapData) {
-        this.setData({ mapData: null, pinCity: null });
+        this.setData({ mapData: null, pinCity: null, provinceShort: '' });
         return;
       }
+
+      const province = getProvinceByCode(code, 'zh-CN');
+      const provinceShort = province ? pickLocale(province.name, 'zh-CN') : '';
+      const cityNames = mapData.cities.map(c => c.name);
+      const coverCards = buildCityCards(cityNames, provinceShort);
+      const coverMap = Object.fromEntries(coverCards.map(c => [c.name, c.cover]));
+
       const cities = mapData.cities.map(c => ({
         ...c,
-        cover: getCityCover(c.name)
+        cover: coverMap[c.name] || getCityCover(c.name, provinceShort)
       }));
-      this.setData({ mapData: { ...mapData, cities }, pinCity: null });
+
+      this.setData({
+        mapData: { ...mapData, cities },
+        pinCity: null,
+        provinceShort
+      });
       wx.nextTick(() => this.measureMap());
     },
 

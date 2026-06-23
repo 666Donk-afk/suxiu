@@ -59,7 +59,31 @@ module.exports = {
     unfavorited: '已取消',
     loginForFavorite: '收藏功能需要登录后使用，是否前往登录？',
     cityComingSoon: '该城市内容即将上线，先看看湖北非遗吧',
-    forYou: '为你推荐'
+    forYou: '为你推荐',
+    mascotLabel: 'AI非遗助手',
+    mascotHint: '问我非遗知识或体验路线'
+  },
+  aiGuide: {
+    title: 'AI非遗助手',
+    subtitle: '小遗 · 非遗文化导览员',
+    welcome: '你好，我是小遗 🐕\n\n我可以帮你：\n1. 规划非遗体验路线\n2. 解答非遗文化知识\n\n试试下方快捷提问，或直接描述你的需求～',
+    welcomeWithCity: '你好，我是小遗 🐕\n\n看到你对「{city}」感兴趣，我可以为你规划非遗体验路线，或解答相关文化知识。\n\n有什么想了解的吗？',
+    inputPlaceholder: '描述体验需求或提问…',
+    send: '发送',
+    thinking: '小遗正在思考',
+    clear: '清空',
+    contextHint: '已读取你的启程偏好',
+    promptRoute: '推荐体验路线',
+    promptWhat: '什么是非遗',
+    promptKids: '适合儿童的非遗项目',
+    promptPopular: '最受欢迎的非遗体验',
+    promptShadow: '介绍一下皮影戏',
+    durationLabel: '预计时长',
+    reasonLabel: '推荐理由',
+    errorNetwork: '无法连接 AI 服务，请确认 Node.js 后端已启动，并检查 config/api.js 中的 baseUrl。',
+    errorGeneric: '抱歉，暂时无法回答，请稍后重试。',
+    clearConfirmTitle: '清空对话',
+    clearConfirmContent: '确定清空与小遗的对话记录吗？'
   },
   city: {
     searchPlaceholder: '搜索城市',
@@ -215,7 +239,7 @@ module.exports = {
     guideDesc: '请通过以下官方渠道完成预约',
     qrHint: '请长按识别二维码，前往官方渠道预约。',
     miniLabel: '官方预约平台',
-    miniHint: '请前往微信搜索并打开官方小程序完成预约。',
+    miniHint: '请复制下方平台名称，在微信搜索栏搜索并打开官方小程序，按页面提示完成预约。',
     websiteHint: '预约链接已复制，请在浏览器打开。',
     noticeTitle: '注意事项',
     copyInfo: '复制预约信息',
@@ -223,7 +247,8 @@ module.exports = {
     copied: '已复制到剪贴板',
     openTime: '开放时间',
     previewQr: '预览二维码',
-    copyLink: '复制预约链接'
+    copyLink: '复制预约链接',
+    openArticle: '打开公众号预约指引'
   },
   favorite: {
     searchPlaceholder: '搜索收藏',

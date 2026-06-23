@@ -1,67 +1,13 @@
 /**
- * Demo 城市数据 - 多语言
+ * 城市数据 - 由 Excel 非遗地点聚合生成
  */
-const images = require('./images');
+const citiesRaw = require('./cities-data.js');
 const { pickLocale } = require('../i18n/locale-field.js');
 const { getLocale } = require('../i18n.js');
 
-const citiesRaw = [
-  {
-    id: 1,
-    name: { 'zh-CN': '武汉', 'en-US': 'Wuhan' },
-    pinyin: 'wuhan',
-    initial: 'W',
-    description: {
-      'zh-CN': '九省通衢，楚文化重镇。汉剧在此发源流传，被誉为"京剧之母"。',
-      'en-US': 'A major hub of Chu culture where Han Opera originated, often called the mother of Peking Opera.'
-    },
-    heritageCount: 1
-  },
-  {
-    id: 2,
-    name: { 'zh-CN': '恩施', 'en-US': 'Enshi' },
-    pinyin: 'enshi',
-    initial: 'E',
-    description: {
-      'zh-CN': '土家族聚居地，摆手舞、西兰卡普等非遗独具民族特色，被称为"东方迪斯科"与"土家无字史书"。',
-      'en-US': 'Home to the Tujia people, famed for hand-waving dance and brocade — called the "Oriental Disco" and Tujia\'s wordless history book.'
-    },
-    heritageCount: 2
-  },
-  {
-    id: 3,
-    name: { 'zh-CN': '黄冈', 'en-US': 'Huanggang' },
-    pinyin: 'huanggang',
-    initial: 'H',
-    description: {
-      'zh-CN': '黄梅戏发源地，采茶调与民间歌谣在此融合，孕育出中国五大戏曲剧种之一。',
-      'en-US': 'Birthplace of Huangmei Opera, where tea-picking songs and folk ballads merged into one of China\'s five great opera genres.'
-    },
-    heritageCount: 1
-  },
-  {
-    id: 4,
-    name: { 'zh-CN': '十堰', 'en-US': 'Shiyan' },
-    pinyin: 'shiyan',
-    initial: 'S',
-    description: {
-      'zh-CN': '武当山所在地，道家文化与内家武术在此千年传承，"北崇少林，南尊武当"。',
-      'en-US': 'Gateway to Mount Wudang, where Daoist culture and internal martial arts have flourished for millennia.'
-    },
-    heritageCount: 1
-  }
-];
-
-const coverMap = [
-  images.cities.wuhan,
-  images.cities.enshi,
-  images.cities.huanggang,
-  images.cities.shiyan
-];
-
-const cities = citiesRaw.map((c, i) => ({
+const cities = citiesRaw.map(c => ({
   ...c,
-  cover: coverMap[i]
+  cover: c.cover || '/images/heritage/hanju.jpg'
 }));
 
 function localizeCity(city, locale) {
@@ -70,6 +16,7 @@ function localizeCity(city, locale) {
   return {
     ...city,
     name: pickLocale(city.name, loc),
+    province: city.province ? pickLocale(city.province, loc) : '',
     description: pickLocale(city.description, loc)
   };
 }
@@ -98,13 +45,14 @@ function getCityByName(name, locale) {
   const city = cities.find(c => {
     const zh = pickLocale(c.name, 'zh-CN');
     const en = pickLocale(c.name, 'en-US');
-    return name === zh || name === en || name.includes(zh) || name.includes(en);
+    return name === zh || name === en || name.includes(zh) || zh.includes(name);
   });
   return localizeCity(city, loc);
 }
 
 function getHotCities(limit = 8, locale) {
-  return cities.slice(0, limit).map(c => localizeCity(c, locale));
+  const sorted = [...cities].sort((a, b) => b.heritageCount - a.heritageCount);
+  return sorted.slice(0, limit).map(c => localizeCity(c, locale));
 }
 
 module.exports = {

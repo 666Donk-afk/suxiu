@@ -1,0 +1,31 @@
+<view class="route-card">
+  <view class="route-header">
+    <text class="route-icon">🗺</text>
+    <text class="route-title title-serif">{{route.title}}</text>
+  </view>
+
+  <view class="route-meta">
+    <text class="meta-label">{{durationLabel}}</text>
+    <text class="meta-value">{{route.duration}}</text>
+  </view>
+
+  <view class="route-steps">
+    <text class="steps-title">{{stepsLabel}}</text>
+    <view
+      wx:for="{{route.steps}}"
+      wx:key="index"
+      class="step-item"
+    >
+      <view class="step-index">{{index + 1}}</view>
+      <view class="step-content">
+        <text class="step-name">{{item.name}}</text>
+        <text class="step-desc" wx:if="{{item.description}}">{{item.description}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="route-reason" wx:if="{{route.reason}}">
+    <text class="reason-label">{{reasonLabel}}</text>
+    <text class="reason-text">{{route.reason}}</text>
+  </view>
+</view>

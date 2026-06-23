@@ -1,80 +1,57 @@
 /**
- * Demo 非遗数据 - 多语言
+ * 非遗数据 - 列表缓存 + 详情按需加载
  */
-const demoData = require('./excel_demo.js');
+const listData = require('./heritage-list.js');
 const enData = require('./heritage-i18n-en.js');
 const { pickLocale } = require('../i18n/locale-field.js');
 const { getLocale, t } = require('../i18n.js');
 
-const SLUG = {
-  汉剧: 'hanju',
-  土家族摆手舞: 'baishou',
-  黄梅戏: 'huangmei',
-  西兰卡普: 'xilan',
-  武当武术: 'wudang'
-};
+const LIST_CACHE = {};
+const CITY_INDEX = {};
+const DETAIL_MODULE = { loaded: false, data: null };
 
-const CATEGORY_MAP = {
-  汉剧: 'opera',
-  黄梅戏: 'opera',
-  土家族摆手舞: 'folk',
-  西兰卡普: 'craft',
-  武当武术: 'sports'
-};
+function getDetailsMap() {
+  if (!DETAIL_MODULE.loaded) {
+    DETAIL_MODULE.data = require('./heritage-details.js');
+    DETAIL_MODULE.loaded = true;
+  }
+  return DETAIL_MODULE.data;
+}
 
-const CITY_MAP = {
-  武汉: { 'zh-CN': '武汉', 'en-US': 'Wuhan' },
-  恩施土家族苗族自治州来凤县: { 'zh-CN': '恩施', 'en-US': 'Enshi' },
-  恩施土家族苗族自治州: { 'zh-CN': '恩施', 'en-US': 'Enshi' },
-  黄冈黄梅县: { 'zh-CN': '黄冈', 'en-US': 'Huanggang' },
-  十堰市: { 'zh-CN': '十堰', 'en-US': 'Shiyan' }
-};
+function buildCityIndex() {
+  if (Object.keys(CITY_INDEX).length) return;
+  listData.forEach((item, index) => {
+    const id = index + 1;
+    const keys = new Set([item.cityShort, item.location].filter(Boolean));
+    keys.forEach(key => {
+      if (!CITY_INDEX[key]) CITY_INDEX[key] = [];
+      CITY_INDEX[key].push(id);
+    });
+  });
+}
 
-function buildHistoryZh(name, origin) {
-  const presets = {
-    汉剧: [
-      { year: '唐代', event: '汉剧声腔源头可追溯' },
-      { year: '清代中叶', event: '于湖北境内形成成熟剧种' },
-      { year: '2006年', event: '列入第一批国家级非遗名录' }
-    ],
-    土家族摆手舞: [
-      { year: '明清', event: '摆手舞发展黄金期' },
-      { year: '2006年', event: '入选国家级非遗名录' },
-      { year: '当代', event: '融入文旅与全民健身推广' }
-    ],
-    黄梅戏: [
-      { year: '明末清初', event: '黄梅采茶调萌芽' },
-      { year: '清代中后期', event: '传入安徽形成独立剧种' },
-      { year: '2006年', event: '列入国家级非遗名录' }
-    ],
-    西兰卡普: [
-      { year: '新石器—先秦', event: '巴人织麻工艺雏形' },
-      { year: '唐宋', event: '溪布、峒布列为贡品' },
-      { year: '2006年', event: '入选国家级非遗名录' }
-    ],
-    武当武术: [
-      { year: '先秦—宋', event: '道家文脉与早期功法' },
-      { year: '元末明初', event: '张三丰创立内家武术体系' },
-      { year: '2006年', event: '列入国家级非遗名录' }
-    ]
-  };
-  return presets[name] || [{ year: '2006年', event: '列入国家级非遗名录' }];
+function buildHistoryZh(item, origin) {
+  const text = origin || '';
+  const yearMatch = text.match(/(\d{4}|\d{2,4}世纪|唐代|宋代|元代|明代|清代|民国|当代|2006)/);
+  const firstLine = text.split('\n')[0].slice(0, 60);
+  return [
+    ...(yearMatch ? [{ year: yearMatch[1], event: firstLine || '文化起源' }] : []),
+    { year: '2006年', event: '列入国家级非遗名录' },
+    { year: '当代', event: '活态传承与文旅融合' }
+  ].slice(0, 3);
 }
 
 function buildInheritanceZh(item) {
-  const defaults = {
-    汉剧: { masters: ['陈伯华'], methods: '汉剧院团传承', development: '武汉汉剧院整理经典剧目', challenges: '年轻观众培养' },
-    土家族摆手舞: { masters: ['民间传承人'], methods: '口传身授、节庆活动', development: '摆手舞文化节与校园推广', challenges: '传承人与活态保护' },
-    黄梅戏: { masters: ['严凤英', '韩再芬'], methods: '黄梅戏剧团传承', development: '全国性大剧种传播', challenges: '方言与受众结构' },
-    西兰卡普: { masters: ['母女世代传承人'], methods: '口传心授', development: '文创与服饰设计融合', challenges: '技艺门槛高' },
-    武当武术: { masters: ['赵剑英', '覃献平'], methods: '宫观与传习馆', development: '海内外学员习武问道', challenges: '正宗传承辨识' }
+  return {
+    masters: ['传承人'],
+    methods: '口传身授、师徒相传',
+    development: `${item.name}在${item.cityShort || item.location || '当地'}持续传承`,
+    challenges: '传承人培养与活态保护'
   };
-  return defaults[item.name] || { masters: ['传承人'], methods: '口传身授', development: '活态传承', challenges: '传承人培养' };
 }
 
 function buildSummary(item) {
   if (item.summary) return item.summary;
-  if (item.origin) return item.origin.slice(0, 120) + '...';
   return item.name;
 }
 
@@ -82,66 +59,103 @@ function getCategoryLabel(key, locale) {
   return t(`heritage.categories.${key}`, locale);
 }
 
-function buildRawItem(item, index, locale) {
+function computeRecommendations(index) {
+  const item = listData[index];
   const id = index + 1;
-  const slug = item.slug || SLUG[item.name];
-  const en = enData[slug] || {};
-  const loc = locale || getLocale();
-
-  const nameZh = item.name;
-  const name = loc === 'en-US' && en.name ? en.name : nameZh;
-
-  const cityKey = CITY_MAP[item.location];
-  const city = cityKey ? pickLocale(cityKey, loc) : item.location;
-
-  const categoryKey = CATEGORY_MAP[item.name] || 'folk';
-  const category = getCategoryLabel(categoryKey, loc);
-
-  const level = loc === 'en-US' ? (en.level || t('heritage.national', loc)) : '国家级';
-  const declareYear = loc === 'en-US' ? (en.declareYear || '2006') : '2006年';
-
-  const history = loc === 'en-US' && en.history ? en.history : buildHistoryZh(item.name, item.origin);
-  const inheritance = loc === 'en-US' && en.inheritance ? en.inheritance : buildInheritanceZh(item);
-
-  const localized = {
-    id,
-    slug,
-    name,
-    city,
-    location: loc === 'en-US' && en.location ? en.location : item.location,
-    level,
-    category,
-    cover: item.cover,
-    declareYear,
-    summary: loc === 'en-US' && en.summary ? en.summary : buildSummary(item),
-    origin: loc === 'en-US' && en.origin ? en.origin : (item.origin || ''),
-    history,
-    story: loc === 'en-US' && en.story ? en.story : (item.story || ''),
-    meaning: loc === 'en-US' && en.meaning !== undefined ? en.meaning : (item.meaning || ''),
-    materials: loc === 'en-US' && en.materials !== undefined ? en.materials : (item.materials || ''),
-    inheritance,
-    gallery: [item.cover],
-    recommendations: []
-  };
-
-  const allIds = demoData.map((_, i) => i + 1).filter(i => i !== id);
-  localized.recommendations = allIds.slice(0, 3);
-  return localized;
+  const allIds = listData.map((_, i) => i + 1).filter(i => i !== id);
+  const sameCity = allIds.filter(i => listData[i - 1].cityShort === item.cityShort);
+  const sameProv = allIds.filter(i => listData[i - 1].provinceShort === item.provinceShort);
+  const pool = sameCity.length ? sameCity : sameProv.length ? sameProv : allIds;
+  return pool.slice(0, 3);
 }
 
-function getAllRaw(locale) {
-  return demoData.map((item, index) => buildRawItem(item, index, locale));
+function buildListItem(item, index, locale) {
+  const id = index + 1;
+  const slug = item.slug;
+  const en = enData[slug] || {};
+  const loc = locale || getLocale();
+  const categoryKey = item.categoryKey || 'folk';
+
+  return {
+    id,
+    slug,
+    name: loc === 'en-US' && en.name ? en.name : item.name,
+    city: loc === 'en-US' && en.city ? en.city : (item.cityShort || item.location),
+    province: item.provinceShort || item.province || '',
+    location: loc === 'en-US' && en.location ? en.location : item.location,
+    level: loc === 'en-US' ? (en.level || t('heritage.national', loc)) : '国家级',
+    category: getCategoryLabel(categoryKey, loc),
+    categoryKey,
+    cover: item.cover,
+    declareYear: loc === 'en-US' ? (en.declareYear || '2006') : '2006年',
+    summary: loc === 'en-US' && en.summary ? en.summary : buildSummary(item)
+  };
+}
+
+function buildDetailItem(item, index, locale) {
+  const list = buildListItem(item, index, locale);
+  const slug = item.slug;
+  const en = enData[slug] || {};
+  const loc = locale || getLocale();
+  const detail = getDetailsMap()[slug] || {};
+
+  const origin = loc === 'en-US' && en.origin ? en.origin : (detail.origin || '');
+  const history = loc === 'en-US' && en.history ? en.history : buildHistoryZh(item, origin);
+  const inheritance = loc === 'en-US' && en.inheritance ? en.inheritance : buildInheritanceZh(item);
+
+  return {
+    ...list,
+    origin,
+    history,
+    story: loc === 'en-US' && en.story ? en.story : (detail.story || ''),
+    meaning: loc === 'en-US' && en.meaning !== undefined ? en.meaning : (detail.meaning || ''),
+    materials: loc === 'en-US' && en.materials !== undefined ? en.materials : (detail.materials || ''),
+    inheritance,
+    gallery: [item.cover],
+    recommendations: computeRecommendations(index)
+  };
+}
+
+function getAllList(locale) {
+  const loc = locale || getLocale();
+  if (LIST_CACHE[loc]) return LIST_CACHE[loc];
+  LIST_CACHE[loc] = listData.map((item, index) => buildListItem(item, index, loc));
+  buildCityIndex();
+  return LIST_CACHE[loc];
+}
+
+function matchCityName(heritage, needle) {
+  if (heritage.city === needle || heritage.location === needle) return true;
+  if (heritage.city && (heritage.city.includes(needle) || needle.includes(heritage.city))) return true;
+  if (heritage.location && heritage.location.includes(needle)) return true;
+  return false;
 }
 
 function getHeritageById(id, locale) {
-  return getAllRaw(locale).find(h => h.id === id) || null;
+  const index = id - 1;
+  const item = listData[index];
+  if (!item) return null;
+  return buildDetailItem(item, index, locale || getLocale());
 }
 
 function getHeritagesByCity(cityName, locale) {
   const loc = locale || getLocale();
-  return getAllRaw(loc).filter(
-    h => h.city === cityName || (h.location && h.location.includes(cityName))
-  );
+  const needle = (cityName || '').trim();
+  if (!needle) return [];
+  return getAllList(loc).filter(h => matchCityName(h, needle));
+}
+
+function getCityHeritageIds(cityName) {
+  buildCityIndex();
+  const needle = (cityName || '').trim();
+  if (!needle) return new Set();
+  const ids = new Set();
+  Object.keys(CITY_INDEX).forEach(key => {
+    if (key === needle || key.includes(needle) || needle.includes(key)) {
+      CITY_INDEX[key].forEach(id => ids.add(id));
+    }
+  });
+  return ids;
 }
 
 function getHeritagesByCityId(cityId, cityList, locale) {
@@ -150,8 +164,17 @@ function getHeritagesByCityId(cityId, cityList, locale) {
   return getHeritagesByCity(city.name, locale);
 }
 
+function getHeritagesByProvince(provinceName, locale) {
+  const loc = locale || getLocale();
+  const needle = (provinceName || '').trim();
+  return getAllList(loc).filter(h => {
+    const p = h.province || '';
+    return p.includes(needle) || needle.includes(p);
+  });
+}
+
 function getHotHeritages(limit = 6, locale) {
-  return getAllRaw(locale).slice(0, limit);
+  return getAllList(locale).slice(0, limit);
 }
 
 function getRecommendations(ids, locale) {
@@ -159,7 +182,7 @@ function getRecommendations(ids, locale) {
 }
 
 function getAllHeritages(locale) {
-  return getAllRaw(locale);
+  return getAllList(locale);
 }
 
 function getCategories(locale) {
@@ -177,6 +200,8 @@ module.exports = {
   getHeritageById,
   getHeritagesByCity,
   getHeritagesByCityId,
+  getHeritagesByProvince,
+  getCityHeritageIds,
   getHotHeritages,
   getRecommendations,
   getAllHeritages,

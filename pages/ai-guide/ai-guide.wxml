@@ -1,0 +1,84 @@
+<view class="page">
+  <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-inner" style="height: {{navBarHeight}}px;">
+      <view class="nav-back tap-active" bindtap="goBack">‹</view>
+      <view class="nav-center">
+        <ai-mascot status="{{navMascotStatus}}" size="sm" animated />
+        <view class="nav-texts">
+          <text class="nav-title title-serif">{{i18n.title}}</text>
+          <text class="nav-sub">{{i18n.subtitle}}</text>
+        </view>
+      </view>
+      <view class="nav-action tap-active" bindtap="onClearChat">{{i18n.clear}}</view>
+    </view>
+  </view>
+
+  <view class="context-bar" wx:if="{{userContext && userContext.journey.selectedCity}}">
+    <text class="context-text">{{i18n.contextHint}}：{{userContext.journey.selectedCity}} · {{userContext.journey.interestLabels[0] || ''}}</text>
+  </view>
+
+  <scroll-view
+    class="chat-scroll"
+    scroll-y
+    scroll-into-view="{{scrollIntoView}}"
+    scroll-with-animation
+    enhanced
+    show-scrollbar="{{false}}"
+  >
+    <view class="chat-list">
+      <chat-message
+        wx:for="{{messages}}"
+        wx:key="id"
+        id="msg-{{item.id}}"
+        message="{{item}}"
+        duration-label="{{i18n.durationLabel}}"
+        reason-label="{{i18n.reasonLabel}}"
+      />
+
+      <view wx:if="{{sending}}" class="typing-row" id="chat-typing">
+        <view class="typing-avatar-slot">
+          <ai-mascot status="thinking" size="sm" animated />
+        </view>
+        <view class="typing-bubble">
+          <text class="typing-text">{{i18n.thinking}}</text>
+          <view class="typing-dots">
+            <view class="dot"></view>
+            <view class="dot"></view>
+            <view class="dot"></view>
+          </view>
+        </view>
+      </view>
+
+      <view id="chat-bottom" class="chat-bottom"></view>
+    </view>
+  </scroll-view>
+
+  <view class="quick-bar" wx:if="{{quickPrompts.length && !sending}}">
+    <scroll-view scroll-x class="quick-scroll" enable-flex>
+      <view
+        wx:for="{{quickPrompts}}"
+        wx:key="key"
+        class="quick-chip tap-active"
+        data-text="{{item.text}}"
+        data-key="{{item.key}}"
+        bindtap="onQuickPrompt"
+      >{{item.text}}</view>
+    </scroll-view>
+  </view>
+
+  <view class="input-bar safe-bottom">
+    <input
+      class="chat-input"
+      value="{{inputValue}}"
+      placeholder="{{i18n.inputPlaceholder}}"
+      placeholder-class="input-ph"
+      confirm-type="send"
+      bindinput="onInput"
+      bindconfirm="onSendTap"
+      disabled="{{sending}}"
+    />
+    <view class="send-btn tap-active {{inputValue && !sending ? 'active' : ''}}" bindtap="onSendTap">
+      {{i18n.send}}
+    </view>
+  </view>
+</view>

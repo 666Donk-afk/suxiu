@@ -6,6 +6,7 @@ const {
 const { getCitiesByProvinceCode } = require('../../data/province-cities.js');
 const { hasProvinceMap } = require('../../data/province-maps.js');
 const { buildCityCards } = require('../../data/city-covers.js');
+const { pickLocale } = require('../../i18n/locale-field.js');
 const { getJourneyCategories } = require('../../data/journey-categories');
 const { buildInterestBubbles } = require('../../data/category-covers.js');
 const {
@@ -212,10 +213,11 @@ Page({
     if (!province) return;
 
     const cities = getCitiesByProvinceCode(code);
+    const provinceShort = pickLocale(province.name, 'zh-CN');
     this.setData({
       showCitySheet: true,
       sheetProvinceName: province.name,
-      sheetCityCards: buildCityCards(cities)
+      sheetCityCards: buildCityCards(cities, provinceShort)
     });
   },
 

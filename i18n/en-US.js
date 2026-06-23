@@ -59,7 +59,31 @@ module.exports = {
     unfavorited: 'Removed',
     loginForFavorite: 'Sign in to save favorites. Go to login?',
     cityComingSoon: 'Content for this city is coming soon. Explore Hubei heritage first.',
-    forYou: 'For You'
+    forYou: 'For You',
+    mascotLabel: 'AI Guide Xiao Yi',
+    mascotHint: 'Ask about heritage, cities, or travel routes'
+  },
+  aiGuide: {
+    title: 'AI Heritage Assistant',
+    subtitle: 'Xiao Yi · Your culture guide',
+    welcome: 'Hi, I\'m Xiao Yi 🐕\n\nI can help you:\n1. Plan heritage experience routes\n2. Answer cultural heritage questions\n\nTry a quick prompt or describe your needs.',
+    welcomeWithCity: 'Hi, I\'m Xiao Yi 🐕\n\nI see you\'re interested in {city}. I can plan routes or answer heritage questions for you.',
+    inputPlaceholder: 'Describe your experience needs or ask a question…',
+    send: 'Send',
+    thinking: 'Xiao Yi is thinking',
+    clear: 'Clear',
+    contextHint: 'Using your journey preferences',
+    promptRoute: 'Recommend experience route',
+    promptWhat: 'What is intangible heritage',
+    promptKids: 'Heritage for children',
+    promptPopular: 'Most popular experiences',
+    promptShadow: 'Introduce shadow puppetry',
+    durationLabel: 'Duration',
+    reasonLabel: 'Why this route',
+    errorNetwork: 'Cannot connect to AI server. Start the Node.js backend and check config/api.js baseUrl.',
+    errorGeneric: 'Sorry, please try again later.',
+    clearConfirmTitle: 'Clear chat',
+    clearConfirmContent: 'Clear all messages with Xiao Yi?'
   },
   city: {
     searchPlaceholder: 'Search cities',
@@ -215,7 +239,7 @@ module.exports = {
     guideDesc: 'Complete your booking through the official channel below',
     qrHint: 'Long-press to scan the QR code and book through the official channel.',
     miniLabel: 'Official Booking Platform',
-    miniHint: 'Search for and open the official mini program in WeChat to book.',
+    miniHint: 'Copy the platform name below, search for it in WeChat, open the official mini program, and complete your booking.',
     websiteHint: 'Booking link copied. Please open it in your browser.',
     noticeTitle: 'Important Notes',
     copyInfo: 'Copy Booking Info',
@@ -223,7 +247,8 @@ module.exports = {
     copied: 'Copied to clipboard',
     openTime: 'Opening Hours',
     previewQr: 'Preview QR Code',
-    copyLink: 'Copy Booking Link'
+    copyLink: 'Copy Booking Link',
+    openArticle: 'Open Official WeChat Article'
   },
   favorite: {
     searchPlaceholder: 'Search favorites',

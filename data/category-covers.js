@@ -3,7 +3,7 @@
  */
 const BUBBLE_LAYOUT = {
   craft: {
-    cover: '/images/heritage/xilan.jpg',
+    cover: '/package-media-a/images/heritage/xilan.jpg',
     sizeType: 'large',
     xRatio: 0.5,
     yRatio: 0.14,
@@ -11,7 +11,7 @@ const BUBBLE_LAYOUT = {
     floatDelay: 0
   },
   opera: {
-    cover: '/images/heritage/huangmei.jpg',
+    cover: '/package-media-a/images/heritage/huangmei.jpg',
     sizeType: 'medium',
     xRatio: 0.22,
     yRatio: 0.13,
@@ -19,7 +19,7 @@ const BUBBLE_LAYOUT = {
     floatDelay: 0.8
   },
   folk: {
-    cover: '/images/heritage/baishou.jpg',
+    cover: '/package-media-a/images/heritage/baishou.jpg',
     sizeType: 'small',
     xRatio: 0.78,
     yRatio: 0.13,
@@ -27,7 +27,7 @@ const BUBBLE_LAYOUT = {
     floatDelay: 1.4
   },
   quyi: {
-    cover: '/images/heritage/hanju.jpg',
+    cover: '/package-media-a/images/heritage/hanju.jpg',
     sizeType: 'medium',
     xRatio: 0.88,
     yRatio: 0.3,
@@ -35,7 +35,7 @@ const BUBBLE_LAYOUT = {
     floatDelay: 0.3
   },
   art: {
-    cover: '/images/heritage/heritage-1.png',
+    cover: '/package-media-a/images/heritage/heritage-1.png',
     sizeType: 'small',
     xRatio: 0.1,
     yRatio: 0.28,
@@ -43,7 +43,7 @@ const BUBBLE_LAYOUT = {
     floatDelay: 1.1
   },
   medicine: {
-    cover: '/images/heritage/heritage-6.png',
+    cover: '/package-media-a/images/heritage/heritage-6.png',
     sizeType: 'medium',
     xRatio: 0.24,
     yRatio: 0.44,
@@ -51,7 +51,7 @@ const BUBBLE_LAYOUT = {
     floatDelay: 0.5
   },
   sports: {
-    cover: '/images/heritage/wudang.jpg',
+    cover: '/package-media-a/images/heritage/wudang.jpg',
     sizeType: 'large',
     xRatio: 0.5,
     yRatio: 0.34,
@@ -75,7 +75,7 @@ const BUBBLE_LAYOUT = {
     floatDelay: 0.9
   },
   literature: {
-    cover: '/images/heritage/heritage-4.png',
+    cover: '/package-media-a/images/heritage/heritage-4.png',
     sizeType: 'medium',
     xRatio: 0.36,
     yRatio: 0.62,
@@ -83,7 +83,7 @@ const BUBBLE_LAYOUT = {
     floatDelay: 1.2
   },
   dance: {
-    cover: '/images/heritage/baishou.jpg',
+    cover: '/package-media-a/images/heritage/baishou.jpg',
     sizeType: 'small',
     xRatio: 0.88,
     yRatio: 0.72,
@@ -91,7 +91,7 @@ const BUBBLE_LAYOUT = {
     floatDelay: 1.8
   },
   music: {
-    cover: '/images/heritage/hanju.jpg',
+    cover: '/package-media-a/images/heritage/hanju.jpg',
     sizeType: 'medium',
     xRatio: 0.52,
     yRatio: 0.86,
@@ -103,7 +103,7 @@ const BUBBLE_LAYOUT = {
 function buildInterestBubbles(categories) {
   return (categories || []).map(item => {
     const meta = BUBBLE_LAYOUT[item.key] || {
-      cover: '/images/heritage/default.png',
+      cover: '/package-media-a/images/heritage/default.png',
       sizeType: 'medium',
       xRatio: 0.5,
       yRatio: 0.5,

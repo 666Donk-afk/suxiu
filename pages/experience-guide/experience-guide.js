@@ -7,6 +7,7 @@ Page({
   data: {
     experience: null,
     heritageId: null,
+    canOpenWeixinArticle: false,
     i18n: {}
   },
 
@@ -35,7 +36,8 @@ Page({
         backDetail: t('experience.backDetail'),
         openTime: t('experience.openTime'),
         previewQr: t('experience.previewQr'),
-        copyLink: t('experience.copyLink')
+        copyLink: t('experience.copyLink'),
+        openArticle: t('experience.openArticle')
       }
     });
   },
@@ -53,9 +55,11 @@ Page({
     storage.addExperienceHistory(experience, heritage ? heritage.name : '');
 
     wx.setNavigationBarTitle({ title: t('experience.guideTitle') });
+    const canOpenWeixinArticle = /mp\.weixin\.qq\.com\/s\//.test(experience.qrTargetUrl || '');
     this.setData({
       experience,
-      heritageId: experience.heritageId
+      heritageId: experience.heritageId,
+      canOpenWeixinArticle
     });
     this.refreshI18n();
   },
@@ -126,6 +130,28 @@ Page({
     if (!experience || !experience.qrTargetUrl) return;
     wx.setClipboardData({
       data: experience.qrTargetUrl,
+      success: () => wx.showToast({ title: t('experience.copied'), icon: 'none' })
+    });
+  },
+
+  openWeixinArticle() {
+    const { experience } = this.data;
+    const url = experience && experience.qrTargetUrl;
+    if (!url || !/mp\.weixin\.qq\.com\/s\//.test(url)) return;
+    if (typeof wx.openOfficialAccountArticle === 'function') {
+      wx.openOfficialAccountArticle({
+        url,
+        fail: () => {
+          wx.setClipboardData({
+            data: url,
+            success: () => wx.showToast({ title: t('experience.copied'), icon: 'none' })
+          });
+        }
+      });
+      return;
+    }
+    wx.setClipboardData({
+      data: url,
       success: () => wx.showToast({ title: t('experience.copied'), icon: 'none' })
     });
   },

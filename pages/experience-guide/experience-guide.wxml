@@ -31,6 +31,7 @@
         <text class="hint-text">{{i18n.qrHint}}</text>
         <view class="preview-link tap-active" bindtap="previewQr">{{i18n.previewQr}}</view>
         <view class="copy-mini tap-active" wx:if="{{experience.qrTargetUrl}}" bindtap="onCopyQrUrl">{{i18n.copyLink}}</view>
+        <view class="copy-mini tap-active open-article" wx:if="{{canOpenWeixinArticle}}" bindtap="openWeixinArticle">{{i18n.openArticle}}</view>
       </block>
 
       <block wx:elif="{{experience.reservationType === 'mini'}}">
@@ -39,7 +40,7 @@
           <text class="platform-name">{{experience.officialMiniProgram}}</text>
         </view>
         <text class="hint-text">{{i18n.miniHint}}</text>
-        <view class="copy-mini tap-active" bindtap="onCopyMini">{{i18n.copyInfo}}</view>
+        <view class="copy-mini tap-active" wx:if="{{experience.officialMiniProgram}}" bindtap="onCopyMini">{{i18n.copyInfo}}</view>
       </block>
 
       <block wx:elif="{{experience.reservationType === 'website'}}">

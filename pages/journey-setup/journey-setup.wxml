@@ -374,7 +374,7 @@
 
           >
 
-            <image class="city-card-cover" src="{{item.cover}}" mode="aspectFill" />
+            <image class="city-card-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
 
             <view class="city-card-mask"></view>
 

@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "disableScroll": true,
+  "usingComponents": {
+    "chat-message": "/components/chat-message/chat-message",
+    "ai-mascot": "/components/ai-mascot/ai-mascot"
+  }
+}

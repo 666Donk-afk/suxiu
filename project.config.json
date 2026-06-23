@@ -1,7 +1,20 @@
 {
   "description": "非遗寻迹 - Intangible Heritage Explorer",
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      {
+        "type": "folder",
+        "value": "images/heritage"
+      },
+      {
+        "type": "file",
+        "value": "data/excel_demo.js"
+      },
+      {
+        "type": "folder",
+        "value": "package-media"
+      }
+    ],
     "include": []
   },
   "setting": {

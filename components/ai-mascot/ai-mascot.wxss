@@ -1,0 +1,93 @@
+.ai-mascot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ai-mascot--sm {
+  width: 72rpx;
+}
+
+.ai-mascot--md {
+  width: 128rpx;
+}
+
+.ai-mascot--lg {
+  width: 180rpx;
+}
+
+.ai-mascot__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 6rpx 14rpx rgba(160, 48, 31, 0.16));
+}
+
+.ai-mascot--ring .ai-mascot__img {
+  border-radius: 50%;
+  border: 3rpx solid rgba(255, 255, 255, 0.9);
+  background: transparent;
+  box-shadow: 0 4rpx 16rpx rgba(160, 48, 31, 0.15);
+}
+
+.ai-mascot--ring.ai-mascot--md .ai-mascot__img {
+  border-width: 4rpx;
+  box-shadow: 0 8rpx 28rpx rgba(160, 48, 31, 0.28);
+}
+
+.ai-mascot__glow {
+  position: absolute;
+  inset: -8rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(179, 77, 46, 0.22) 0%, transparent 70%);
+  animation: mascot-glow 1.6s ease-in-out infinite;
+  z-index: 0;
+}
+
+.ai-mascot--animated.ai-mascot--idle {
+  animation: mascot-float 3s ease-in-out infinite;
+}
+
+.ai-mascot--animated.ai-mascot--thinking {
+  animation: mascot-think 1.2s ease-in-out infinite;
+}
+
+.ai-mascot--animated.ai-mascot--speaking,
+.ai-mascot--animated.ai-mascot--happy {
+  animation: mascot-bounce 0.9s ease-in-out infinite;
+}
+
+.ai-mascot--animated.ai-mascot--error {
+  animation: mascot-shake 0.5s ease-in-out infinite;
+}
+
+@keyframes mascot-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10rpx); }
+}
+
+@keyframes mascot-think {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-4rpx) rotate(-3deg); }
+  75% { transform: translateY(-4rpx) rotate(3deg); }
+}
+
+@keyframes mascot-bounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-12rpx) scale(1.04); }
+}
+
+@keyframes mascot-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4rpx); }
+  75% { transform: translateX(4rpx); }
+}
+
+@keyframes mascot-glow {
+  0%, 100% { opacity: 0.45; transform: scale(0.92); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
