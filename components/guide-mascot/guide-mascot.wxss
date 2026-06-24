@@ -1,24 +1,48 @@
-.guide-mascot {
-  position: fixed;
-  right: 28rpx;
-  z-index: 200;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.28s ease;
-}
-
-.guide-mascot.tapping {
-  transform: scale(0.88);
-}
-
-.mascot-badge {
-  margin-top: 8rpx;
-  padding: 6rpx 16rpx;
-  font-size: 20rpx;
-  color: #fff;
-  background: linear-gradient(135deg, #A0301F, #B34D2E);
-  border-radius: 999rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
-  white-space: nowrap;
-}
+.guide-mascot {
+
+  position: fixed;
+
+  right: 28rpx;
+
+  z-index: 200;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  transition: transform 0.28s ease;
+
+}
+
+
+
+.guide-mascot.tapping {
+
+  transform: scale(0.88);
+
+}
+
+
+
+.mascot-badge {
+
+  margin-top: 8rpx;
+
+  padding: 6rpx 16rpx;
+
+  font-size: 20rpx;
+
+  color: #fff;
+
+  background: linear-gradient(135deg, #A0301F, #B34D2E);
+
+  border-radius: 999rpx;
+
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+
+  white-space: nowrap;
+
+}
+

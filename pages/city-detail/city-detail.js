@@ -40,7 +40,8 @@ Page({
         pullMore: t('cityDetail.pullMore'),
         loading: t('cityDetail.loading'),
         allLoaded: t('cityDetail.allLoaded'),
-        noMore: t('cityDetail.noMore')
+        noMore: t('cityDetail.noMore'),
+        itemUnit: t('common.itemUnit')
       },
       heritageTotal: t('cityDetail.heritageTotal').replace('{count}', count)
     });

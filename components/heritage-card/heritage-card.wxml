@@ -1,37 +1,39 @@
-<view class="heritage-card card tap-active" bindtap="onTap">
-  <image class="cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
-  <view class="info">
-    <view class="row-top">
-      <text class="name title-serif ellipsis">{{item.name}}</text>
-      <text class="tag-pill tag-level">{{item.level}}</text>
-    </view>
-    <view class="meta">
-      <text class="city">{{item.city}}</text>
-      <text class="dot">·</text>
-      <text class="category">{{item.category}}</text>
-    </view>
-    <view class="summary-wrap">
-      <text class="summary-measure-full">{{item.summary}}</text>
-      <text class="summary-measure-clamp">{{item.summary}}</text>
-      <block wx:if="{{!expanded}}">
-        <view class="summary-body is-clamped">
-          <text class="summary-text">{{item.summary}}</text><text wx:if="{{canExpand}}" class="summary-toggle" catchtap="onToggleSummary">{{expandLabel}}</text>
-        </view>
-      </block>
-      <block wx:else>
-        <view class="summary-body is-expanded">
-          <text class="summary-text">{{item.summary}}<text wx:if="{{canExpand}}" class="summary-toggle" catchtap="onToggleSummary">{{collapseLabel}}</text></text>
-        </view>
-      </block>
-    </view>
-    <view class="footer" wx:if="{{showFavorite}}">
-      <view class="like">
-        <text class="heart">♥</text>
-        <text class="count">{{likeCount}}</text>
+<view class="heritage-card tap-active" bindtap="onTap">
+  <view class="card-body">
+    <image class="cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+    <view class="info">
+      <view class="row-top">
+        <text class="name title-serif ellipsis">{{item.name}}</text>
+        <text class="tag-pill tag-level-outline">{{item.level}}</text>
       </view>
-      <view class="fav-btn {{favorited ? 'favorited' : ''}}" catchtap="onFavorite">
-        <text>{{favorited ? favoritedLabel : favLabel}}</text>
+      <view class="meta">
+        <text class="city">{{item.city}}</text>
+        <text class="dot">·</text>
+        <text class="category">{{item.category}}</text>
       </view>
+      <view class="summary-wrap">
+        <text class="summary-measure-full">{{item.summary}}</text>
+        <text class="summary-measure-clamp">{{item.summary}}</text>
+        <text class="summary-text {{expanded ? '' : 'is-clamped'}}">{{item.summary}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="card-divider" wx:if="{{canExpand || expanded || showFavorite}}"></view>
+  <view
+    class="expand-bar tap-active"
+    wx:if="{{canExpand || expanded}}"
+    catchtap="onToggleSummary"
+  >
+    <text class="expand-label">{{expanded ? collapseLabel : expandLabel}}</text>
+    <text class="expand-chevron">{{expanded ? '∧' : '∨'}}</text>
+  </view>
+  <view class="footer" wx:if="{{showFavorite}}">
+    <view class="like">
+      <text class="heart">♥</text>
+      <text class="count">{{likeCount}}</text>
+    </view>
+    <view class="fav-btn {{favorited ? 'favorited' : ''}}" catchtap="onFavorite">
+      <text>{{favorited ? favoritedLabel : favLabel}}</text>
     </view>
   </view>
 </view>

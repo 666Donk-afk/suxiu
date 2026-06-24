@@ -27,8 +27,12 @@ function respondAiError(res, err, { tag = 'ai', configMessage, defaultMessage })
   logAiError(tag, err);
 
   const body = { success: false, message: defaultMessage };
-  if (IS_DEV && err.upstreamMessage) {
-    body.detail = `[SiliconFlow ${err.upstreamStatus || '?'}] ${err.upstreamMessage}`;
+  if (IS_DEV) {
+    if (err.code === 'EMPTY_REPLY') {
+      body.detail = '模型返回空内容，可能是提示词过长或该模型暂不支持当前图片格式';
+    } else if (err.upstreamMessage) {
+      body.detail = `[SiliconFlow ${err.upstreamStatus || '?'}] ${err.upstreamMessage}`;
+    }
   }
 
   return res.status(500).json(body);

@@ -1,0 +1,78 @@
+.recognize-card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 24rpx;
+  box-shadow: 0 4rpx 24rpx rgba(160, 48, 31, 0.08);
+  border: 1rpx solid rgba(160, 48, 31, 0.08);
+}
+
+.recognize-header {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.recognize-icon {
+  font-size: 36rpx;
+}
+
+.recognize-title {
+  font-size: 32rpx;
+  color: var(--color-primary, #A0301F);
+  font-weight: 600;
+}
+
+.recognize-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-bottom: 12rpx;
+}
+
+.meta-tag {
+  font-size: 22rpx;
+  color: var(--color-primary);
+  background: var(--color-tag-bg, rgba(160, 48, 31, 0.08));
+  padding: 6rpx 16rpx;
+  border-radius: 999rpx;
+}
+
+.meta-confidence {
+  color: var(--color-text-secondary);
+  background: var(--color-bg-cream, #faf6f0);
+}
+
+.recognize-location {
+  margin-bottom: 12rpx;
+}
+
+.loc-label {
+  font-size: 22rpx;
+  color: var(--color-text-muted);
+  margin-right: 8rpx;
+}
+
+.loc-value {
+  font-size: 24rpx;
+  color: var(--color-text-secondary);
+}
+
+.recognize-summary {
+  margin-bottom: 16rpx;
+}
+
+.summary-text {
+  font-size: 26rpx;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+.recognize-action {
+  display: inline-block;
+  font-size: 26rpx;
+  color: #fff;
+  background: linear-gradient(135deg, #A0301F, #B34D2E);
+  padding: 14rpx 28rpx;
+  border-radius: 999rpx;
+}

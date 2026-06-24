@@ -35,7 +35,24 @@
     <text class="empty-text">{{i18n.noResult}}</text>
   </view>
 
-  <view wx:if="{{cities.length}}" class="result-section">
+  <view wx:if="{{heritages.length && categoryKey}}" class="result-section">
+    <text class="result-label">{{i18n.categoryResult}}</text>
+    <view
+      wx:for="{{heritages}}"
+      wx:key="id"
+      class="result-item tap-active"
+      data-id="{{item.id}}"
+      bindtap="goHeritage"
+    >
+      <image class="result-cover" src="{{item.cover}}" mode="aspectFill" />
+      <view>
+        <text class="result-name title-serif">{{item.name}}</text>
+        <text class="result-desc">{{item.city}} · {{item.category}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:elif="{{cities.length}}" class="result-section">
     <text class="result-label">{{i18n.cityTag}}</text>
     <view
       wx:for="{{cities}}"
@@ -52,7 +69,7 @@
     </view>
   </view>
 
-  <view wx:if="{{heritages.length}}" class="result-section">
+  <view wx:if="{{heritages.length && !categoryKey}}" class="result-section">
     <text class="result-label">{{i18n.heritageTag}}</text>
     <view
       wx:for="{{heritages}}"

@@ -10,6 +10,7 @@ module.exports = {
   endpoints: {
     chat: '/api/chat',
     route: '/api/route',
+    recognize: '/api/recognize',
     health: '/health'
   },
 

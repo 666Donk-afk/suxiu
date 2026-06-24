@@ -3,12 +3,31 @@
     <ai-mascot status="{{mascotStatus}}" size="sm" animated />
   </view>
 
-  <view wx:if="{{message.type === 'route' && message.route}}" class="msg-body">
+  <view wx:if="{{message.type === 'image' && message.imageUrl}}" class="msg-image-wrap">
+    <image class="msg-image" src="{{message.imageUrl}}" mode="aspectFill" />
+    <text wx:if="{{message.content}}" class="msg-image-caption">{{message.content}}</text>
+  </view>
+
+  <view wx:elif="{{message.type === 'route' && message.route}}" class="msg-body">
     <route-card
       route="{{message.route}}"
       duration-label="{{durationLabel}}"
       reason-label="{{reasonLabel}}"
     />
+  </view>
+
+  <view wx:elif="{{message.type === 'recognize'}}" class="msg-body">
+    <recognize-card
+      wx:if="{{message.heritage && message.heritage.name}}"
+      heritage="{{message.heritage}}"
+      confidence="{{message.confidence}}"
+      confidence-label="{{confidenceLabel}}"
+      view-detail-label="{{viewDetailLabel}}"
+      location-label="{{locationLabel}}"
+    />
+    <view wx:if="{{message.content}}" class="msg-bubble {{message.isError ? 'msg-error' : ''}}">
+      <text class="msg-text" user-select>{{message.content}}</text>
+    </view>
   </view>
 
   <view wx:else class="msg-bubble {{message.isError ? 'msg-error' : ''}}">

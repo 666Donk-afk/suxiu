@@ -9,6 +9,7 @@
   background: #FFFFFF;
   border-top: 1rpx solid #F0EBE3;
   z-index: 999;
+  font-family: "Songti SC", "STSong", "SimSun", serif;
 }
 
 .tab-item {

@@ -1,0 +1,26 @@
+<view class="recognize-card" wx:if="{{heritage && heritage.name}}">
+  <view class="recognize-header">
+    <text class="recognize-icon">📷</text>
+    <text class="recognize-title title-serif">{{heritage.name}}</text>
+  </view>
+
+  <view class="recognize-meta">
+    <text class="meta-tag" wx:if="{{heritage.category}}">{{heritage.category}}</text>
+    <text class="meta-tag meta-confidence" wx:if="{{confidence}}">{{confidenceLabel}}：{{confidence}}</text>
+  </view>
+
+  <view class="recognize-location" wx:if="{{heritage.location}}">
+    <text class="loc-label">{{locationLabel}}</text>
+    <text class="loc-value">{{heritage.location}}</text>
+  </view>
+
+  <view class="recognize-summary" wx:if="{{heritage.summary}}">
+    <text class="summary-text">{{heritage.summary}}</text>
+  </view>
+
+  <view
+    class="recognize-action tap-active"
+    wx:if="{{heritage.id}}"
+    bindtap="onViewDetail"
+  >{{viewDetailLabel}} ›</view>
+</view>

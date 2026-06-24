@@ -52,7 +52,23 @@ function normalizeRoute(raw) {
   };
 }
 
+/** 校验并规范化非遗识别结构 */
+function normalizeRecognize(raw) {
+  if (!raw || typeof raw !== 'object') return null;
+
+  return {
+    heritageName: String(raw.heritageName || raw.name || '').trim(),
+    slug: String(raw.slug || '').trim() || null,
+    categoryKey: String(raw.categoryKey || '').trim(),
+    categoryLabel: String(raw.categoryLabel || raw.category || '').trim(),
+    confidence: String(raw.confidence || 'medium').trim(),
+    description: String(raw.description || raw.reply || '').trim(),
+    tips: String(raw.tips || '').trim()
+  };
+}
+
 module.exports = {
   extractJson,
-  normalizeRoute
+  normalizeRoute,
+  normalizeRecognize
 };

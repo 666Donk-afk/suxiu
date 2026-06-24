@@ -47,36 +47,59 @@
       </scroll-view>
     </view>
 
-    <view class="section" wx:if="{{hotExperiences.length}}">
-      <view class="section-header">
-        <view>
-          <text class="section-title">{{i18n.travelTitle}}</text>
-          <text class="section-sub">{{i18n.travelSubtitle}}</text>
-        </view>
+    <view class="section travel-section" wx:if="{{travelRoutes.length}}">
+      <view class="section-head">
+        <text class="section-title title-serif">{{i18n.travelTitle}}</text>
+        <text class="section-sub">{{i18n.travelSubtitle}}</text>
       </view>
-      <scroll-view scroll-x class="travel-scroll" enable-flex>
-        <view class="travel-list">
-          <view
-            wx:for="{{hotExperiences}}"
-            wx:key="id"
-            class="travel-card tap-active"
-            data-id="{{item.heritageId}}"
-            bindtap="goHeritageFromTravel"
-          >
-            <image class="travel-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
-            <view class="travel-info">
-              <text class="travel-name title-serif ellipsis">{{item.title}}</text>
-              <text class="travel-city">{{item.location}}</text>
-              <text class="travel-desc ellipsis-2">{{item.description}}</text>
+      <view class="travel-route-list">
+        <view
+          wx:for="{{travelRoutes}}"
+          wx:key="id"
+          class="travel-route-card tap-active"
+          data-id="{{item.heritageId}}"
+          bindtap="goTravelRoute"
+        >
+          <image class="travel-route-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+          <view class="travel-route-body">
+            <text class="travel-route-title title-serif ellipsis">{{item.routeTitle}}</text>
+            <text class="travel-route-desc ellipsis">{{item.routeDesc}}</text>
+            <view class="travel-route-action">
+              <view class="route-pin"></view>
+              <text class="route-link">{{i18n.exploreRoute}}</text>
             </view>
           </view>
+          <text class="travel-route-arrow">›</text>
         </view>
-      </scroll-view>
+      </view>
     </view>
 
-    <view class="section">
-      <view class="section-header">
-        <text class="section-title">{{personalized ? i18n.forYou + ' · ' + i18n.hotHeritages : i18n.hotHeritages}}</text>
+    <view class="section-divider" wx:if="{{travelRoutes.length && categories.length}}"></view>
+
+    <view class="section category-section" wx:if="{{categories.length}}">
+      <text class="section-title title-serif">{{i18n.categoryTitle}}</text>
+      <view class="category-grid">
+        <view
+          wx:for="{{categories}}"
+          wx:key="key"
+          class="category-item tap-active"
+          data-key="{{item.key}}"
+          bindtap="goCategory"
+        >
+          <view class="category-icon-box">
+            <view class="category-icon-circle">
+              <text class="category-icon">{{item.icon}}</text>
+            </view>
+          </view>
+          <text class="category-label">{{item.label}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section heritage-section">
+      <view class="section-header-bar">
+        <text class="section-bar-title section-bar-title--inline">{{personalized ? i18n.forYou + ' · ' + i18n.hotHeritages : i18n.hotHeritages}}</text>
+        <text class="section-count" wx:if="{{hotHeritages.length}}">{{hotHeritages.length}} {{i18n.itemUnit}}</text>
       </view>
       <view class="heritage-list">
         <heritage-card

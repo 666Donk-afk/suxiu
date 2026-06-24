@@ -10,6 +10,13 @@ const ROUTE_KEYWORDS = [
   '带孩子', '亲子', '互动体验', '适合年轻人'
 ];
 
+const STORY_PROMPT_KEYS = new Set(['story']);
+
+const STORY_KEYWORDS = [
+  '故事', '传说', '典故', '讲讲', '民间故事', '非遗故事',
+  'story', 'legend', 'folktale', 'tale about'
+];
+
 function isRouteIntent(text, promptKey) {
   if (promptKey && ROUTE_PROMPT_KEYS.has(promptKey)) return true;
   const t = (text || '').trim();
@@ -17,7 +24,17 @@ function isRouteIntent(text, promptKey) {
   return ROUTE_KEYWORDS.some(kw => t.includes(kw));
 }
 
+function isStoryIntent(text, promptKey) {
+  if (isRouteIntent(text, promptKey)) return false;
+  if (promptKey && STORY_PROMPT_KEYS.has(promptKey)) return true;
+  const t = (text || '').trim().toLowerCase();
+  if (!t) return false;
+  return STORY_KEYWORDS.some(kw => t.includes(kw.toLowerCase()));
+}
+
 module.exports = {
   isRouteIntent,
-  ROUTE_PROMPT_KEYS
+  isStoryIntent,
+  ROUTE_PROMPT_KEYS,
+  STORY_PROMPT_KEYS
 };

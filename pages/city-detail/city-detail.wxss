@@ -47,6 +47,17 @@
   z-index: 1;
 }
 
+.desc-section {
+  margin-bottom: var(--spacing-card-gap, 48rpx);
+}
+
+.intro-panel {
+  background: var(--color-card, #FFFFFF);
+  border-radius: var(--radius-lg, 24rpx);
+  box-shadow: var(--shadow-card, 0 4rpx 24rpx rgba(160, 48, 31, 0.06));
+  padding: 28rpx 32rpx;
+}
+
 .desc-text {
   font-size: 28rpx;
   color: #8B7D6B;
@@ -55,7 +66,7 @@
 }
 
 .heritage-section {
-  margin-top: 40rpx;
+  margin-top: 0;
 }
 
 .heritage-item {

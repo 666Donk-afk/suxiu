@@ -35,17 +35,26 @@ function request(path, data) {
 }
 
 /**
- * 非遗知识解答
+ * 非遗知识解答 / 关键词故事生成
  * @param {string} message
  * @param {object} userContext
  * @param {string} locale
+ * @param {{ intent?: 'knowledge'|'story' }} options
  */
-function chat(message, userContext, locale) {
-  return request(apiConfig.endpoints.chat, {
-    message,
+function chat(message, userContext, locale, options) {
+  const payload = {
+    message: message || '',
     userContext,
     locale: locale || 'zh-CN'
-  });
+  };
+  if (options && options.intent) {
+    payload.intent = options.intent;
+  }
+  if (options && options.imageBase64) {
+    payload.imageBase64 = options.imageBase64;
+    payload.mimeType = options.mimeType || 'image/jpeg';
+  }
+  return request(apiConfig.endpoints.chat, payload);
 }
 
 /**
@@ -62,7 +71,24 @@ function planRoute(payload, userContext, locale) {
   });
 }
 
+/**
+ * 拍照非遗识别
+ * @param {string} imageBase64
+ * @param {string} mimeType
+ * @param {object} userContext
+ * @param {string} locale
+ */
+function recognize(imageBase64, mimeType, userContext, locale) {
+  return request(apiConfig.endpoints.recognize, {
+    imageBase64,
+    mimeType: mimeType || 'image/jpeg',
+    userContext,
+    locale: locale || 'zh-CN'
+  });
+}
+
 module.exports = {
   chat,
-  planRoute
+  planRoute,
+  recognize
 };

@@ -58,8 +58,19 @@ function getSuggestions(keyword, limit = 8, locale) {
   return suggestions.slice(0, limit);
 }
 
+function searchByCategoryKey(categoryKey, locale) {
+  const loc = locale || getLocale();
+  const heritages = getAllHeritages(loc).filter(h => h.categoryKey === categoryKey);
+  return {
+    cities: [],
+    heritages,
+    empty: heritages.length === 0
+  };
+}
+
 module.exports = {
   searchAll,
+  searchByCategoryKey,
   getSuggestions,
   fuzzyMatch
 };

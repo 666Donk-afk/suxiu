@@ -96,7 +96,9 @@ function getWelcomeMessage(locale) {
 function getQuickPrompts(locale) {
   const loc = locale || getLocale();
   return [
+    { key: 'recognize', text: t('aiGuide.promptRecognize', loc) },
     { key: 'route', text: t('aiGuide.promptRoute', loc) },
+    { key: 'story', text: t('aiGuide.promptStory', loc) },
     { key: 'what', text: t('aiGuide.promptWhat', loc) },
     { key: 'kids', text: t('aiGuide.promptKids', loc) },
     { key: 'popular', text: t('aiGuide.promptPopular', loc) },

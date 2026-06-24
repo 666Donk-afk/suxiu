@@ -33,6 +33,9 @@
         message="{{item}}"
         duration-label="{{i18n.durationLabel}}"
         reason-label="{{i18n.reasonLabel}}"
+        confidence-label="{{i18n.confidenceLabel}}"
+        view-detail-label="{{i18n.viewDetail}}"
+        location-label="{{i18n.locationLabel}}"
       />
 
       <view wx:if="{{sending}}" class="typing-row" id="chat-typing">
@@ -40,7 +43,7 @@
           <ai-mascot status="thinking" size="sm" animated />
         </view>
         <view class="typing-bubble">
-          <text class="typing-text">{{i18n.thinking}}</text>
+          <text class="typing-text">{{recognizing ? i18n.recognizing : i18n.thinking}}</text>
           <view class="typing-dots">
             <view class="dot"></view>
             <view class="dot"></view>
@@ -66,7 +69,18 @@
     </scroll-view>
   </view>
 
+  <view class="photo-preview-bar" wx:if="{{pendingImage && !sending}}">
+    <image class="photo-preview-img" src="{{pendingImage.path}}" mode="aspectFill" />
+    <view class="photo-preview-meta">
+      <text class="photo-preview-hint">{{i18n.photoUploadHint}}</text>
+      <text class="photo-preview-remove tap-active" bindtap="onRemovePendingImage">{{i18n.removePhoto}}</text>
+    </view>
+  </view>
+
   <view class="input-bar safe-bottom">
+    <view class="camera-btn tap-active {{sending ? 'disabled' : ''}}" bindtap="onPickImage">
+      <text class="camera-icon">📷</text>
+    </view>
     <input
       class="chat-input"
       value="{{inputValue}}"
@@ -77,7 +91,7 @@
       bindconfirm="onSendTap"
       disabled="{{sending}}"
     />
-    <view class="send-btn tap-active {{inputValue && !sending ? 'active' : ''}}" bindtap="onSendTap">
+    <view class="send-btn tap-active {{(inputValue || pendingImage) && !sending ? 'active' : ''}}" bindtap="onSendTap">
       {{i18n.send}}
     </view>
   </view>

@@ -18,7 +18,7 @@ page {
   --color-white: #FFFFFF;
 
   --font-serif: "Songti SC", "STSong", "SimSun", serif;
-  --font-sans: -apple-system, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+  --font-sans: "Songti SC", "STSong", "SimSun", serif;
 
   --radius-sm: 8rpx;
   --radius-md: 16rpx;
@@ -32,16 +32,22 @@ page {
   --spacing-page: 32rpx;
   --spacing-section: 40rpx;
   --spacing-card: 24rpx;
+  --spacing-card-gap: 48rpx; /* 卡片间距，项目之间留白 */
+  --spacing-section-head-gap: 72rpx; /* 区块标题 → 首卡，大于卡片间距 */
 
   --duration-fast: 200ms;
   --duration-normal: 300ms;
 
   background-color: var(--color-bg);
   color: var(--color-text);
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-size: 28rpx;
   line-height: 1.5;
   box-sizing: border-box;
+}
+
+view, text, input, textarea, button {
+  font-family: inherit;
 }
 
 view, text, image, scroll-view {
@@ -121,6 +127,14 @@ view, text, image, scroll-view {
   color: var(--color-text);
 }
 
+/* 内容面板 - 白色圆角底色，用于信息分层 */
+.panel-card {
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 28rpx 32rpx;
+}
+
 /* 卡片 */
 .card {
   background: var(--color-card);
@@ -152,6 +166,33 @@ view, text, image, scroll-view {
   background: var(--color-primary);
   border-radius: 3rpx;
   margin-right: 12rpx;
+}
+
+.section-bar-title--inline {
+  margin-bottom: 0;
+}
+
+.section-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.heritage-section .section-header-bar {
+  margin-bottom: var(--spacing-section-head-gap, 72rpx);
+}
+
+.section-count {
+  font-size: 26rpx;
+  color: var(--color-text-muted);
+}
+
+/* 非遗列表 - 卡片之间用 gap 控制间距 */
+.heritage-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-card-gap, 48rpx);
 }
 
 /* 空状态 */

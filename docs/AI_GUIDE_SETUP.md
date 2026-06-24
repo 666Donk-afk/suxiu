@@ -7,7 +7,7 @@
     ↓ wx.request HTTPS
 Node.js + Express 中转服务（server/）
     ↓ Axios + Bearer Token
-SiliconFlow OpenAI 兼容 API（deepseek-ai/DeepSeek-R1-0528-Qwen3-8B）
+SiliconFlow OpenAI 兼容 API（nex-agi/Nex-N2-Pro，支持多模态识别）
 ```
 
 **API Key 仅保存在 `server/.env`，禁止写入小程序代码或仓库。**
@@ -185,11 +185,14 @@ module.exports = {
 | 功能 | 接口 | 展示 |
 |------|------|------|
 | 非遗知识解答 | `/api/chat` | 文本气泡（200-500字） |
+| 关键词非遗故事 | `/api/chat`（`intent: story` 或含「故事/传说」等词） | 文本气泡（300-800字） |
 | 体验路线规划 | `/api/route` | `route-card` 卡片组件 |
+| 拍照非遗识别 | `/api/recognize` | `recognize-card` 卡片 + 用户图片气泡 |
+| 上传图片提问 | `/api/chat` + `imageBase64` | 用户图片气泡 + 文本回复 |
 | 开局引导上下文 | 自动注入 userContext | 聊天页顶部提示条 |
 | 快捷提问 | 5 条默认 chips | 需求文档指定文案 |
 
-**意图识别**：含「路线、规划、小时、亲子」等关键词，或点击「推荐体验路线」，自动调用 `/api/route`。
+**意图识别**：含「路线、规划、小时、亲子」等关键词，或点击「推荐体验路线」，自动调用 `/api/route`；含「故事、传说、典故、讲讲」或点击「讲个非遗故事」，`/api/chat` 切换为故事生成模式。
 
 ---
 
@@ -199,7 +202,7 @@ module.exports = {
 |------|------|
 | `SILICONFLOW_API_KEY` | 硅基流动 API Key（必填） |
 | `PORT` | 服务端口，默认 3000 |
-| `SILICONFLOW_MODEL` | 默认 `deepseek-ai/DeepSeek-R1-0528-Qwen3-8B` |
+| `SILICONFLOW_MODEL` | 默认 `nex-agi/Nex-N2-Pro` |
 | `CORS_ORIGIN` | 跨域来源，开发可用 `*` |
 
 ---
@@ -259,7 +262,17 @@ baseUrl: 'http://127.0.0.1:3000'   // 电脑模拟器
 
 **日常开发只需**：`cd server` → `npm run dev`，无需再复制 `.env`。
 
-### 「AI 服务暂时不可用，请稍后重试」
+### 「routeDone with a webviewId is not found」
+
+**原因**：多为微信开发者工具 / 基础库（3.15+）的路由监控上报，或页面跳转过快（连点返回、返回时仍有异步请求）。
+
+**处理**：
+
+1. **若功能正常**：可忽略，或尝试降低调试基础库版本（如 3.5.x）
+2. **若页面卡死**：重新编译；避免连点返回；从首页重新进入 AI 助手
+3. 本项目已对 AI 助手页 `goBack` 做防抖，并避免 `navigateBack` 失败后再 `switchTab` 的重复跳转
+
+---
 
 **原因**：小程序已连上本地后端，但 **SiliconFlow 上游 API 调用失败**（不是网络断开）。
 
