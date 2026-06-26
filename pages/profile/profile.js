@@ -71,7 +71,7 @@ Page({
   },
 
   goFavorite() {
-    wx.switchTab({ url: '/pages/favorite/favorite' });
+    wx.navigateTo({ url: '/pages/favorite/favorite' });
   },
 
   goHistory() {
@@ -91,7 +91,7 @@ Page({
   },
 
   goMyExperience() {
-    wx.navigateTo({ url: '/pages/experience-history/experience-history' });
+    wx.navigateTo({ url: '/pages/my-reservation/my-reservation' });
   },
 
   goFeedback() {

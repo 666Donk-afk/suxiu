@@ -1,0 +1,4 @@
+<view class="page-deco">
+  <view class="deco deco-glow-top"></view>
+  <view class="deco deco-glow-bottom"></view>
+</view>

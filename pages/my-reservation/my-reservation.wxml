@@ -1,0 +1,62 @@
+<view class="page page-fade-in safe-bottom">
+  <view class="page-head">
+    <text class="page-title title-serif">{{displayCity}}</text>
+    <text class="page-sub">{{pageSubtitle}}</text>
+  </view>
+
+  <view class="section">
+    <view class="section-label">
+      <text class="label-icon">记</text>
+      <text>{{i18n.myRecords}}</text>
+    </view>
+
+    <view wx:if="{{records.length}}" class="record-list">
+      <view wx:for="{{records}}" wx:key="experienceId" class="record-card card tap-active">
+        <view class="record-main" data-id="{{item.experienceId}}" bindtap="goGuide">
+          <image class="record-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+          <view class="record-body">
+            <text class="record-name title-serif ellipsis">{{item.title}}</text>
+            <text class="record-meta">{{i18n.viewedAt}} · {{item.viewedAtText}}</text>
+            <text class="record-heritage tap-active" data-id="{{item.heritageId}}" catchtap="goHeritage">
+              {{i18n.heritage}}：{{item.heritageName}}
+            </text>
+          </view>
+        </view>
+        <text class="record-remove tap-active" data-id="{{item.experienceId}}" catchtap="onRemove">{{i18n.remove}}</text>
+      </view>
+    </view>
+
+    <view wx:else class="empty-box">
+      <text class="empty-text">{{i18n.recordsEmpty}}</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-label">
+      <text class="label-icon">约</text>
+      <text>{{i18n.availableTitle}}</text>
+    </view>
+
+    <view wx:if="{{availableList.length}}" class="available-list">
+      <view
+        wx:for="{{availableList}}"
+        wx:key="id"
+        class="available-card card tap-active"
+        data-id="{{item.id}}"
+        bindtap="goGuide"
+      >
+        <image class="available-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+        <view class="available-body">
+          <text class="available-name title-serif ellipsis">{{item.title}}</text>
+          <text class="available-meta ellipsis">{{item.location}}</text>
+          <text class="available-desc ellipsis-2">{{item.description}}</text>
+          <text class="available-action">{{i18n.bookNow}} ›</text>
+        </view>
+      </view>
+    </view>
+
+    <view wx:else class="empty-box">
+      <text class="empty-text">{{i18n.availableEmpty}}</text>
+    </view>
+  </view>
+</view>

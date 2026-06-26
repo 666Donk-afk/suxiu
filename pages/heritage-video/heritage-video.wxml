@@ -1,0 +1,8 @@
+<view class="page">
+  <web-view wx:if="{{pageUrl && !loadFailed}}" src="{{pageUrl}}" binderror="onWebError" />
+  <view wx:else class="fallback">
+    <text class="fallback-title">{{pageTitle}}</text>
+    <text class="fallback-tip">无法在小程序内直接播放，可复制链接在浏览器中打开观看。</text>
+    <view class="fallback-btn tap-active" bindtap="copyLink">复制视频链接</view>
+  </view>
+</view>

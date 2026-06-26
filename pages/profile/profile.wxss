@@ -1,11 +1,11 @@
 .page {
   min-height: 100vh;
-  background: #FEF9F3;
+  background: transparent;
 }
 
 .profile-header {
   position: relative;
-  background: linear-gradient(135deg, #A0301F 0%, #D32F2F 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   padding: calc(env(safe-area-inset-top) + 60rpx) 32rpx 80rpx;
   overflow: hidden;
 }

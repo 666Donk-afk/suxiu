@@ -7,7 +7,7 @@
     data-index="{{index}}"
     bindtap="switchTab"
   >
-    <view class="tab-icon icon-{{item.icon}} {{selected === index ? 'icon-active' : ''}}"></view>
+    <image class="tab-icon" src="{{item.iconImage}}" mode="aspectFit" />
     <text class="tab-text">{{item.text}}</text>
   </view>
 </view>

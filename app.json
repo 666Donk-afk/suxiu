@@ -6,32 +6,36 @@
     "pages/onboarding/onboarding",
     "pages/login/login",
     "pages/index/index",
+    "pages/heritage/heritage",
+    "pages/yunyou/yunyou",
+    "pages/profile/profile",
     "pages/city/city",
     "pages/favorite/favorite",
-    "pages/profile/profile",
     "pages/city-detail/city-detail",
     "pages/heritage-detail/heritage-detail",
+    "pages/heritage-video/heritage-video",
     "pages/search/search",
     "pages/history/history",
     "pages/about/about",
     "pages/feedback/feedback",
     "pages/agreement/agreement",
     "pages/experience-guide/experience-guide",
+    "pages/my-reservation/my-reservation",
     "pages/experience-history/experience-history",
     "pages/ai-guide/ai-guide"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#A0301F",
+    "navigationBarBackgroundColor": "#9E2B25",
     "navigationBarTitleText": "非遗寻迹",
     "navigationBarTextStyle": "white",
-    "backgroundColor": "#FFF9F0",
+    "backgroundColor": "#F5DCC0",
     "backgroundTextStyle": "dark"
   },
   "tabBar": {
     "custom": true,
-    "color": "#999999",
-    "selectedColor": "#A0301F",
-    "backgroundColor": "#FFFFFF",
+    "color": "#8A7968",
+    "selectedColor": "#9E2B25",
+    "backgroundColor": "#FFFCF7",
     "borderStyle": "white",
     "list": [
       {
@@ -39,12 +43,12 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/city/city",
-        "text": "城市"
+        "pagePath": "pages/heritage/heritage",
+        "text": "非遗"
       },
       {
-        "pagePath": "pages/favorite/favorite",
-        "text": "收藏"
+        "pagePath": "pages/yunyou/yunyou",
+        "text": "城市"
       },
       {
         "pagePath": "pages/profile/profile",
@@ -66,10 +70,6 @@
     }
   ],
   "preloadRule": {
-    "pages/index/index": {
-      "network": "all",
-      "packages": ["mediaA"]
-    },
     "pages/heritage-detail/heritage-detail": {
       "network": "all",
       "packages": ["mediaA", "mediaB"]

@@ -36,7 +36,7 @@
 
   color: #fff;
 
-  background: linear-gradient(135deg, #A0301F, #B34D2E);
+  background: linear-gradient(135deg, var(--color-primary, #9E2B25), var(--color-primary-dark, #7A201C));
 
   border-radius: 999rpx;
 

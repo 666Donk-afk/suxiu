@@ -1,4 +1,5 @@
 ﻿const { getHeritageById, getRecommendations } = require('../../data/heritages');
+const { getInheritorProfilesByHeritageId } = require('../../data/inheritors');
 const { getExperiencesByHeritageId } = require('../../data/experience.js');
 const storage = require('../../utils/storage');
 const { ensureLoggedIn } = require('../../utils/auth');
@@ -13,6 +14,7 @@ Page({
     expanded: false,
     recommendations: [],
     experiences: [],
+    inheritors: [],
     likeCount: 0,
     statusBarHeight: 20,
     i18n: {},
@@ -44,9 +46,10 @@ Page({
         overview: t('heritageDetail.overview'),
         origin: t('heritageDetail.origin'),
         history: t('heritageDetail.history'),
-        story: t('heritageDetail.story'),
-        meaning: t('heritageDetail.meaning'),
-        inheritance: t('heritageDetail.inheritance'),
+    story: t('heritageDetail.story'),
+    meaning: t('heritageDetail.meaning'),
+    inheritorsTitle: t('heritageDetail.inheritorsTitle'),
+    inheritance: t('heritageDetail.inheritance'),
         masters: t('heritageDetail.masters'),
         methods: t('heritageDetail.methods'),
         development: t('heritageDetail.development'),
@@ -59,6 +62,9 @@ Page({
         reservation: t('heritageDetail.reservation'),
         reservationAvailable: t('heritageDetail.reservationAvailable'),
         bookNow: t('heritageDetail.bookNow'),
+        videoTitle: t('heritageDetail.videoTitle'),
+        watchVideo: t('heritageDetail.watchVideo'),
+        copyVideoLink: t('heritageDetail.copyVideoLink'),
         recommend: t('heritageDetail.recommend'),
         expand: t('common.expand'),
         collapse: t('common.collapse')
@@ -92,6 +98,7 @@ Page({
         : '';
 
     const experiences = getExperiencesByHeritageId(id, locale);
+    const inheritors = getInheritorProfilesByHeritageId(id, locale);
     const recommendations = getRecommendations(heritage.recommendations || [], locale)
       .slice(0, 5)
       .map(h => toHeritageListItem(h));
@@ -110,6 +117,7 @@ Page({
       history: heritage.history,
       gallery: heritage.gallery,
       materials: heritage.materials || '',
+      video: heritage.video || null,
       inheritance: heritage.inheritance
         ? { ...heritage.inheritance, mastersText }
         : null,
@@ -123,6 +131,7 @@ Page({
       heritage: base,
       favorited: storage.isFavorite(id),
       experiences,
+      inheritors,
       recommendations,
       likeCount: fakeLikeCount(id),
       expanded: false
@@ -154,6 +163,23 @@ Page({
 
   toggleExpand() {
     this.setData({ expanded: !this.data.expanded });
+  },
+
+  playVideo() {
+    const video = this.data.heritage && this.data.heritage.video;
+    if (!video || !video.url) return;
+    wx.navigateTo({
+      url: `/pages/heritage-video/heritage-video?url=${encodeURIComponent(video.url)}&title=${encodeURIComponent(video.title || this.data.heritage.name)}`
+    });
+  },
+
+  copyVideoLink() {
+    const video = this.data.heritage && this.data.heritage.video;
+    if (!video || !video.url) return;
+    wx.setClipboardData({
+      data: video.url,
+      success: () => wx.showToast({ title: t('heritageDetail.linkCopied'), icon: 'none' })
+    });
   },
 
   previewImage(e) {

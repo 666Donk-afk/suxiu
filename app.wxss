@@ -1,20 +1,26 @@
-/** 非遗寻迹 - 全局视觉规范（继承参考图设计语言） */
+/** 非遗寻迹 - 中国风视觉规范（宣纸 · 朱砂 · 墨色） */
 
 page {
-  --color-primary: #A0301F;
-  --color-primary-dark: #8B2818;
-  --color-primary-light: #B34D2E;
-  --color-accent: #E67E22;
-  --color-bg: #FFF9F0;
-  --color-bg-cream: #FDF5E6;
-  --color-bg-paper: #F9F3E7;
-  --color-card: #FFFFFF;
-  --color-text: #1A1A1A;
-  --color-text-secondary: #8B7D6B;
-  --color-text-muted: #8E8E8E;
-  --color-divider: #E8E0D0;
-  --color-tag-bg: #FDECEC;
-  --color-tag-text: #A0301F;
+  --color-primary: #9E2B25;
+  --color-primary-dark: #7A201C;
+  --color-primary-light: #C14E42;
+  --color-accent: #A67C3D;
+  --color-accent-light: #D4B896;
+  --color-bg-top: #F5DCC0;
+  --color-bg-bottom: #FFFFFF;
+  --color-bg: #F5DCC0;
+  --app-bg-gradient: linear-gradient(180deg, #F5DCC0 0%, #FFF5E8 50%, #FFFFFF 100%);
+  --color-bg-cream: #FBF0E0;
+  --color-bg-paper: #F5E5CE;
+  --color-card: #FFFBF5;
+  --color-text: #2C2418;
+  --color-text-secondary: #6B5A48;
+  --color-text-muted: #8A7968;
+  --color-text-body: #50463C;
+  --color-divider: rgba(44, 36, 24, 0.1);
+  --color-border: rgba(158, 43, 37, 0.12);
+  --color-tag-bg: rgba(158, 43, 37, 0.08);
+  --color-tag-text: #9E2B25;
   --color-white: #FFFFFF;
 
   --font-serif: "Songti SC", "STSong", "SimSun", serif;
@@ -26,23 +32,23 @@ page {
   --radius-xl: 40rpx;
   --radius-pill: 999rpx;
 
-  --shadow-card: 0 4rpx 24rpx rgba(160, 48, 31, 0.06);
-  --shadow-soft: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 8rpx 32rpx rgba(44, 36, 24, 0.06);
+  --shadow-soft: 0 2rpx 16rpx rgba(44, 36, 24, 0.04);
 
   --spacing-page: 32rpx;
   --spacing-section: 40rpx;
   --spacing-card: 24rpx;
-  --spacing-card-gap: 48rpx; /* 卡片间距，项目之间留白 */
-  --spacing-section-head-gap: 72rpx; /* 区块标题 → 首卡，大于卡片间距 */
+  --spacing-card-gap: 48rpx;
+  --spacing-section-head-gap: 72rpx;
 
   --duration-fast: 200ms;
   --duration-normal: 300ms;
 
-  background-color: var(--color-bg);
+  background: var(--app-bg-gradient);
   color: var(--color-text);
   font-family: var(--font-serif);
   font-size: 28rpx;
-  line-height: 1.5;
+  line-height: 1.6;
   box-sizing: border-box;
 }
 
@@ -64,7 +70,7 @@ view, text, image, scroll-view {
 /* 标题 - 宋体/衬线 */
 .title-serif {
   font-family: var(--font-serif);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-text);
 }
 
@@ -127,10 +133,11 @@ view, text, image, scroll-view {
   color: var(--color-text);
 }
 
-/* 内容面板 - 白色圆角底色，用于信息分层 */
+/* 内容面板 */
 .panel-card {
   background: var(--color-card);
   border-radius: var(--radius-lg);
+  border: 1rpx solid var(--color-border);
   box-shadow: var(--shadow-card);
   padding: 28rpx 32rpx;
 }
@@ -139,6 +146,7 @@ view, text, image, scroll-view {
 .card {
   background: var(--color-card);
   border-radius: var(--radius-md);
+  border: 1rpx solid var(--color-border);
   box-shadow: var(--shadow-card);
   overflow: hidden;
 }
@@ -156,6 +164,7 @@ view, text, image, scroll-view {
   align-items: center;
   font-size: 32rpx;
   font-weight: 700;
+  color: var(--color-text);
   margin-bottom: 20rpx;
 }
 
@@ -163,7 +172,7 @@ view, text, image, scroll-view {
   content: '';
   width: 6rpx;
   height: 28rpx;
-  background: var(--color-primary);
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   border-radius: 3rpx;
   margin-right: 12rpx;
 }
@@ -185,7 +194,7 @@ view, text, image, scroll-view {
 
 .section-count {
   font-size: 26rpx;
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
 }
 
 /* 非遗列表 - 卡片之间用 gap 控制间距 */
@@ -212,13 +221,33 @@ view, text, image, scroll-view {
 
 .empty-text {
   font-size: 28rpx;
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   text-align: center;
 }
 
-/* 页面淡入 */
+/* 页面暖色渐变背景（与 page 一致，用于全屏容器） */
+.app-bg-gradient {
+  background: var(--app-bg-gradient);
+}
+
+.page {
+  min-height: 100vh;
+}
+
+/* 非 v0 子页面：渐变铺满整页（随内容增高拉伸，避免滚动断层） */
+.page:not(.v0-page) {
+  background: var(--app-bg-gradient);
+  min-height: 100vh;
+}
+
+/* v0 主页面：一体简写渐变，避免与 transparent 简写冲突 */
+.page.v0-page {
+  background: var(--app-bg-gradient);
+}
+
 .page-fade-in {
-  animation: fadeIn var(--duration-normal) ease;
+  opacity: 1;
+  animation: fadeIn var(--duration-normal) ease forwards;
 }
 
 @keyframes fadeIn {

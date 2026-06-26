@@ -47,7 +47,8 @@ module.exports = {
     authDesc: '用于完善用户资料与个性化体验'
   },
   home: {
-    searchPlaceholder: '搜索城市或非遗项目',
+    searchPlaceholder: '搜索非遗与景点',
+    searchPlaceholderLegacy: '搜索城市或非遗项目',
     hotCities: '热门城市',
     hotHeritages: '热门非遗推荐',
     travelTitle: '跟着非遗去旅行',
@@ -55,6 +56,14 @@ module.exports = {
     travelRouteTitle: '跟着{name}游{place}',
     exploreRoute: '探索路线',
     categoryTitle: '非遗分类',
+    heroTitle: '黄鹤遗韵',
+    heroTagline: '登楼望江，听见千年楚韵',
+    heroTitleFallback: '{city} · 非遗',
+    heroTaglineFallback: '探索本土非遗文化',
+    todayTitle: '今日推荐',
+    todaySubtitle: '拾取楚地文化碎片',
+    todayLegend: '一个传说',
+    todayHeritage: '一个非遗',
     banner1: '湖北非遗 · 汉剧',
     banner2: '土家族摆手舞',
     banner3: '黄梅戏 · 天仙配',
@@ -65,7 +74,42 @@ module.exports = {
     cityComingSoon: '该城市内容即将上线，先看看湖北非遗吧',
     forYou: '为你推荐',
     mascotLabel: 'AI非遗助手',
-    mascotHint: '问我非遗知识或体验路线'
+    mascotHint: '问我非遗知识或体验路线',
+    representativeTitle: '代表性非遗',
+    representativeSubtitle: '领略{city}非遗魅力',
+    inheritorsTitle: '非遗代表人',
+    viewMoreHeritage: '查看更多',
+    features: {
+      reservation: '我的预约',
+      museum: '非遗展馆',
+      guide: 'AI导览',
+      tour: '云游导览',
+      market: '文创市集',
+      study: '研学任务',
+      service: '景区服务',
+      food: '特色美食'
+    },
+    featureComingSoon: '功能即将上线'
+  },
+  heritagePage: {
+    title: '非遗记忆',
+    subtitle: '薪火相传 楚风遗韵',
+    featuredTitle: '本期重点推荐',
+    inheritorsTitle: '代表性传承人',
+    viewMore: '查看更多',
+    encyclopediaTitle: '非遗图鉴',
+    nationalMaster: '国家级传承人',
+    all: '全部',
+    playHint: '点击了解详情',
+    duration: '12:45'
+  },
+  yunyouPage: {
+    title: '云游导览',
+    subtitle: '跟着非遗去旅行',
+    hotCities: '热门目的地',
+    travelRoutes: '体验路线',
+    aiGuide: 'AI 规划路线',
+    cityIndex: '城市选择'
   },
   aiGuide: {
     title: 'AI非遗助手',
@@ -236,6 +280,7 @@ module.exports = {
     origin: '文化起源',
     history: '历史来由',
     story: '故事介绍',
+    inheritorsTitle: '非遗代表人介绍',
     meaning: '非遗寓意',
     materials: '非遗材料',
     inheritance: '传承现状',
@@ -253,7 +298,11 @@ module.exports = {
     openTime: '开放时间',
     reservation: '官方预约',
     reservationAvailable: '支持预约',
-    bookNow: '立即预约'
+    bookNow: '立即预约',
+    videoTitle: '非遗影像',
+    watchVideo: '观看视频',
+    copyVideoLink: '复制链接',
+    linkCopied: '链接已复制'
   },
   experience: {
     guideTitle: '官方预约引导',
@@ -289,6 +338,21 @@ module.exports = {
     confirmTitle: '删除记录',
     confirmContent: '确定删除这条体验记录吗？'
   },
+  myReservation: {
+    title: '我的预约',
+    subtitle: '{city} · 非遗体验预约',
+    myRecords: '预约记录',
+    recordsEmpty: '暂无预约记录，去看看同城可预约项目吧',
+    availableTitle: '同城可预约',
+    availableEmpty: '该城市暂无可预约体验，可先浏览其他城市的非遗项目',
+    bookNow: '去预约',
+    viewedAt: '最近查看',
+    heritage: '关联非遗',
+    remove: '删除',
+    confirmTitle: '删除记录',
+    confirmContent: '确定删除这条预约记录吗？',
+    deleted: '已删除'
+  },
   history: {
     clear: '清空历史',
     empty: '暂无浏览记录',
@@ -311,7 +375,7 @@ module.exports = {
     feedback: '意见反馈',
     about: '关于我们',
     language: '语言设置',
-    myExperience: '我的体验',
+    myExperience: '我的预约',
     loginTitle: '登录后可用',
     loginForHistory: '浏览历史需要登录后同步，是否前往登录？',
     goLogin: '去登录'
@@ -339,9 +403,11 @@ module.exports = {
   },
   tabBar: {
     home: '首页',
+    heritage: '非遗',
+    yunyou: '云游',
+    profile: '我的',
     city: '城市',
-    favorite: '收藏',
-    profile: '我的'
+    favorite: '收藏'
   },
   auth: {
     loginRequired: '登录后可用',

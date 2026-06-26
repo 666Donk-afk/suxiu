@@ -47,7 +47,8 @@ module.exports = {
     authDesc: 'Used to personalize your experience'
   },
   home: {
-    searchPlaceholder: 'Search cities or heritage',
+    searchPlaceholder: 'Search heritage & sights',
+    searchPlaceholderLegacy: 'Search cities or heritage',
     hotCities: 'Popular Cities',
     hotHeritages: 'Featured Heritage',
     travelTitle: 'Travel with Heritage',
@@ -55,6 +56,14 @@ module.exports = {
     travelRouteTitle: 'Explore {place} through {name}',
     exploreRoute: 'Explore route',
     categoryTitle: 'Heritage Categories',
+    heroTitle: 'Yellow Crane Heritage',
+    heroTagline: 'Climb the tower, hear a thousand years of Chu',
+    heroTitleFallback: '{city} · Heritage',
+    heroTaglineFallback: 'Discover local intangible heritage',
+    todayTitle: 'Today\'s Picks',
+    todaySubtitle: 'Fragments of Chu culture',
+    todayLegend: 'A Legend',
+    todayHeritage: 'Heritage',
     banner1: 'Hubei Heritage · Han Opera',
     banner2: 'Tujia Hand-waving Dance',
     banner3: 'Huangmei Opera',
@@ -65,7 +74,38 @@ module.exports = {
     cityComingSoon: 'Content for this city is coming soon. Explore Hubei heritage first.',
     forYou: 'For You',
     mascotLabel: 'AI Guide Xiao Yi',
-    mascotHint: 'Ask about heritage, cities, or travel routes'
+    mascotHint: 'Ask about heritage, cities, or travel routes',
+    representativeTitle: 'Signature Heritage',
+    representativeSubtitle: 'Discover heritage in {city}',
+    inheritorsTitle: 'Master Inheritors',
+    viewMoreHeritage: 'View more',
+    features: {
+      reservation: 'My Bookings',
+      museum: 'Heritage Hall',
+      guide: 'AI Guide',
+      tour: 'Cloud Tour',
+    },
+    featureComingSoon: 'Coming soon'
+  },
+  heritagePage: {
+    title: 'Heritage Memory',
+    subtitle: 'Passing the torch of Chu culture',
+    featuredTitle: 'Featured This Issue',
+    inheritorsTitle: 'Master Inheritors',
+    viewMore: 'View more',
+    encyclopediaTitle: 'Heritage Guide',
+    nationalMaster: 'National Inheritor',
+    all: 'All',
+    playHint: 'Tap for details',
+    duration: '12:45'
+  },
+  yunyouPage: {
+    title: 'Cloud Tour',
+    subtitle: 'Travel with intangible heritage',
+    hotCities: 'Popular Destinations',
+    travelRoutes: 'Experience Routes',
+    aiGuide: 'AI Route Planner',
+    cityIndex: 'City Index'
   },
   aiGuide: {
     title: 'AI Heritage Assistant',
@@ -236,6 +276,7 @@ module.exports = {
     origin: 'Cultural Origins',
     history: 'Historical Background',
     story: 'Stories',
+    inheritorsTitle: 'Master Inheritors',
     meaning: 'Cultural Meaning',
     materials: 'Materials',
     inheritance: 'Inheritance Status',
@@ -253,7 +294,11 @@ module.exports = {
     openTime: 'Opening Hours',
     reservation: 'Official Booking',
     reservationAvailable: 'Booking Available',
-    bookNow: 'Book Now'
+    bookNow: 'Book Now',
+    videoTitle: 'Heritage Video',
+    watchVideo: 'Watch Video',
+    copyVideoLink: 'Copy Link',
+    linkCopied: 'Link copied'
   },
   experience: {
     guideTitle: 'Official Booking Guide',
@@ -289,6 +334,21 @@ module.exports = {
     confirmTitle: 'Delete Record',
     confirmContent: 'Remove this experience record?'
   },
+  myReservation: {
+    title: 'My Bookings',
+    subtitle: '{city} · Heritage experience booking',
+    myRecords: 'Booking History',
+    recordsEmpty: 'No bookings yet. Explore experiences in this city.',
+    availableTitle: 'Available in City',
+    availableEmpty: 'No bookable experiences in this city yet.',
+    bookNow: 'Book Now',
+    viewedAt: 'Last viewed',
+    heritage: 'Heritage',
+    remove: 'Delete',
+    confirmTitle: 'Delete Record',
+    confirmContent: 'Remove this booking record?',
+    deleted: 'Deleted'
+  },
   history: {
     clear: 'Clear History',
     empty: 'No browsing history yet',
@@ -311,7 +371,7 @@ module.exports = {
     feedback: 'Feedback',
     about: 'About Us',
     language: 'Language',
-    myExperience: 'My Experiences',
+    myExperience: 'My Bookings',
     loginTitle: 'Sign in required',
     loginForHistory: 'Sign in to sync browsing history. Go to login?',
     goLogin: 'Sign In'
@@ -339,9 +399,11 @@ module.exports = {
   },
   tabBar: {
     home: 'Home',
+    heritage: 'Heritage',
+    yunyou: 'Tour',
+    profile: 'Me',
     city: 'Cities',
-    favorite: 'Saved',
-    profile: 'Me'
+    favorite: 'Saved'
   },
   auth: {
     loginRequired: 'Sign in required',

@@ -26,6 +26,7 @@
     "es6": true,
     "postcss": true,
     "compileHotReLoad": false,
+    "useStaticServer": true,
     "lazyloadPlaceholderEnable": false,
     "preloadBackgroundData": false,
     "minified": true,

@@ -2,6 +2,7 @@
  * 非遗数据 - 列表缓存 + 详情按需加载
  */
 const listData = require('./heritage-list.js');
+const videoMap = require('./heritage-videos.js');
 const enData = require('./heritage-i18n-en.js');
 const { pickLocale } = require('../i18n/locale-field.js');
 const { getLocale, t } = require('../i18n.js');
@@ -112,7 +113,8 @@ function buildDetailItem(item, index, locale) {
     materials: loc === 'en-US' && en.materials !== undefined ? en.materials : (detail.materials || ''),
     inheritance,
     gallery: [item.cover],
-    recommendations: computeRecommendations(index)
+    recommendations: computeRecommendations(index),
+    video: videoMap[slug] || null
   };
 }
 

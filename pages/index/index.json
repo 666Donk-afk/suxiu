@@ -1,7 +1,7 @@
 {
   "navigationStyle": "custom",
   "usingComponents": {
-    "heritage-card": "/components/heritage-card/heritage-card",
-    "guide-mascot": "/components/guide-mascot/guide-mascot"
+    "guide-mascot": "/components/guide-mascot/guide-mascot",
+    "page-deco": "/components/page-deco/page-deco"
   }
 }

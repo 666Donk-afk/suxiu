@@ -1,0 +1,43 @@
+.page {
+  min-height: 100vh;
+  background: #000;
+}
+
+web-view {
+  width: 100%;
+  height: 100vh;
+}
+
+.fallback {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48rpx;
+  background: var(--color-bg-top, #F5DCC0);
+}
+
+.fallback-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: center;
+  margin-bottom: 24rpx;
+}
+
+.fallback-tip {
+  font-size: 26rpx;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.fallback-btn {
+  padding: 20rpx 48rpx;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 999rpx;
+  font-size: 28rpx;
+}

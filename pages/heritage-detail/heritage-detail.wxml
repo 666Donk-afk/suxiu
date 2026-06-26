@@ -37,6 +37,21 @@
       </view>
     </view>
 
+    <view class="section-card card" wx:if="{{heritage.video}}">
+      <text class="section-bar-title">{{i18n.videoTitle}}</text>
+      <view class="video-card tap-active" bindtap="playVideo">
+        <image class="video-poster" src="{{heritage.cover}}" mode="aspectFill" lazy-load />
+        <view class="video-play-mask">
+          <view class="video-play-btn">▶</view>
+        </view>
+      </view>
+      <text class="video-title ellipsis-2">{{heritage.video.title}}</text>
+      <view class="video-actions">
+        <text class="video-action tap-active" bindtap="playVideo">{{i18n.watchVideo}}</text>
+        <text class="video-action secondary tap-active" bindtap="copyVideoLink">{{i18n.copyVideoLink}}</text>
+      </view>
+    </view>
+
     <view class="section-card card">
       <text class="section-bar-title">{{i18n.overview}}</text>
       <text class="body-text {{expanded ? '' : 'ellipsis-3'}}">{{heritage.summary}}。{{heritage.origin}}</text>
@@ -59,6 +74,20 @@
     <view class="section-card card" wx:if="{{heritage.story}}">
       <text class="section-bar-title">{{i18n.story}}</text>
       <text class="body-text">{{heritage.story}}</text>
+    </view>
+
+    <view class="section-card card" wx:if="{{inheritors.length}}">
+      <text class="section-bar-title">{{i18n.inheritorsTitle}}</text>
+      <view wx:for="{{inheritors}}" wx:key="id" class="master-card {{index < inheritors.length - 1 ? 'master-card-border' : ''}}">
+        <image class="master-avatar" src="{{item.cover}}" mode="aspectFill" lazy-load />
+        <view class="master-body">
+          <view class="master-head">
+            <text class="master-name title-serif">{{item.name}}</text>
+            <text class="tag-pill tag-level master-tag">{{item.level}}</text>
+          </view>
+          <text class="master-intro">{{item.intro}}</text>
+        </view>
+      </view>
     </view>
 
     <view class="section-card card" wx:if="{{heritage.meaning}}">

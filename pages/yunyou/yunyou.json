@@ -1,0 +1,6 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "page-deco": "/components/page-deco/page-deco"
+  }
+}

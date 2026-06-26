@@ -1,6 +1,5 @@
 .page {
   min-height: 100vh;
-  background: #F9F3E7;
   padding-bottom: 40rpx;
 }
 
@@ -40,7 +39,7 @@
 
 .content-card {
   margin-top: -60rpx;
-  background: #F9F3E7;
+  background: var(--color-bg-paper);
   border-radius: 40rpx 40rpx 0 0;
   padding: 40rpx 32rpx;
   position: relative;

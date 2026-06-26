@@ -13,10 +13,10 @@ Component({
       const { t } = require('../i18n.js');
       this.setData({
         list: [
-          { pagePath: 'pages/index/index', text: t('tabBar.home'), icon: 'home' },
-          { pagePath: 'pages/city/city', text: t('tabBar.city'), icon: 'city' },
-          { pagePath: 'pages/favorite/favorite', text: t('tabBar.favorite'), icon: 'heart' },
-          { pagePath: 'pages/profile/profile', text: t('tabBar.profile'), icon: 'user' }
+          { pagePath: 'pages/index/index', text: t('tabBar.home'), iconImage: '/images/tab/tab-home.png' },
+          { pagePath: 'pages/heritage/heritage', text: t('tabBar.heritage'), iconImage: '/images/tab/tab-heritage.png' },
+          { pagePath: 'pages/yunyou/yunyou', text: t('tabBar.city'), iconImage: '/images/tab/tab-city.png' },
+          { pagePath: 'pages/profile/profile', text: t('tabBar.profile'), iconImage: '/images/tab/tab-profile.png' }
         ]
       });
     },

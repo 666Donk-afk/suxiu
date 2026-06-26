@@ -1,0 +1,60 @@
+<view class="page v0-page safe-bottom">
+  <page-deco />
+  <view class="page-body">
+  <view class="v0-header" style="padding-top: {{navPaddingTop}}px;">
+    <text class="page-title title-serif">{{displayCity}}</text>
+    <text class="page-sub">{{i18n.subtitle}}</text>
+  </view>
+
+  <view class="ai-banner tap-active" bindtap="goAiGuide">
+    <text class="ai-banner-title">{{i18n.aiGuide}}</text>
+    <text class="ai-banner-arrow">›</text>
+  </view>
+
+  <view class="section">
+    <view class="section-label">
+      <text class="label-icon">山</text>
+      <text>{{i18n.hotCities}}</text>
+    </view>
+    <scroll-view scroll-x class="city-scroll" enable-flex>
+      <view class="city-row">
+        <view
+          wx:for="{{hotCities}}"
+          wx:key="id"
+          class="city-card tap-active"
+          data-id="{{item.id}}"
+          bindtap="goCity"
+        >
+          <image class="city-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+          <text class="city-name title-serif">{{item.name}}</text>
+        </view>
+      </view>
+    </scroll-view>
+    <text class="city-index-link tap-active" bindtap="goCityIndex">{{i18n.cityIndex}} ›</text>
+  </view>
+
+  <view class="section">
+    <view class="section-label">
+      <text class="label-icon">路</text>
+      <text>{{i18n.travelRoutes}}</text>
+    </view>
+    <view class="route-list">
+      <view
+        wx:for="{{travelRoutes}}"
+        wx:key="id"
+        class="route-card tap-active"
+        data-id="{{item.heritageId}}"
+        bindtap="goRoute"
+      >
+        <image class="route-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+        <view class="route-body">
+          <text class="route-title title-serif ellipsis">{{item.title}}</text>
+          <text class="route-desc">{{item.desc}}</text>
+          <text class="route-link">{{i18n.exploreRoute}}</text>
+        </view>
+        <text class="route-arrow">›</text>
+      </view>
+    </view>
+  </view>
+  </view>
+</view>

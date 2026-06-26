@@ -1,0 +1,305 @@
+/** v0 UI - 中国风非遗主题 */
+.v0-page {
+  position: relative;
+  min-height: 100vh;
+}
+
+.v0-page .page-body {
+  position: relative;
+  z-index: 1;
+}
+
+.v0-header {
+  padding: 16rpx 32rpx 12rpx;
+}
+
+.header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.page-title {
+  display: block;
+  font-size: 44rpx;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 2rpx;
+}
+
+.page-sub {
+  display: block;
+  font-size: 24rpx;
+  color: var(--color-text-secondary);
+  margin-top: 8rpx;
+  letter-spacing: 1rpx;
+}
+
+.section {
+  padding: 0 32rpx 32rpx;
+}
+
+/* 顶部定位 */
+.location-row {
+  display: flex;
+  align-items: center;
+  padding: 8rpx 32rpx 16rpx;
+  gap: 10rpx;
+}
+
+.location-pin {
+  width: 32rpx;
+  height: 32rpx;
+  flex-shrink: 0;
+}
+
+.location-text {
+  font-size: 30rpx;
+  color: var(--color-text);
+  font-weight: 700;
+  letter-spacing: 2rpx;
+}
+
+/* 搜索栏 */
+.v0-search {
+  display: flex;
+  align-items: center;
+  margin: 0 32rpx 28rpx;
+  padding: 22rpx 32rpx;
+  background: var(--color-card);
+  border-radius: 999rpx;
+  border: 1rpx solid var(--color-border);
+  box-shadow: var(--shadow-soft);
+}
+
+.v0-search-icon {
+  font-size: 30rpx;
+  color: var(--color-primary);
+  margin-right: 14rpx;
+}
+
+.v0-search-placeholder {
+  font-size: 26rpx;
+  color: var(--color-text-muted);
+}
+
+/* Hero 横幅 */
+.hero-card {
+  position: relative;
+  margin: 0 32rpx 32rpx;
+  height: 340rpx;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1rpx solid rgba(255, 255, 255, 0.25);
+  box-shadow: var(--shadow-card);
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, rgba(44, 36, 24, 0.72) 0%, rgba(44, 36, 24, 0.15) 55%, transparent 100%),
+    linear-gradient(90deg, rgba(44, 36, 24, 0.35) 0%, transparent 60%);
+}
+
+.hero-content {
+  position: absolute;
+  left: 32rpx;
+  bottom: 32rpx;
+  right: 32rpx;
+}
+
+.hero-title {
+  display: block;
+  font-size: 52rpx;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16rpx;
+  letter-spacing: 6rpx;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.25);
+}
+
+.hero-tag {
+  display: inline-block;
+  padding: 10rpx 20rpx;
+  background: rgba(158, 43, 37, 0.92);
+  color: #fff;
+  font-size: 22rpx;
+  border-radius: 8rpx;
+  border: 1rpx solid rgba(212, 184, 150, 0.35);
+  letter-spacing: 1rpx;
+}
+
+/* 功能宫格（1×4） */
+.feature-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 0 32rpx 36rpx;
+  padding: 32rpx 16rpx 28rpx;
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  border: 1rpx solid var(--color-border);
+  box-shadow: var(--shadow-card);
+}
+
+.feature-item {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8rpx 0;
+}
+
+.feature-icon-wrap {
+  width: 112rpx;
+  height: 112rpx;
+  margin-bottom: 16rpx;
+}
+
+.feature-icon-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.feature-label {
+  font-size: 24rpx;
+  color: var(--color-text-body);
+  text-align: center;
+  letter-spacing: 1rpx;
+  line-height: 1.4;
+}
+
+/* 今日推荐 */
+.today-section {
+  margin-bottom: 8rpx;
+}
+
+.today-header {
+  padding: 0 32rpx;
+  margin-bottom: 24rpx;
+}
+
+.title-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+
+.title-bar-mark {
+  width: 6rpx;
+  height: 32rpx;
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  border-radius: 3rpx;
+  margin-right: 14rpx;
+  flex-shrink: 0;
+}
+
+.today-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 2rpx;
+}
+
+.today-sub {
+  display: block;
+  padding-left: 20rpx;
+  font-size: 24rpx;
+  color: var(--color-text-secondary);
+  letter-spacing: 1rpx;
+}
+
+.today-tabs {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 0 32rpx 28rpx;
+}
+
+.today-tab {
+  padding: 12rpx 28rpx;
+  font-size: 24rpx;
+  color: var(--color-text-secondary);
+  background: var(--color-card);
+  border: 1rpx solid var(--color-border);
+  border-radius: 999rpx;
+}
+
+.today-tab.active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  border-color: transparent;
+  font-weight: 700;
+  box-shadow: 0 4rpx 12rpx rgba(158, 43, 37, 0.25);
+}
+
+/* 推荐卡片 */
+.recommend-scroll {
+  white-space: nowrap;
+  padding: 0 32rpx 40rpx;
+}
+
+.recommend-row {
+  display: inline-flex;
+  gap: 24rpx;
+}
+
+.recommend-card {
+  display: inline-flex;
+  flex-direction: column;
+  width: 400rpx;
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  border: 1rpx solid var(--color-border);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  vertical-align: top;
+  white-space: normal;
+}
+
+.recommend-cover {
+  width: 400rpx;
+  height: 210rpx;
+}
+
+.recommend-body {
+  padding: 24rpx;
+}
+
+.recommend-tag {
+  display: inline-block;
+  font-size: 20rpx;
+  padding: 4rpx 14rpx;
+  border-radius: 6rpx;
+  margin-bottom: 12rpx;
+  letter-spacing: 1rpx;
+}
+
+.recommend-tag.tag-legend,
+.recommend-tag.tag-heritage,
+.recommend-tag.tag-poem {
+  background: var(--color-tag-bg);
+  color: var(--color-primary);
+  border: 1rpx solid rgba(158, 43, 37, 0.15);
+}
+
+.recommend-name {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 700;
+  margin-bottom: 10rpx;
+  color: var(--color-text);
+  letter-spacing: 1rpx;
+}
+
+.recommend-excerpt {
+  font-size: 24rpx;
+  color: var(--color-text-body);
+  line-height: 1.7;
+}

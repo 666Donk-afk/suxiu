@@ -4,6 +4,7 @@
 const RAW = require('./experience-items.js');
 const { pickLocale } = require('../i18n/locale-field.js');
 const { getLocale } = require('../i18n.js');
+const { getProvinceByCity } = require('./provinces.js');
 
 function localizeExperience(item, locale) {
   if (!item) return null;
@@ -49,10 +50,37 @@ function getAllExperiences(locale) {
   return RAW.map(e => localizeExperience(e, locale));
 }
 
+function matchCityName(cityField, needle) {
+  if (!needle) return true;
+  if (!cityField) return false;
+  return cityField === needle || cityField.includes(needle) || needle.includes(cityField);
+}
+
+function getExperiencesByCity(cityName, locale, limit) {
+  const loc = locale || getLocale();
+  const needle = (cityName || '').trim();
+  let matched = RAW.filter(item => matchCityName(pickLocale(item.city, loc), needle));
+
+  if (!matched.length && needle) {
+    const province = getProvinceByCity(needle);
+    if (province) {
+      const keys = [province.name, province.shortName].filter(Boolean);
+      matched = RAW.filter(item => {
+        const prov = pickLocale(item.province, loc);
+        return keys.some(key => prov.includes(key) || key.includes(prov));
+      });
+    }
+  }
+
+  const max = limit || 20;
+  return matched.slice(0, max).map(item => localizeExperience(item, loc));
+}
+
 module.exports = {
   getExperienceById,
   getExperiencesByHeritageId,
   getHotExperiences,
   getAllExperiences,
+  getExperiencesByCity,
   localizeExperience
 };

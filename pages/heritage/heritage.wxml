@@ -1,0 +1,93 @@
+<view class="page v0-page safe-bottom">
+  <page-deco />
+  <view class="page-body">
+  <view class="v0-header" style="padding-top: {{navPaddingTop}}px;">
+    <view class="header-row">
+      <view>
+        <text class="page-title title-serif">{{i18n.title}}</text>
+        <text class="page-sub">{{i18n.subtitle}}</text>
+      </view>
+      <text class="header-deco">香</text>
+    </view>
+  </view>
+
+  <scroll-view scroll-x class="filter-scroll" enable-flex>
+    <view class="filter-row">
+      <view
+        wx:for="{{filters}}"
+        wx:key="key"
+        class="filter-pill tap-active {{activeFilter === item.key ? 'active' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="onFilterTap"
+      >{{item.label}}</view>
+    </view>
+  </scroll-view>
+
+  <view class="section" wx:if="{{featured}}">
+    <view class="section-label">
+      <text class="label-icon">✦</text>
+      <text>{{i18n.featuredTitle}}</text>
+    </view>
+    <view class="featured-card tap-active" data-id="{{featured.id}}" bindtap="goFeatured">
+      <image class="featured-cover" src="{{featured.cover}}" mode="aspectFill" lazy-load />
+      <view class="featured-mask"></view>
+      <view class="play-btn">▶</view>
+      <view class="featured-info">
+        <text class="featured-tag">{{featured.category}}</text>
+        <text class="featured-name title-serif">{{featured.name}}</text>
+        <text class="featured-desc ellipsis-2">{{featured.summary}}</text>
+        <text class="featured-duration">{{i18n.duration}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-label-row">
+      <view class="section-label">
+        <text class="label-icon label-book">书</text>
+        <text>{{i18n.inheritorsTitle}}</text>
+      </view>
+      <text class="link-more tap-active" bindtap="goSearch">{{i18n.viewMore}}</text>
+    </view>
+    <scroll-view scroll-x class="inheritor-scroll" enable-flex>
+      <view class="inheritor-row">
+        <view
+          wx:for="{{inheritors}}"
+          wx:key="id"
+          class="inheritor-card tap-active"
+          data-id="{{item.heritageId}}"
+          bindtap="goDetail"
+        >
+          <image class="inheritor-avatar" src="{{item.cover}}" mode="aspectFill" />
+          <text class="inheritor-name">{{item.name}}</text>
+          <text class="inheritor-tag">{{item.level}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="section">
+    <view class="section-label">
+      <text class="label-icon label-book">鉴</text>
+      <text>{{i18n.encyclopediaTitle}}</text>
+    </view>
+    <view class="encyclopedia-list">
+      <view
+        wx:for="{{list}}"
+        wx:key="id"
+        class="ency-card tap-active"
+        data-id="{{item.id}}"
+        bindtap="goDetail"
+      >
+        <image class="ency-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+        <view class="ency-body">
+          <text class="ency-tag">{{item.category}}</text>
+          <text class="ency-name title-serif">{{item.name}}</text>
+          <text class="ency-level">{{item.level}}</text>
+          <text class="ency-summary ellipsis-2">{{item.summary}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  </view>
+</view>

@@ -1,119 +1,142 @@
-<view class="page page-fade-in safe-bottom">
-  <view class="nav-header" style="padding-top: {{navPaddingTop}}px;">
-    <view class="nav-inner">
-      <view class="brand">
-        <image class="logo-img nav-logo" src="/images/brand/logo.png" mode="aspectFit" />
-        <text class="brand-name title-serif">{{i18n.appName}}</text>
+<view class="page v0-page page-fade-in safe-bottom">
+  <page-deco />
+  <view class="page-body">
+  <view class="v0-header" style="padding-top: {{navPaddingTop}}px; padding-right: {{headerPaddingRight}}px;">
+    <view class="header-top-row">
+      <view class="location-row">
+        <image class="location-pin" src="/images/icons/location-pin.png" mode="aspectFit" />
+        <text class="location-text">{{displayCity}}</text>
       </view>
-      <view class="search-entry tap-active" bindtap="goSearch">
-        <text class="search-icon">⌕</text>
-        <text class="search-placeholder">{{i18n.searchPlaceholder}}</text>
-      </view>
-    </view>
-  </view>
-
-  <view class="main-content" style="padding-top: {{mainPaddingTop}}px;">
-    <swiper class="banner-swiper" autoplay circular interval="4000" indicator-dots indicator-color="rgba(255,255,255,0.4)" indicator-active-color="#FFFFFF">
-      <swiper-item wx:for="{{banners}}" wx:key="id">
-        <view class="banner-item">
-          <image class="banner-img" src="{{item.image}}" mode="aspectFill" lazy-load />
-          <view class="banner-mask"></view>
-          <text class="banner-title title-serif">{{item.title}}</text>
-        </view>
-      </swiper-item>
-    </swiper>
-
-    <view class="section">
-      <view class="section-header">
-        <text class="section-title">{{personalized ? i18n.forYou + ' · ' + i18n.hotCities : i18n.hotCities}}</text>
-        <text class="section-more">{{i18n.swipeHint}}</text>
-      </view>
-      <scroll-view scroll-x class="city-scroll" enable-flex>
-        <view class="city-list">
-          <view
-            wx:for="{{hotCities}}"
-            wx:key="id"
-            class="city-card tap-active"
-            data-id="{{item.id}}"
-            bindtap="goCityDetail"
-          >
-            <image class="city-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
-            <view class="city-info">
-              <text class="city-name title-serif">{{item.name}}</text>
-              <text class="city-count">{{item.heritageCount}} {{i18n.heritageUnit}}</text>
-            </view>
-          </view>
-        </view>
-      </scroll-view>
-    </view>
-
-    <view class="section travel-section" wx:if="{{travelRoutes.length}}">
-      <view class="section-head">
-        <text class="section-title title-serif">{{i18n.travelTitle}}</text>
-        <text class="section-sub">{{i18n.travelSubtitle}}</text>
-      </view>
-      <view class="travel-route-list">
-        <view
-          wx:for="{{travelRoutes}}"
-          wx:key="id"
-          class="travel-route-card tap-active"
-          data-id="{{item.heritageId}}"
-          bindtap="goTravelRoute"
-        >
-          <image class="travel-route-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
-          <view class="travel-route-body">
-            <text class="travel-route-title title-serif ellipsis">{{item.routeTitle}}</text>
-            <text class="travel-route-desc ellipsis">{{item.routeDesc}}</text>
-            <view class="travel-route-action">
-              <view class="route-pin"></view>
-              <text class="route-link">{{i18n.exploreRoute}}</text>
-            </view>
-          </view>
-          <text class="travel-route-arrow">›</text>
-        </view>
-      </view>
-    </view>
-
-    <view class="section-divider" wx:if="{{travelRoutes.length && categories.length}}"></view>
-
-    <view class="section category-section" wx:if="{{categories.length}}">
-      <text class="section-title title-serif">{{i18n.categoryTitle}}</text>
-      <view class="category-grid">
-        <view
-          wx:for="{{categories}}"
-          wx:key="key"
-          class="category-item tap-active"
-          data-key="{{item.key}}"
-          bindtap="goCategory"
-        >
-          <view class="category-icon-box">
-            <view class="category-icon-circle">
-              <text class="category-icon">{{item.icon}}</text>
-            </view>
-          </view>
-          <text class="category-label">{{item.label}}</text>
-        </view>
-      </view>
-    </view>
-
-    <view class="section heritage-section">
-      <view class="section-header-bar">
-        <text class="section-bar-title section-bar-title--inline">{{personalized ? i18n.forYou + ' · ' + i18n.hotHeritages : i18n.hotHeritages}}</text>
-        <text class="section-count" wx:if="{{hotHeritages.length}}">{{hotHeritages.length}} {{i18n.itemUnit}}</text>
-      </view>
-      <view class="heritage-list">
-        <heritage-card
-          wx:for="{{hotHeritages}}"
-          wx:key="id"
-          item="{{item}}"
-          like-count="{{item.likeCount}}"
-          favorited="{{item.favorited}}"
-          bind:favorite="onFavorite"
-        />
+      <view class="v0-search tap-active" bindtap="goSearch">
+        <text class="v0-search-icon">⌕</text>
+        <text class="v0-search-placeholder">{{i18n.searchPlaceholder}}</text>
       </view>
     </view>
   </view>
 
-  <!-- AI 非遗助手入口 -->
+  <view class="hero-card tap-active" bindtap="goHero">
+    <image class="hero-img" src="{{heroImage}}" mode="aspectFill" lazy-load />
+    <view class="hero-overlay"></view>
+    <view class="hero-content">
+      <text class="hero-title title-serif">{{heroTitle}}</text>
+      <text class="hero-tag">{{heroTagline}}</text>
+    </view>
+  </view>
+
+  <view class="feature-grid">
+    <view
+      wx:for="{{features}}"
+      wx:key="key"
+      class="feature-item tap-active"
+      data-key="{{item.key}}"
+      bindtap="onFeatureTap"
+    >
+      <view class="feature-icon-wrap">
+        <image class="feature-icon-img" src="{{item.iconImage}}" mode="aspectFill" />
+      </view>
+      <text class="feature-label">{{item.label}}</text>
+    </view>
+  </view>
+
+  <view class="today-section">
+    <view class="today-header">
+      <view class="title-bar">
+        <view class="title-bar-mark"></view>
+        <text class="today-title title-serif">{{i18n.todayTitle}}</text>
+      </view>
+      <text class="today-sub">{{i18n.todaySubtitle}}</text>
+    </view>
+
+    <view class="today-tabs">
+      <view
+        class="today-tab {{todayTab === 'legend' ? 'active' : ''}}"
+        data-tab="legend"
+        bindtap="onTodayTab"
+      >
+        <text>{{i18n.todayLegend}}</text>
+      </view>
+      <view
+        class="today-tab {{todayTab === 'heritage' ? 'active' : ''}}"
+        data-tab="heritage"
+        bindtap="onTodayTab"
+      >
+        <text>{{i18n.todayHeritage}}</text>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view scroll-x class="recommend-scroll" enable-flex wx:if="{{recommendCards.length}}">
+    <view class="recommend-row">
+      <view
+        wx:for="{{recommendCards}}"
+        wx:key="id"
+        class="recommend-card tap-active"
+        data-id="{{item.targetId}}"
+        data-type="{{item.type}}"
+        bindtap="goRecommend"
+      >
+        <image class="recommend-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+        <view class="recommend-body">
+          <text class="recommend-tag tag-{{item.type}}">{{item.tag}}</text>
+          <text class="recommend-name title-serif">{{item.title}}</text>
+          <text class="recommend-excerpt ellipsis-2">{{item.excerpt}}</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="home-section" wx:if="{{representativeHeritages.length}}">
+    <view class="home-section-head">
+      <view class="title-bar">
+        <view class="title-bar-mark"></view>
+        <text class="home-section-title title-serif">{{i18n.representativeTitle}}</text>
+      </view>
+      <text class="home-section-sub">{{representativeSubtitle}}</text>
+    </view>
+    <scroll-view scroll-x class="highlight-scroll" enable-flex>
+      <view class="highlight-row">
+        <view
+          wx:for="{{representativeHeritages}}"
+          wx:key="id"
+          class="highlight-card tap-active"
+          data-id="{{item.id}}"
+          bindtap="goHeritageDetail"
+        >
+          <image class="highlight-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+          <view class="highlight-body">
+            <text class="highlight-tag">{{item.category}}</text>
+            <text class="highlight-name title-serif ellipsis">{{item.name}}</text>
+            <text class="highlight-summary ellipsis-2">{{item.summary}}</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="home-section" wx:if="{{cityInheritors.length}}">
+    <view class="home-section-head-row">
+      <view class="title-bar">
+        <view class="title-bar-mark"></view>
+        <text class="home-section-title title-serif">{{i18n.inheritorsTitle}}</text>
+      </view>
+      <text class="link-more tap-active" bindtap="goHeritageTab">{{i18n.viewMoreHeritage}} ›</text>
+    </view>
+    <view class="inheritor-grid">
+      <view
+        wx:for="{{cityInheritors}}"
+        wx:key="id"
+        class="inheritor-card tap-active"
+        data-id="{{item.heritageId}}"
+        bindtap="goHeritageDetail"
+      >
+        <image class="inheritor-avatar" src="{{item.cover}}" mode="aspectFill" lazy-load />
+        <text class="inheritor-name ellipsis">{{item.name}}</text>
+        <text class="inheritor-heritage ellipsis">{{item.heritageName}}</text>
+        <text class="inheritor-tag ellipsis">{{item.level}}</text>
+      </view>
+    </view>
+  </view>
+
   <guide-mascot label="{{i18n.mascotLabel}}" bind:open="goAiGuide" />
+  </view>
 </view>

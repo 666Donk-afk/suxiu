@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "heritage-card": "/components/heritage-card/heritage-card",
+    "page-deco": "/components/page-deco/page-deco"
+  }
+}

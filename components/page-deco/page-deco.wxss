@@ -1,0 +1,32 @@
+.page-deco {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.deco {
+  position: absolute;
+  pointer-events: none;
+}
+
+.deco-glow-top {
+  top: -120rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  height: 280rpx;
+  background: radial-gradient(circle, rgba(245, 220, 192, 0.35) 0%, transparent 72%);
+}
+
+.deco-glow-bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 280rpx;
+  background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.5) 100%);
+}
