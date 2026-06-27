@@ -1,4 +1,9 @@
 {
   "navigationBarTitleText": "城市",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "navigationBarBorderStyle": "black",
+  "backgroundColor": "#FFFFFF",
+  "backgroundColorTop": "#FFFFFF",
   "usingComponents": {}
 }

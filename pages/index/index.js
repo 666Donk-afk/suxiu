@@ -1,7 +1,6 @@
-﻿const { getHomeFeatures } = require('../../data/home-features');
+﻿const { getHomeBanners } = require('../../data/home-banners');
 const storage = require('../../utils/storage');
 const { getTodayRecommendCards } = require('../../utils/today-recommend');
-const { getCityHeroFromPrefs } = require('../../utils/home-hero');
 const { getCityHomeSections } = require('../../utils/city-home-sections');
 const { t, getLocale } = require('../../i18n.js');
 
@@ -25,11 +24,7 @@ Page({
     navPaddingTop: 20,
     headerPaddingRight: 96,
     displayCity: '武汉',
-    heroImage: '',
-    heroTitle: '',
-    heroTagline: '',
-    heroTargetId: null,
-    features: [],
+    banners: [],
     todayTab: 'legend',
     recommendCards: [],
     representativeHeritages: [],
@@ -71,13 +66,11 @@ Page({
         todaySubtitle: t('home.todaySubtitle', locale),
         todayLegend: t('home.todayLegend', locale),
         todayHeritage: t('home.todayHeritage', locale),
-        featureComingSoon: t('home.featureComingSoon', locale),
         mascotLabel: t('home.mascotLabel', locale),
         representativeTitle: t('home.representativeTitle', locale),
         inheritorsTitle: t('home.inheritorsTitle', locale),
         viewMoreHeritage: t('home.viewMoreHeritage', locale)
-      },
-      features: getHomeFeatures(locale)
+      }
     });
   },
 
@@ -85,14 +78,10 @@ Page({
     try {
       const locale = getLocale();
       const { todayTab } = this.data;
-      const hero = getCityHeroFromPrefs(locale);
       const sections = getCityHomeSections(locale);
       this.setData({
         displayCity: getDisplayCity(locale),
-        heroImage: hero.cover,
-        heroTitle: hero.title,
-        heroTagline: hero.tagline,
-        heroTargetId: hero.targetId,
+        banners: getHomeBanners(),
         representativeHeritages: sections.representativeHeritages,
         cityInheritors: sections.cityInheritors,
         representativeSubtitle: sections.representativeSubtitle,
@@ -107,19 +96,6 @@ Page({
     const { tab } = e.currentTarget.dataset;
     this.setData({ todayTab: tab });
     this.refreshContent();
-  },
-
-  onFeatureTap(e) {
-    const { key } = e.currentTarget.dataset;
-    const map = {
-      reservation: () => wx.navigateTo({ url: '/pages/my-reservation/my-reservation' }),
-      museum: () => wx.switchTab({ url: '/pages/heritage/heritage' }),
-      guide: () => wx.navigateTo({ url: '/pages/ai-guide/ai-guide' }),
-      tour: () => wx.switchTab({ url: '/pages/yunyou/yunyou' })
-    };
-    const fn = map[key];
-    if (fn) fn();
-    else wx.showToast({ title: this.data.i18n.featureComingSoon, icon: 'none' });
   },
 
   goRecommend(e) {
@@ -137,17 +113,19 @@ Page({
     wx.switchTab({ url: '/pages/heritage/heritage' });
   },
 
-  goHero() {
-    const { heroTargetId } = this.data;
-    if (heroTargetId) {
-      wx.navigateTo({ url: `/pages/heritage-detail/heritage-detail?id=${heroTargetId}` });
-      return;
+  goBanner(e) {
+    const { id } = e.currentTarget.dataset;
+    if (id) {
+      wx.navigateTo({ url: `/pages/heritage-detail/heritage-detail?id=${id}` });
     }
-    this.goSearch();
   },
 
   goSearch() {
     wx.navigateTo({ url: '/pages/search/search' });
+  },
+
+  goCitySelect() {
+    wx.navigateTo({ url: '/pages/city/city?pick=1' });
   },
 
   goAiGuide() {
@@ -155,10 +133,11 @@ Page({
   },
 
   onShareAppMessage() {
+    const { banners } = this.data;
     return {
       title: t('home.shareTitle'),
       path: '/pages/index/index',
-      imageUrl: this.data.heroImage
+      imageUrl: banners[0] ? banners[0].image : ''
     };
   }
 });

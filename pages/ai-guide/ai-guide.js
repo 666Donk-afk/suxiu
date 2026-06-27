@@ -12,6 +12,16 @@ const STORAGE_KEY = 'ai_guide_chat_history';
 
 const MASCOT_RESET_MS = 2200;
 
+function getHeaderPaddingRight() {
+  try {
+    const windowInfo = wx.getWindowInfo();
+    const menuButton = wx.getMenuButtonBoundingClientRect();
+    return Math.max(16, windowInfo.windowWidth - menuButton.left + 8);
+  } catch (e) {
+    return 96;
+  }
+}
+
 
 
 Page({
@@ -21,6 +31,7 @@ Page({
     statusBarHeight: 20,
 
     navBarHeight: 44,
+    headerPaddingRight: 96,
 
     navMascotStatus: 'idle',
 
@@ -54,7 +65,9 @@ Page({
 
       statusBarHeight: app.globalData.statusBarHeight || 20,
 
-      navBarHeight: app.globalData.navBarHeight || 44
+      navBarHeight: app.globalData.navBarHeight || 44,
+
+      headerPaddingRight: getHeaderPaddingRight()
 
     });
 
@@ -127,9 +140,11 @@ Page({
 
 
   onShow() {
-
+    wx.setNavigationBarColor({
+      frontColor: '#000000',
+      backgroundColor: '#FFFFFF'
+    });
     this.refreshI18n();
-
   },
 
 

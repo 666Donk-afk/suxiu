@@ -1,6 +1,10 @@
-.page {
+page {
+  background: #FFFFFF;
+}
+
+.page.experience-guide-page:not(.v0-page) {
   min-height: 100vh;
-  background: transparent;
+  background: #FFFFFF;
   padding-bottom: calc(env(safe-area-inset-bottom) + 140rpx);
 }
 
@@ -42,12 +46,14 @@
 
 .content {
   padding: 24rpx 32rpx;
+  background: #FFFFFF;
 }
 
 .card {
-  background: #fff;
+  background: #FFFFFF;
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+  border: 1rpx solid var(--color-border);
+  box-shadow: none;
   padding: 32rpx;
   margin-bottom: 24rpx;
 }
@@ -89,7 +95,8 @@
   display: flex;
   justify-content: center;
   padding: 24rpx;
-  background: var(--color-bg-paper);
+  background: #FFFFFF;
+  border: 1rpx solid var(--color-border);
   border-radius: var(--radius-md);
   margin-bottom: 20rpx;
 }
@@ -115,10 +122,11 @@
 }
 
 .platform-box {
-  background: var(--color-bg-cream);
+  background: #FFFFFF;
   border-radius: var(--radius-md);
   padding: 28rpx;
   margin-bottom: 20rpx;
+  border: 1rpx solid var(--color-border);
   border-left: 6rpx solid var(--color-primary);
 }
 
@@ -158,8 +166,9 @@
   display: flex;
   gap: 20rpx;
   padding: 20rpx 32rpx calc(env(safe-area-inset-bottom) + 20rpx);
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.06);
+  background: #FFFFFF;
+  border-top: 1rpx solid var(--color-divider);
+  box-shadow: none;
 }
 
 .btn-outline,
@@ -172,7 +181,7 @@
 }
 
 .btn-outline {
-  background: var(--color-bg-cream);
+  background: #FFFFFF;
   color: var(--color-text);
   border: 1rpx solid var(--color-divider);
 }

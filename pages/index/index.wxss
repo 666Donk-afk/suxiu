@@ -31,6 +31,9 @@
   min-width: 0;
   margin: 0;
   padding: 18rpx 24rpx;
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(158, 43, 37, 0.1);
+  box-shadow: none;
 }
 
 .v0-header .v0-search-placeholder {

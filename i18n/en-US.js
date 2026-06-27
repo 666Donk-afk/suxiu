@@ -140,7 +140,7 @@ module.exports = {
     removePhoto: 'Remove',
     durationLabel: 'Duration',
     reasonLabel: 'Why this route',
-    errorNetwork: 'Cannot connect to AI server. Start the Node.js backend and check config/api.js baseUrl.',
+    errorNetwork: 'Cannot connect to AI service. Check network and add api.siliconflow.cn to request合法域名 in WeChat admin.',
     errorGeneric: 'Sorry, please try again later.',
     clearConfirmTitle: 'Clear chat',
     clearConfirmContent: 'Clear all messages with Xiao Yi?'
@@ -151,6 +151,13 @@ module.exports = {
     searchHistory: 'Recent Searches',
     hotCities: 'Popular Cities',
     cityIndex: 'City Index',
+    locateCurrentCity: 'Locate City',
+    locating: 'Locating...',
+    locationFailed: 'Location failed. Please try again.',
+    locationDenied: 'Location permission required',
+    locationDeniedHint: 'Allow location access in Settings to detect your current city.',
+    openSettings: 'Settings',
+    cityNotFound: 'City not found',
     heritageCount: 'heritage items'
   },
   cityDetail: {

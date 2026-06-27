@@ -1,26 +1,33 @@
-.page {
+page {
+  background: #FFFFFF;
+}
+
+.page.ai-guide-page {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: transparent;
+  background: #FFFFFF;
   box-sizing: border-box;
 }
 
 .nav-bar {
   flex-shrink: 0;
-  background: linear-gradient(180deg, #A0301F 0%, #B34D2E 100%);
+  background: #FFFFFF;
+  border-bottom: 1rpx solid var(--color-divider);
 }
 
 .nav-inner {
   display: flex;
   align-items: center;
   padding: 0 24rpx;
+  box-sizing: border-box;
 }
 
 .nav-back {
   width: 64rpx;
-  font-size: 52rpx;
-  color: #fff;
+  flex-shrink: 0;
+  font-size: 48rpx;
+  color: var(--color-text);
   line-height: 1;
   font-weight: 300;
 }
@@ -30,32 +37,47 @@
   display: flex;
   align-items: center;
   min-width: 0;
-  gap: 16rpx;
+  gap: 12rpx;
+  padding: 0 8rpx;
+}
+
+.nav-texts {
+  flex: 1;
+  min-width: 0;
 }
 
 .nav-title {
   display: block;
-  font-size: 34rpx;
-  color: #fff;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .nav-sub {
   display: block;
   font-size: 22rpx;
-  color: rgba(255, 255, 255, 0.85);
-  margin-top: 4rpx;
+  color: var(--color-text-secondary);
+  margin-top: 2rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .nav-action {
-  font-size: 24rpx;
-  color: rgba(255, 255, 255, 0.92);
-  padding: 8rpx 12rpx;
+  flex-shrink: 0;
+  font-size: 26rpx;
+  color: var(--color-primary);
+  font-weight: 600;
+  padding: 8rpx 0 8rpx 12rpx;
 }
 
 .context-bar {
   flex-shrink: 0;
   padding: 12rpx 32rpx;
-  background: var(--color-bg-cream);
+  background: #FFFFFF;
   border-bottom: 1rpx solid var(--color-divider);
 }
 
@@ -67,6 +89,7 @@
 .chat-scroll {
   flex: 1;
   min-height: 0;
+  background: #FFFFFF;
 }
 
 .chat-list {
@@ -88,9 +111,10 @@
   display: flex;
   align-items: center;
   padding: 20rpx 24rpx;
-  background: #fff;
+  background: #FFFFFF;
   border-radius: 24rpx;
-  box-shadow: var(--shadow-card);
+  border: 1rpx solid var(--color-border);
+  box-shadow: none;
 }
 
 .typing-text {
@@ -127,7 +151,7 @@
 .quick-bar {
   flex-shrink: 0;
   padding: 8rpx 0 12rpx;
-  background: var(--color-bg);
+  background: #FFFFFF;
 }
 
 .quick-scroll {
@@ -141,7 +165,7 @@
   padding: 14rpx 24rpx;
   font-size: 24rpx;
   color: var(--color-primary);
-  background: var(--color-tag-bg);
+  background: #FFFFFF;
   border-radius: var(--radius-pill);
   border: 1rpx solid rgba(160, 48, 31, 0.12);
 }
@@ -152,7 +176,7 @@
   align-items: center;
   gap: 16rpx;
   padding: 12rpx 24rpx;
-  background: var(--color-bg-cream);
+  background: #FFFFFF;
   border-top: 1rpx solid var(--color-divider);
 }
 
@@ -160,7 +184,7 @@
   width: 96rpx;
   height: 96rpx;
   border-radius: 16rpx;
-  background: #eee;
+  background: #F5F5F5;
   flex-shrink: 0;
 }
 
@@ -187,7 +211,7 @@
   display: flex;
   align-items: center;
   padding: 16rpx 24rpx 24rpx;
-  background: #fff;
+  background: #FFFFFF;
   border-top: 1rpx solid var(--color-divider);
   gap: 12rpx;
 }
@@ -197,7 +221,7 @@
   width: 76rpx;
   height: 76rpx;
   border-radius: 50%;
-  background: var(--color-bg-cream);
+  background: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -217,7 +241,8 @@
   flex: 1;
   height: 76rpx;
   padding: 0 28rpx;
-  background: var(--color-bg-cream);
+  background: #FFFFFF;
+  border: 1rpx solid var(--color-border);
   border-radius: var(--radius-pill);
   font-size: 28rpx;
 }
@@ -240,4 +265,20 @@
 
 .send-btn.active {
   background: linear-gradient(135deg, #A0301F, #B34D2E);
+}
+
+/* 聊天气泡 / 路线卡片：白底页面下用描边区分层次 */
+.ai-guide-page .msg-bubble {
+  box-shadow: none;
+  border: 1rpx solid var(--color-border);
+}
+
+.ai-guide-page .route-meta {
+  background: #FFFFFF;
+  border: 1rpx solid var(--color-border);
+}
+
+.ai-guide-page .meta-confidence {
+  background: #FFFFFF;
+  border: 1rpx solid var(--color-border);
 }

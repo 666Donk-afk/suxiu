@@ -6,8 +6,7 @@
  */
 Component({
   properties: {
-    label: { type: String, value: 'AI导游' },
-    bottom: { type: String, value: '140rpx' }
+    label: { type: String, value: 'AI导游' }
   },
 
   data: {

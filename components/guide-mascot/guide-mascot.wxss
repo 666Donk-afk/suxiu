@@ -1,48 +1,31 @@
 .guide-mascot {
-
   position: fixed;
+  right: 12.5%;
+  bottom: calc(108rpx + env(safe-area-inset-bottom) + 16rpx);
+  z-index: 1000;
+  transform: translateX(50%);
+  pointer-events: none;
+}
 
-  right: 28rpx;
-
-  z-index: 200;
-
+.guide-mascot-inner {
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
-
+  pointer-events: auto;
   transition: transform 0.28s ease;
-
 }
 
-
-
-.guide-mascot.tapping {
-
+.guide-mascot-inner.tapping {
   transform: scale(0.88);
-
 }
-
-
 
 .mascot-badge {
-
   margin-top: 8rpx;
-
   padding: 6rpx 16rpx;
-
   font-size: 20rpx;
-
   color: #fff;
-
   background: linear-gradient(135deg, var(--color-primary, #9E2B25), var(--color-primary-dark, #7A201C));
-
   border-radius: 999rpx;
-
   box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
-
   white-space: nowrap;
-
 }
-

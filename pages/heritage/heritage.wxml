@@ -44,7 +44,7 @@
   <view class="section">
     <view class="section-label-row">
       <view class="section-label">
-        <text class="label-icon label-book">书</text>
+        <text class="label-icon">✦</text>
         <text>{{i18n.inheritorsTitle}}</text>
       </view>
       <text class="link-more tap-active" bindtap="goSearch">{{i18n.viewMore}}</text>
@@ -68,7 +68,7 @@
 
   <view class="section">
     <view class="section-label">
-      <text class="label-icon label-book">鉴</text>
+      <text class="label-icon">✦</text>
       <text>{{i18n.encyclopediaTitle}}</text>
     </view>
     <view class="encyclopedia-list">

@@ -1,4 +1,4 @@
-<view class="page page-fade-in" wx:if="{{experience}}">
+<view class="page experience-guide-page page-fade-in" wx:if="{{experience}}">
   <view class="hero">
     <image class="hero-cover" src="{{experience.cover}}" mode="aspectFill" />
     <view class="hero-mask"></view>

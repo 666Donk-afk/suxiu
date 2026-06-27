@@ -1,6 +1,6 @@
-<view class="page">
+<view class="page ai-guide-page">
   <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
-    <view class="nav-inner" style="height: {{navBarHeight}}px;">
+    <view class="nav-inner" style="height: {{navBarHeight}}px; padding-right: {{headerPaddingRight}}px;">
       <view class="nav-back tap-active" bindtap="goBack">‹</view>
       <view class="nav-center">
         <ai-mascot status="{{navMascotStatus}}" size="sm" animated />

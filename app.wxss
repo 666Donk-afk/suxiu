@@ -23,8 +23,8 @@ page {
   --color-tag-text: #9E2B25;
   --color-white: #FFFFFF;
 
-  --font-serif: "Songti SC", "STSong", "SimSun", serif;
-  --font-sans: "Songti SC", "STSong", "SimSun", serif;
+  --font-serif: "Microsoft YaHei", "微软雅黑", sans-serif;
+  --font-sans: "Microsoft YaHei", "微软雅黑", sans-serif;
 
   --radius-sm: 8rpx;
   --radius-md: 16rpx;
@@ -67,7 +67,7 @@ view, text, image, scroll-view {
   flex-shrink: 0;
 }
 
-/* 标题 - 宋体/衬线 */
+/* 标题 */
 .title-serif {
   font-family: var(--font-serif);
   font-weight: 700;

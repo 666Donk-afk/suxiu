@@ -55,7 +55,6 @@ Page({
     const locale = getLocale();
     this.setData({
       i18n: {
-        subtitle: t('yunyouPage.subtitle', locale),
         hotCities: t('yunyouPage.hotCities', locale),
         travelRoutes: t('yunyouPage.travelRoutes', locale),
         aiGuide: t('yunyouPage.aiGuide', locale),

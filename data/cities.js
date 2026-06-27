@@ -4,6 +4,7 @@
 const citiesRaw = require('./cities-data.js');
 const { pickLocale } = require('../i18n/locale-field.js');
 const { getLocale } = require('../i18n.js');
+const { getCityIndexLetter, compareIndexLetters } = require('../utils/city-index-letter.js');
 
 const cities = citiesRaw.map(c => ({
   ...c,
@@ -24,15 +25,22 @@ function localizeCity(city, locale) {
 function getCityIndexGroups(locale) {
   const loc = locale || getLocale();
   const groups = {};
-  cities.forEach(city => {
-    const letter = city.initial;
+  const sorted = [...cities].sort((a, b) => (
+    pickLocale(a.name, 'zh-CN').localeCompare(pickLocale(b.name, 'zh-CN'), 'zh-CN')
+  ));
+
+  sorted.forEach(city => {
+    const letter = getCityIndexLetter(pickLocale(city.name, 'zh-CN'));
     if (!groups[letter]) groups[letter] = [];
     groups[letter].push(localizeCity(city, loc));
   });
-  return Object.keys(groups).sort().map(letter => ({
-    letter,
-    cities: groups[letter]
-  }));
+
+  return Object.keys(groups)
+    .sort(compareIndexLetters)
+    .map(letter => ({
+      letter,
+      cities: groups[letter]
+    }));
 }
 
 function getCityById(id, locale) {

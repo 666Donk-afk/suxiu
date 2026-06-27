@@ -1,6 +1,10 @@
-.page {
+page {
+  background: #FFFFFF;
+}
+
+.page.city-page:not(.v0-page) {
   min-height: 100vh;
-  background: transparent;
+  background: #FFFFFF;
   padding-bottom: 40rpx;
 }
 
@@ -8,21 +12,48 @@
   display: flex;
   align-items: center;
   padding: 24rpx 32rpx;
-  background: #A0301F;
-  gap: 16rpx;
+  background: transparent;
+  gap: 12rpx;
+}
+
+.current-city {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  flex-shrink: 0;
+  max-width: 34%;
+}
+
+.location-pin {
+  width: 28rpx;
+  height: 28rpx;
+  flex-shrink: 0;
+}
+
+.current-city-text {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 1rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .search-input-wrap {
   flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
-  background: #fff;
+  background: var(--color-card);
   border-radius: 999rpx;
+  border: 1rpx solid var(--color-border);
+  box-shadow: var(--shadow-soft);
   padding: 16rpx 24rpx;
 }
 
 .search-icon {
-  color: #A0301F;
+  color: var(--color-primary);
   margin-right: 12rpx;
   font-size: 28rpx;
 }
@@ -33,20 +64,47 @@
 }
 
 .placeholder {
-  color: #8B7D6B;
+  color: var(--color-text-muted);
 }
 
 .search-btn {
-  color: #fff;
+  color: var(--color-primary);
   font-size: 28rpx;
-  padding: 16rpx 8rpx;
+  padding: 16rpx 0 16rpx 4rpx;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.locate-row {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  margin: 16rpx 0 8rpx;
+  padding: 12rpx 20rpx;
+  width: fit-content;
+  background: #FFFFFF;
+  border: 1rpx solid var(--color-border);
+  border-radius: 999rpx;
+}
+
+.locate-icon {
+  width: 28rpx;
+  height: 28rpx;
+  flex-shrink: 0;
+}
+
+.locate-text {
+  font-size: 24rpx;
+  color: var(--color-primary);
+  font-weight: 600;
 }
 
 .suggestions {
-  background: #fff;
+  background: var(--color-card);
   margin: 0 32rpx;
   border-radius: 16rpx;
-  box-shadow: 0 4rpx 24rpx rgba(0,0,0,0.06);
+  border: 1rpx solid var(--color-border);
+  box-shadow: var(--shadow-soft);
   overflow: hidden;
 }
 
@@ -102,11 +160,33 @@
   padding: 32rpx;
 }
 
-.hot-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20rpx;
+.section-index {
+  padding: 32rpx 80rpx 32rpx 32rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.hot-scroll {
   margin-top: 20rpx;
+  white-space: nowrap;
+}
+
+.hot-scroll-inner {
+  display: inline-flex;
+  gap: 20rpx;
+  padding-bottom: 8rpx;
+}
+
+.hot-column {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 20rpx;
+  width: 300rpx;
+  vertical-align: top;
 }
 
 .hot-item {
@@ -114,16 +194,19 @@
 }
 
 .hot-cover {
-  width: 100%;
-  height: 140rpx;
+  width: 300rpx;
+  height: 210rpx;
   border-radius: 16rpx;
-  background: #F0EBE3;
+  background: var(--color-bg-cream);
 }
 
 .hot-name {
   font-size: 26rpx;
   margin-top: 12rpx;
   display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .index-list {
@@ -143,31 +226,57 @@
 }
 
 .index-city {
-  display: flex;
-  justify-content: space-between;
-  padding: 24rpx 0;
+  padding: 24rpx 12rpx 24rpx 0;
   border-bottom: 1rpx solid #E8E0D0;
   font-size: 30rpx;
+  border-radius: 12rpx;
+  transition: background 0.25s ease;
 }
 
-.index-count {
-  color: #8B7D6B;
-  font-size: 24rpx;
+.index-city.active {
+  background: rgba(158, 43, 37, 0.08);
 }
 
 .side-index {
   position: fixed;
   right: 8rpx;
-  top: 50%;
+  top: 50vh;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 10;
+  gap: 2rpx;
+  z-index: 100;
+  padding: 12rpx 4rpx;
+  background: #FFFFFF;
+  border: 1rpx solid var(--color-border);
+  border-radius: 28rpx;
+  box-shadow: var(--shadow-soft);
+  max-height: 62vh;
+  overflow-y: auto;
 }
 
 .side-letter {
+  width: 36rpx;
+  height: 36rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.side-letter-text {
   font-size: 20rpx;
-  color: #A0301F;
-  padding: 4rpx 8rpx;
+  line-height: 1;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.side-letter.active {
+  background: var(--color-primary);
+}
+
+.side-letter.active .side-letter-text {
+  color: #FFFFFF;
 }

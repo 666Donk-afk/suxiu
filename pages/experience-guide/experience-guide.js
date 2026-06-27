@@ -17,6 +17,10 @@ Page({
   },
 
   onShow() {
+    wx.setNavigationBarColor({
+      frontColor: '#000000',
+      backgroundColor: '#FFFFFF'
+    });
     this.refreshI18n();
     if (this.data.experience) {
       wx.setNavigationBarTitle({ title: t('experience.guideTitle') });

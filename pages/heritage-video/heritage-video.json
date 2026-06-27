@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "非遗影像",
   "navigationBarBackgroundColor": "#9E2B25",
-  "navigationBarTextStyle": "white"
+  "navigationBarTextStyle": "white",
+  "navigationBarBorderStyle": "black",
+  "backgroundColorTop": "#9E2B25"
 }

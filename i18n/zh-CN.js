@@ -144,7 +144,7 @@ module.exports = {
     removePhoto: '移除',
     durationLabel: '预计时长',
     reasonLabel: '推荐理由',
-    errorNetwork: '无法连接 AI 服务，请确认 Node.js 后端已启动，并检查 config/api.js 中的 baseUrl。',
+    errorNetwork: '无法连接 AI 服务，请检查手机网络，并在小程序后台将 api.siliconflow.cn 加入 request 合法域名。',
     errorGeneric: '抱歉，暂时无法回答，请稍后重试。',
     clearConfirmTitle: '清空对话',
     clearConfirmContent: '确定清空与小遗的对话记录吗？'
@@ -155,6 +155,13 @@ module.exports = {
     searchHistory: '搜索历史',
     hotCities: '热门城市',
     cityIndex: '城市索引',
+    locateCurrentCity: '定位当前城市',
+    locating: '定位中...',
+    locationFailed: '定位失败，请稍后重试',
+    locationDenied: '需要位置权限',
+    locationDeniedHint: '请在设置中允许「非遗寻迹」使用位置信息，以便定位当前城市。',
+    openSettings: '去设置',
+    cityNotFound: '未找到当前城市',
     heritageCount: '项非遗'
   },
   cityDetail: {

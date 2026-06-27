@@ -1,9 +1,8 @@
 <view class="page v0-page safe-bottom">
   <page-deco />
   <view class="page-body">
-  <view class="v0-header" style="padding-top: {{navPaddingTop}}px;">
+  <view class="v0-header yunyou-header" style="padding-top: {{navPaddingTop}}px;">
     <text class="page-title title-serif">{{displayCity}}</text>
-    <text class="page-sub">{{i18n.subtitle}}</text>
   </view>
 
   <view class="ai-banner tap-active" bindtap="goAiGuide">
@@ -13,8 +12,8 @@
 
   <view class="section">
     <view class="section-label">
-      <text class="label-icon">山</text>
-      <text>{{i18n.hotCities}}</text>
+      <text class="section-title">{{i18n.hotCities}}</text>
+      <text class="city-index-link tap-active" bindtap="goCityIndex">{{i18n.cityIndex}} ›</text>
     </view>
     <scroll-view scroll-x class="city-scroll" enable-flex>
       <view class="city-row">
@@ -30,13 +29,11 @@
         </view>
       </view>
     </scroll-view>
-    <text class="city-index-link tap-active" bindtap="goCityIndex">{{i18n.cityIndex}} ›</text>
   </view>
 
   <view class="section">
     <view class="section-label">
-      <text class="label-icon">路</text>
-      <text>{{i18n.travelRoutes}}</text>
+      <text class="section-title">{{i18n.travelRoutes}}</text>
     </view>
     <view class="route-list">
       <view

@@ -28,7 +28,10 @@
     "navigationBarBackgroundColor": "#9E2B25",
     "navigationBarTitleText": "非遗寻迹",
     "navigationBarTextStyle": "white",
+    "navigationBarBorderStyle": "black",
     "backgroundColor": "#F5DCC0",
+    "backgroundColorTop": "#9E2B25",
+    "backgroundColorBottom": "#F5DCC0",
     "backgroundTextStyle": "dark"
   },
   "tabBar": {
@@ -75,5 +78,13 @@
       "packages": ["mediaA", "mediaB"]
     }
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于定位您所在城市，推荐本地非遗内容"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation"
+  ]
 }

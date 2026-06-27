@@ -5,8 +5,29 @@ const RAW = require('./inheritors-data');
 const BIOS = require('./inheritor-bios');
 const { pickLocale } = require('../i18n/locale-field.js');
 const { getLocale, t } = require('../i18n.js');
-const { getHeritageById } = require('./heritages');
+const { getHeritageById, getHeritagesByCity } = require('./heritages');
 const { getCityRelatedHeritagePool } = require('../utils/home-hero');
+
+function dailySeed(extra) {
+  const d = new Date();
+  let seed = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+  const key = extra || '';
+  for (let i = 0; i < key.length; i += 1) {
+    seed = ((seed * 31) + key.charCodeAt(i)) >>> 0;
+  }
+  return seed;
+}
+
+function seededShuffle(arr, seed) {
+  const list = arr.slice();
+  let s = seed;
+  for (let i = list.length - 1; i > 0; i -= 1) {
+    s = ((s * 1103515245) + 12345) & 0x7fffffff;
+    const j = s % (i + 1);
+    [list[i], list[j]] = [list[j], list[i]];
+  }
+  return list;
+}
 
 function localizeInheritor(item, locale, heritageName) {
   const loc = locale || getLocale();
@@ -104,29 +125,45 @@ function getInheritors(locale) {
 function getInheritorsByCity(cityName, locale, limit) {
   const loc = locale || getLocale();
   const max = limit || 6;
-  const pool = getCityRelatedHeritagePool(cityName, loc);
-  const idSet = new Set(pool.map(item => item.id));
-  const results = [];
+  const city = (cityName || '').trim() || (loc === 'en-US' ? 'Wuhan' : '武汉');
+  const cityList = getHeritagesByCity(city, loc);
+  const pool = getCityRelatedHeritagePool(city, loc);
+  const cityIdSet = new Set(cityList.map(item => item.id));
+  const poolIdSet = new Set(pool.map(item => item.id));
+  const cityCandidates = [];
+  const extraCandidates = [];
   const coveredHeritageIds = new Set();
 
   RAW.forEach(item => {
-    if (!idSet.has(item.heritageId) || results.length >= max) return;
-    results.push(withHeritageCover(item, loc));
+    if (!poolIdSet.has(item.heritageId)) return;
+    const profile = withHeritageCover(item, loc);
+    if (cityIdSet.has(item.heritageId)) {
+      cityCandidates.push(profile);
+    } else {
+      extraCandidates.push(profile);
+    }
     coveredHeritageIds.add(item.heritageId);
   });
 
-  pool.some(heritage => {
-    if (results.length >= max) return true;
-    if (coveredHeritageIds.has(heritage.id)) return false;
+  pool.forEach(heritage => {
+    if (coveredHeritageIds.has(heritage.id)) return;
     const generated = buildInheritorFromHeritage(heritage, loc);
-    if (generated) {
-      results.push(generated);
-      coveredHeritageIds.add(heritage.id);
+    if (!generated) return;
+    if (cityIdSet.has(heritage.id)) {
+      cityCandidates.push(generated);
+    } else {
+      extraCandidates.push(generated);
     }
-    return false;
+    coveredHeritageIds.add(heritage.id);
   });
 
-  return results.slice(0, max);
+  const seed = dailySeed(`${city}:inheritors`);
+  const picked = [
+    ...seededShuffle(cityCandidates, seed),
+    ...seededShuffle(extraCandidates, seed ^ 0x9e3779b9)
+  ];
+
+  return picked.slice(0, max);
 }
 
 function resolveIntro(item, heritage, locale) {

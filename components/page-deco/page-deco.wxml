@@ -1,4 +1,4 @@
 <view class="page-deco">
-  <view class="deco deco-glow-top"></view>
+  <image class="deco-cloud-top" src="/images/decoration/cloud-top.png" mode="widthFix" />
   <view class="deco deco-glow-bottom"></view>
 </view>

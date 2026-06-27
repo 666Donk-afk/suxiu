@@ -1,24 +1,50 @@
 @import '../../styles/v0-theme.wxss';
 
+.yunyou-header {
+  padding-bottom: 0;
+}
+
+.yunyou-header .page-title {
+  line-height: 1.2;
+}
+
 .section-label {
   display: flex;
-  align-items: center;
-  gap: 10rpx;
-  font-size: 30rpx;
-  font-weight: 700;
+  align-items: flex-end;
+  gap: 0;
   margin-bottom: 20rpx;
 }
 
-.label-icon {
+.section-label .section-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0;
+  display: block;
+}
+
+.section-label .city-index-link {
+  margin-left: 8rpx;
+  margin-bottom: 0;
+  font-size: 24rpx;
   color: var(--color-primary);
-  font-size: 28rpx;
+  line-height: 1;
+  flex-shrink: 0;
+  display: block;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0;
 }
 
 .ai-banner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 32rpx 28rpx;
+  margin: 24rpx 32rpx 28rpx;
   padding: 28rpx 32rpx;
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   border-radius: var(--radius-lg);
@@ -62,14 +88,6 @@
   font-size: 26rpx;
   margin-top: 10rpx;
   text-align: center;
-}
-
-.city-index-link {
-  display: block;
-  text-align: center;
-  margin-top: 20rpx;
-  font-size: 26rpx;
-  color: var(--color-primary);
 }
 
 .route-list {

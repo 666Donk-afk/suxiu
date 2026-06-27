@@ -1,5 +1,9 @@
-<view class="page page-fade-in safe-bottom">
+<view class="page city-page page-fade-in safe-bottom">
   <view class="search-bar">
+    <view class="current-city">
+      <image class="location-pin" src="/images/icons/location-pin.png" mode="aspectFit" />
+      <text class="current-city-text">{{displayCity}}</text>
+    </view>
     <view class="search-input-wrap">
       <text class="search-icon">⌕</text>
       <input
@@ -46,49 +50,63 @@
 
   <view class="section">
     <text class="section-title">{{i18n.hotCities}}</text>
-    <view class="hot-grid">
-      <view
-        wx:for="{{hotCities}}"
-        wx:key="id"
-        class="hot-item tap-active"
-        data-id="{{item.id}}"
-        bindtap="goCityDetail"
-      >
-        <image class="hot-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
-        <text class="hot-name title-serif">{{item.name}}</text>
+    <scroll-view scroll-x class="hot-scroll" enable-flex enhanced show-scrollbar="{{false}}">
+      <view class="hot-scroll-inner">
+        <view
+          wx:for="{{hotCityColumns}}"
+          wx:key="index"
+          class="hot-column"
+        >
+          <view
+            wx:for="{{item}}"
+            wx:for-item="city"
+            wx:key="id"
+            class="hot-item tap-active"
+            data-id="{{city.id}}"
+            bindtap="goCityDetail"
+          >
+            <image class="hot-cover" src="{{city.cover}}" mode="aspectFill" lazy-load />
+            <text class="hot-name title-serif">{{city.name}}</text>
+          </view>
+        </view>
       </view>
-    </view>
+    </scroll-view>
   </view>
 
-  <view class="section">
+  <view class="section section-index">
     <text class="section-title">{{i18n.cityIndex}}</text>
+    <view class="locate-row tap-active" bindtap="locateCurrentCity">
+      <image class="locate-icon" src="/images/icons/location-pin.png" mode="aspectFit" />
+      <text class="locate-text">{{i18n.locateCurrentCity}}</text>
+    </view>
     <view class="index-list">
       <block wx:for="{{indexGroups}}" wx:key="letter">
-        <view class="index-group" id="letter-{{item.letter}}">
+        <view class="index-group" id="{{item.letter === '#' ? 'letter-sharp' : 'letter-' + item.letter}}">
           <text class="index-letter">{{item.letter}}</text>
           <view
             wx:for="{{item.cities}}"
             wx:for-item="city"
             wx:key="id"
-            class="index-city tap-active"
+            id="city-{{city.id}}"
+            class="index-city tap-active {{highlightCityId === city.id ? 'active' : ''}}"
             data-id="{{city.id}}"
             bindtap="goCityDetail"
           >
             <text>{{city.name}}</text>
-            <text class="index-count">{{city.heritageCount}}</text>
           </view>
         </view>
       </block>
     </view>
   </view>
-
-  <view class="side-index">
-    <text
-      wx:for="{{indexLetters}}"
-      wx:key="*this"
-      class="side-letter tap-active"
-      data-letter="{{item}}"
-      bindtap="scrollToLetter"
-    >{{item}}</text>
+</view>
+<view class="side-index" wx:if="{{indexLetters.length && !showSuggestions}}">
+  <view
+    wx:for="{{indexLetters}}"
+    wx:key="*this"
+    class="side-letter tap-active {{activeIndexLetter === item ? 'active' : ''}}"
+    data-letter="{{item}}"
+    bindtap="scrollToLetter"
+  >
+    <text class="side-letter-text">{{item}}</text>
   </view>
 </view>

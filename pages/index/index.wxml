@@ -3,7 +3,7 @@
   <view class="page-body">
   <view class="v0-header" style="padding-top: {{navPaddingTop}}px; padding-right: {{headerPaddingRight}}px;">
     <view class="header-top-row">
-      <view class="location-row">
+      <view class="location-row tap-active" bindtap="goCitySelect">
         <image class="location-pin" src="/images/icons/location-pin.png" mode="aspectFit" />
         <text class="location-text">{{displayCity}}</text>
       </view>
@@ -14,37 +14,30 @@
     </view>
   </view>
 
-  <view class="hero-card tap-active" bindtap="goHero">
-    <image class="hero-img" src="{{heroImage}}" mode="aspectFill" lazy-load />
-    <view class="hero-overlay"></view>
-    <view class="hero-content">
-      <text class="hero-title title-serif">{{heroTitle}}</text>
-      <text class="hero-tag">{{heroTagline}}</text>
-    </view>
-  </view>
-
-  <view class="feature-grid">
-    <view
-      wx:for="{{features}}"
-      wx:key="key"
-      class="feature-item tap-active"
-      data-key="{{item.key}}"
-      bindtap="onFeatureTap"
-    >
-      <view class="feature-icon-wrap">
-        <image class="feature-icon-img" src="{{item.iconImage}}" mode="aspectFill" />
+  <swiper
+    class="hero-swiper"
+    indicator-dots
+    indicator-color="rgba(255,255,255,0.45)"
+    indicator-active-color="#ffffff"
+    autoplay
+    circular
+    interval="4000"
+    duration="500"
+  >
+    <swiper-item wx:for="{{banners}}" wx:key="id" class="hero-slide">
+      <view class="hero-card tap-active" data-id="{{item.targetId}}" bindtap="goBanner">
+        <image class="hero-img" src="{{item.image}}" mode="aspectFill" />
       </view>
-      <text class="feature-label">{{item.label}}</text>
-    </view>
-  </view>
+    </swiper-item>
+  </swiper>
 
   <view class="today-section">
     <view class="today-header">
       <view class="title-bar">
         <view class="title-bar-mark"></view>
         <text class="today-title title-serif">{{i18n.todayTitle}}</text>
+        <text class="today-sub">{{i18n.todaySubtitle}}</text>
       </view>
-      <text class="today-sub">{{i18n.todaySubtitle}}</text>
     </view>
 
     <view class="today-tabs">
@@ -54,6 +47,14 @@
         bindtap="onTodayTab"
       >
         <text>{{i18n.todayLegend}}</text>
+      </view>
+      <view class="today-tab-sep" aria-hidden="true">
+        <view class="today-tab-dot"></view>
+        <view class="today-tab-dot"></view>
+        <view class="today-tab-dot"></view>
+        <view class="today-tab-dot"></view>
+        <view class="today-tab-dot"></view>
+        <view class="today-tab-dot"></view>
       </view>
       <view
         class="today-tab {{todayTab === 'heritage' ? 'active' : ''}}"
@@ -77,7 +78,6 @@
       >
         <image class="recommend-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
         <view class="recommend-body">
-          <text class="recommend-tag tag-{{item.type}}">{{item.tag}}</text>
           <text class="recommend-name title-serif">{{item.title}}</text>
           <text class="recommend-excerpt ellipsis-2">{{item.excerpt}}</text>
         </view>
@@ -136,7 +136,6 @@
       </view>
     </view>
   </view>
-
-  <guide-mascot label="{{i18n.mascotLabel}}" bind:open="goAiGuide" />
   </view>
 </view>
+<guide-mascot label="{{i18n.mascotLabel}}" bind:open="goAiGuide" />

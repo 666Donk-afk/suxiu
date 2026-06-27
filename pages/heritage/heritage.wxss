@@ -59,10 +59,6 @@
   font-size: 24rpx;
 }
 
-.label-book {
-  font-size: 28rpx;
-}
-
 .link-more {
   font-size: 24rpx;
   color: var(--color-text-muted);

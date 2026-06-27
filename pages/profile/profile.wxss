@@ -102,8 +102,7 @@
   width: 40rpx;
   height: 40rpx;
   margin-right: 24rpx;
-  border: 3rpx solid #A0522D;
-  border-radius: 8rpx;
+  flex-shrink: 0;
 }
 
 .menu-text {
@@ -120,13 +119,4 @@
   font-size: 26rpx;
   color: #8B7D6B;
   margin-right: 8rpx;
-}
-
-.icon-lang {
-  border-radius: 50%;
-}
-
-.icon-exp {
-  border-radius: 50%;
-  background: rgba(160, 48, 31, 0.08);
 }
