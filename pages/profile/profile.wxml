@@ -1,12 +1,16 @@
-<view class="page page-fade-in safe-bottom">
+<view class="page page-profile page-fade-in safe-bottom">
+  <!-- 顶部用户信息区 -->
   <view class="profile-header">
-    <view class="header-deco"></view>
-    <view class="user-row">
+    <view class="header-deco header-deco-1"></view>
+    <view class="header-deco header-deco-2"></view>
+    <view class="user-row tap-active" bindtap="onUserRowTap">
       <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill" />
       <view class="user-info">
         <text class="nickname">{{userInfo.nickName}}</text>
-        <text class="user-id" wx:if="{{!isGuest}}">{{i18n.enthusiast}}</text>
-        <text class="user-id guest-hint" wx:else bindtap="goLogin">{{i18n.guestHint}}</text>
+        <view class="user-tags" wx:if="{{!isGuest}}">
+          <text class="user-tag">{{i18n.enthusiast}}</text>
+        </view>
+        <text class="user-id guest-hint" wx:else>{{i18n.guestHint}}</text>
       </view>
     </view>
     <view class="stats-row">
@@ -29,35 +33,59 @@
     </view>
   </view>
 
-  <view class="content-card">
-    <view class="menu-list">
-      <view class="menu-item tap-active" bindtap="goFavorite">
-        <image class="menu-icon" src="/images/icons/profile/icon-favorite.png" mode="aspectFit" />
-        <text class="menu-text">{{i18n.myFavorites}}</text>
-        <text class="menu-arrow">›</text>
+  <view class="profile-body">
+    <!-- 中部提示卡片（参考钱包区布局，复用登录/进度信息） -->
+    <view class="highlight-card profile-card">
+      <view class="highlight-top">
+        <text class="highlight-tip">{{isGuest ? i18n.cardGuestTitle : i18n.cardUserTitle}}</text>
       </view>
-      <view class="menu-item tap-active" bindtap="goHistory">
-        <image class="menu-icon" src="/images/icons/profile/icon-history.png" mode="aspectFit" />
-        <text class="menu-text">{{i18n.myHistory}}</text>
-        <text class="menu-arrow">›</text>
+      <view class="highlight-bottom">
+        <view class="highlight-stat" wx:if="{{isGuest}}">
+          <text class="highlight-label">{{i18n.guestHint}}</text>
+        </view>
+        <view class="highlight-stat highlight-stat-row" wx:else>
+          <text class="highlight-num">{{favoriteCount}}</text>
+          <text class="highlight-unit">{{i18n.favorites}}</text>
+          <text class="highlight-divider">·</text>
+          <text class="highlight-num">{{historyCount}}</text>
+          <text class="highlight-unit">{{i18n.history}}</text>
+        </view>
+        <view
+          class="highlight-btn tap-active"
+          wx:if="{{isGuest}}"
+          bindtap="goLogin"
+        >{{i18n.cardGuestBtn}}</view>
       </view>
-      <view class="menu-item tap-active" bindtap="goMyExperience">
-        <image class="menu-icon" src="/images/icons/profile/icon-reservation.png" mode="aspectFit" />
-        <text class="menu-text">{{i18n.myExperience}}</text>
-        <text class="menu-arrow">›</text>
+    </view>
+
+    <!-- 四宫格快捷入口 -->
+    <view class="quick-grid profile-card">
+      <view class="quick-item tap-active" bindtap="goFavorite">
+        <image class="quick-icon" src="/images/icons/profile/icon-favorite.png" mode="aspectFit" />
+        <text class="quick-label">{{i18n.myFavorites}}</text>
       </view>
+      <view class="quick-item tap-active" bindtap="goHistory">
+        <image class="quick-icon" src="/images/icons/profile/icon-history.png" mode="aspectFit" />
+        <text class="quick-label">{{i18n.myHistory}}</text>
+      </view>
+      <view class="quick-item tap-active" bindtap="goMyExperience">
+        <image class="quick-icon" src="/images/icons/profile/icon-reservation.png" mode="aspectFit" />
+        <text class="quick-label">{{i18n.myExperience}}</text>
+      </view>
+      <view class="quick-item tap-active" bindtap="onLangTap">
+        <image class="quick-icon" src="/images/icons/profile/icon-language.png" mode="aspectFit" />
+        <text class="quick-label">{{i18n.language}}</text>
+      </view>
+    </view>
+
+    <!-- 下方列表菜单 -->
+    <view class="menu-card profile-card">
       <view class="menu-item tap-active" bindtap="goFeedback">
         <image class="menu-icon" src="/images/icons/profile/icon-feedback.png" mode="aspectFit" />
         <text class="menu-text">{{i18n.feedback}}</text>
         <text class="menu-arrow">›</text>
       </view>
-      <view class="menu-item tap-active" bindtap="onLangTap">
-        <image class="menu-icon" src="/images/icons/profile/icon-language.png" mode="aspectFit" />
-        <text class="menu-text">{{i18n.language}}</text>
-        <text class="menu-extra">{{langLabel}}</text>
-        <text class="menu-arrow">›</text>
-      </view>
-      <view class="menu-item tap-active" bindtap="goAbout">
+      <view class="menu-item menu-item-last tap-active" bindtap="goAbout">
         <image class="menu-icon" src="/images/icons/profile/icon-about.png" mode="aspectFit" />
         <text class="menu-text">{{i18n.about}}</text>
         <text class="menu-arrow">›</text>

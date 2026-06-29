@@ -29,7 +29,7 @@
       <text>{{i18n.featuredTitle}}</text>
     </view>
     <view class="featured-card tap-active" data-id="{{featured.id}}" bindtap="goFeatured">
-      <image class="featured-cover" src="{{featured.cover}}" mode="aspectFill" lazy-load />
+      <image class="featured-cover" src="{{featured.cover}}" mode="aspectFill" lazy-load="{{false}}" />
       <view class="featured-mask"></view>
       <view class="play-btn">▶</view>
       <view class="featured-info">

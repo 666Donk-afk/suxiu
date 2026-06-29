@@ -1,5 +1,6 @@
 ﻿const storage = require('../../utils/storage');
 const { t } = require('../../i18n.js');
+const { ensureAllMedia } = require('../../utils/media-packages');
 
 Page({
   data: {
@@ -11,6 +12,7 @@ Page({
   },
 
   onLoad() {
+    ensureAllMedia();
     this.refreshI18n();
     setTimeout(() => this.setData({ showLogo: true }), 100);
     setTimeout(() => this.setData({ showName: true }), 400);

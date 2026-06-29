@@ -104,16 +104,53 @@ npm run dev
 
 ## 二、配置小程序
 
+### 方式 A：微信云函数（真机推荐，无需配置 SiliconFlow 域名）
+
+微信小程序 **request 合法域名** 只能访问已白名单域名；真机无法直连 `api.siliconflow.cn` 时会报网络错误。
+
+按微信云开发规范，通过 **云函数** 在服务端请求第三方 API，小程序只调用 `wx.cloud.callFunction`（无需添加 siliconflow 域名）。
+
+1. 微信开发者工具 → **云开发** → 开通并创建环境，复制 **环境 ID**
+2. 编辑 `config/cloud.js`：
+   ```javascript
+   module.exports = {
+     envId: '你的环境ID',
+     useCloud: true
+   };
+   ```
+3. 云开发控制台 → **设置 → 环境变量**，添加：
+   - `SILICONFLOW_API_KEY` = 你的 SiliconFlow 密钥
+   - （可选）`SILICONFLOW_MODEL` = `nex-agi/Nex-N2-Pro`
+4. 在开发者工具中右键 `cloudfunctions/aiProxy` → **上传并部署：云端安装依赖**
+5. 重新编译，真机测试 AI 助手
+
+### 方式 B：直连 SiliconFlow（需配置域名）
+
+编辑 `config/ai-secret.js`（从 `ai-secret.example.js` 复制），填入 API Key。
+
+微信公众平台 → 开发 → 开发管理 → 服务器域名 → **request 合法域名** 添加：
+
+```
+https://api.siliconflow.cn
+```
+
+`config/api.js` 中保持 `aiTransport: 'auto'` 或设为 `'direct'`。
+
+### 方式 C：自建 Node 后端
+
 编辑 `config/api.js`：
 
 ```javascript
 module.exports = {
   baseUrl: 'https://你的域名.com',  // 生产环境必须 HTTPS
-  // 本地调试：http://127.0.0.1:3000 + 开发者工具勾选「不校验合法域名」
+  aiTransport: 'auto',  // 或 'backend'
+  // ...
 };
 ```
 
-微信公众平台 → 开发 → 开发管理 → 服务器域名 → **request 合法域名** 添加上述 HTTPS 域名。
+微信公众平台 → **request 合法域名** 添加上述 HTTPS 域名（不是你的 SiliconFlow 域名）。
+
+本地调试：`http://127.0.0.1:3000` + 开发者工具勾选「不校验合法域名」。
 
 ---
 

@@ -2,6 +2,7 @@
 const storage = require('../../utils/storage');
 const { getTodayRecommendCards } = require('../../utils/today-recommend');
 const { getCityHomeSections } = require('../../utils/city-home-sections');
+const { ensureAllMedia, isAllMediaReady } = require('../../utils/media-packages');
 const { t, getLocale } = require('../../i18n.js');
 
 function getDisplayCity(locale) {
@@ -76,17 +77,25 @@ Page({
 
   refreshContent() {
     try {
-      const locale = getLocale();
-      const { todayTab } = this.data;
-      const sections = getCityHomeSections(locale);
-      this.setData({
-        displayCity: getDisplayCity(locale),
-        banners: getHomeBanners(),
-        representativeHeritages: sections.representativeHeritages,
-        cityInheritors: sections.cityInheritors,
-        representativeSubtitle: sections.representativeSubtitle,
-        recommendCards: getTodayRecommendCards(todayTab, 4, locale)
-      });
+      const apply = () => {
+        const locale = getLocale();
+        const { todayTab } = this.data;
+        const sections = getCityHomeSections(locale);
+        this.setData({
+          displayCity: getDisplayCity(locale),
+          banners: getHomeBanners(),
+          representativeHeritages: sections.representativeHeritages.map(item => ({ ...item })),
+          cityInheritors: sections.cityInheritors.map(item => ({ ...item })),
+          representativeSubtitle: sections.representativeSubtitle,
+          recommendCards: getTodayRecommendCards(todayTab, 4, locale).map(item => ({ ...item }))
+        });
+      };
+
+      if (isAllMediaReady()) {
+        apply();
+      } else {
+        ensureAllMedia().then(apply);
+      }
     } catch (err) {
       console.error('[index] refreshContent failed', err);
     }

@@ -65,7 +65,7 @@
             data-id="{{city.id}}"
             bindtap="goCityDetail"
           >
-            <image class="hot-cover" src="{{city.cover}}" mode="aspectFill" lazy-load />
+            <image class="hot-cover" src="{{city.cover}}" mode="aspectFill" lazy-load="{{false}}" binderror="onHotCoverError" data-id="{{city.id}}" />
             <text class="hot-name title-serif">{{city.name}}</text>
           </view>
         </view>

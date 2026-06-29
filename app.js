@@ -1,5 +1,11 @@
 // 非遗寻迹 - 小程序入口
 const storage = require('./utils/storage');
+const { ensureAllMedia } = require('./utils/media-packages');
+
+let cloudConfig = { useCloud: false, envId: '' };
+try {
+  cloudConfig = require('./config/cloud.js');
+} catch (e) { /* optional */ }
 
 App({
   globalData: {
@@ -34,6 +40,15 @@ App({
 
     const { getLocale } = require('./i18n.js');
     this.globalData.locale = getLocale();
+
+    if (cloudConfig.useCloud && cloudConfig.envId && wx.cloud) {
+      wx.cloud.init({
+        env: cloudConfig.envId,
+        traceUser: true
+      });
+    }
+
+    ensureAllMedia();
   },
 
   refreshUserState() {

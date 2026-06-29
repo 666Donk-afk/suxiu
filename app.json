@@ -99,25 +99,13 @@
     }
   ],
   "preloadRule": {
-    "pages/splash/splash": {
-      "network": "all",
-      "packages": ["mediaA", "mediaB"]
-    },
     "pages/index/index": {
       "network": "all",
-      "packages": ["mediaA", "mediaB", "ai"]
-    },
-    "pages/heritage/heritage": {
-      "network": "all",
-      "packages": ["mediaA", "mediaB"]
-    },
-    "pages/yunyou/yunyou": {
-      "network": "all",
-      "packages": ["mediaA", "mediaB"]
+      "packages": ["mediaA"]
     },
     "package-detail/pages/heritage-detail/heritage-detail": {
       "network": "all",
-      "packages": ["mediaA", "mediaB"]
+      "packages": ["mediaA"]
     },
     "package-onboarding/pages/journey-setup/journey-setup": {
       "network": "all",

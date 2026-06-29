@@ -26,7 +26,7 @@
   >
     <swiper-item wx:for="{{banners}}" wx:key="id" class="hero-slide">
       <view class="hero-card tap-active" data-id="{{item.targetId}}" bindtap="goBanner">
-        <image class="hero-img" src="{{item.image}}" mode="aspectFill" />
+        <image class="hero-img" src="{{item.image}}" mode="scaleToFill" lazy-load="{{false}}" />
       </view>
     </swiper-item>
   </swiper>
@@ -76,7 +76,7 @@
         data-type="{{item.type}}"
         bindtap="goRecommend"
       >
-        <image class="recommend-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+        <image class="recommend-cover" src="{{item.cover}}" mode="aspectFill" lazy-load="{{false}}" />
         <view class="recommend-body">
           <text class="recommend-name title-serif">{{item.title}}</text>
           <text class="recommend-excerpt ellipsis-2">{{item.excerpt}}</text>
@@ -102,7 +102,7 @@
           data-id="{{item.id}}"
           bindtap="goHeritageDetail"
         >
-          <image class="highlight-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+          <image class="highlight-cover" src="{{item.cover}}" mode="aspectFill" lazy-load="{{false}}" />
           <view class="highlight-body">
             <text class="highlight-tag">{{item.category}}</text>
             <text class="highlight-name title-serif ellipsis">{{item.name}}</text>
@@ -129,7 +129,7 @@
         data-id="{{item.heritageId}}"
         bindtap="goHeritageDetail"
       >
-        <image class="inheritor-avatar" src="{{item.cover}}" mode="aspectFill" lazy-load />
+        <image class="inheritor-avatar" src="{{item.cover}}" mode="aspectFill" lazy-load="{{false}}" />
         <text class="inheritor-name ellipsis">{{item.name}}</text>
         <text class="inheritor-heritage ellipsis">{{item.heritageName}}</text>
         <text class="inheritor-tag ellipsis">{{item.level}}</text>

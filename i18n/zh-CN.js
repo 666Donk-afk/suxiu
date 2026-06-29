@@ -37,6 +37,7 @@ module.exports = {
     decoInherit: '传承'
   },
   login: {
+    welcomeTitle: '欢迎登录',
     tagline: '见城 · 见艺 · 见传承',
     loginBtn: '微信授权登录',
     guestBtn: '暂不登录，先逛逛',
@@ -44,6 +45,7 @@ module.exports = {
     userAgreement: '《用户协议》',
     privacyPolicy: '《隐私政策》',
     agreeAnd: '与',
+    agreeRequired: '请先阅读并同意相关协议',
     authFail: '需要授权才能登录',
     authDesc: '用于完善用户资料与个性化体验'
   },
@@ -145,7 +147,7 @@ module.exports = {
     removePhoto: '移除',
     durationLabel: '预计时长',
     reasonLabel: '推荐理由',
-    errorNetwork: '无法连接 AI 服务，请检查手机网络，并在小程序后台将 api.siliconflow.cn 加入 request 合法域名。',
+    errorNetwork: '无法连接 AI 服务。推荐：开通云开发并部署 cloudfunctions/aiProxy（见 config/cloud.js）；或在小程序后台将 api.siliconflow.cn 加入 request 合法域名。',
     errorGeneric: '抱歉，暂时无法回答，请稍后重试。',
     clearConfirmTitle: '清空对话',
     clearConfirmContent: '确定清空与小遗的对话记录吗？'
@@ -386,7 +388,11 @@ module.exports = {
     myExperience: '我的预约',
     loginTitle: '登录后可用',
     loginForHistory: '浏览历史需要登录后同步，是否前往登录？',
-    goLogin: '去登录'
+    goLogin: '去登录',
+    cardGuestTitle: '登录后同步收藏与浏览记录',
+    cardGuestBtn: '去登录',
+    cardUserTitle: '我的探索进度',
+    cardUserUnit: '项收藏 · 次浏览'
   },
   feedback: {
     title: '意见反馈',

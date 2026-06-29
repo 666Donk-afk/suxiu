@@ -1,4 +1,5 @@
-﻿const { getHotCities, getCityIndexGroups, getCityById, getCityByName } = require('../../../data/cities');
+﻿const { getHotCities, getCityIndexGroups, getCityById, getCityByName, DEFAULT_CITY_COVER } = require('../../../data/cities');
+const { ensureAllMedia, isAllMediaReady } = require('../../../utils/media-packages');
 const { getProvinceByCity } = require('../../../data/provinces.js');
 const { getCityIndexLetter } = require('../../../utils/city-index-letter.js');
 const { pickLocale } = require('../../../i18n/locale-field.js');
@@ -92,17 +93,37 @@ Page({
 
   refreshContent() {
     const locale = getLocale();
-    const groups = getCityIndexGroups(locale);
-    const hotCities = getHotCities(12, locale);
+    const apply = () => {
+      const groups = getCityIndexGroups(locale);
+      const hotCities = getHotCities(12, locale).map(item => ({ ...item }));
+      this.setData({
+        displayCity: getDisplayCity(locale),
+        hotCities,
+        hotCityColumns: buildHotCityColumns(hotCities),
+        indexGroups: groups,
+        indexLetters: groups.map(g => g.letter),
+        activeIndexLetter: groups.length ? groups[0].letter : ''
+      }, () => {
+        this.updateActiveIndexLetter();
+      });
+    };
+
+    if (isAllMediaReady()) {
+      apply();
+    } else {
+      ensureAllMedia().then(apply);
+    }
+  },
+
+  onHotCoverError(e) {
+    const { id } = e.currentTarget.dataset;
+    if (!id) return;
+    const hotCities = this.data.hotCities.map(item =>
+      item.id === id ? { ...item, cover: DEFAULT_CITY_COVER } : item
+    );
     this.setData({
-      displayCity: getDisplayCity(locale),
       hotCities,
-      hotCityColumns: buildHotCityColumns(hotCities),
-      indexGroups: groups,
-      indexLetters: groups.map(g => g.letter),
-      activeIndexLetter: groups.length ? groups[0].letter : ''
-    }, () => {
-      this.updateActiveIndexLetter();
+      hotCityColumns: buildHotCityColumns(hotCities)
     });
   },
 

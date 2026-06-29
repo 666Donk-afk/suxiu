@@ -1,4 +1,7 @@
 {
   "navigationStyle": "custom",
-  "navigationBarTitleText": ""
+  "navigationBarTitleText": "",
+  "backgroundColor": "#FFFBF5",
+  "backgroundColorTop": "#F9E8C8",
+  "backgroundColorBottom": "#FFFBF5"
 }

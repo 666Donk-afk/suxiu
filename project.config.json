@@ -105,6 +105,7 @@
     "disableSWC": true
   },
   "compileType": "miniprogram",
+  "cloudfunctionRoot": "cloudfunctions/",
   "libVersion": "3.16.1",
   "appid": "wxc26ad8ea3a775567",
   "projectname": "非遗寻迹",

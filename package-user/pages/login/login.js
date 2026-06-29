@@ -1,24 +1,21 @@
 ﻿const storage = require('../../../utils/storage');
-const images = require('../../../data/images');
 const { t } = require('../../../i18n.js');
 
 Page({
   data: {
     statusBarHeight: 20,
     showContent: false,
-    heritageCovers: [
-      images.heritages.hanju,
-      images.heritages.huangmei,
-      images.heritages.xilan,
-      images.heritages.wudang
-    ],
+    showBack: false,
+    agreed: false,
     i18n: {}
   },
 
   onLoad() {
     const app = getApp();
+    const pages = getCurrentPages();
     this.setData({
-      statusBarHeight: app.globalData.statusBarHeight || 20
+      statusBarHeight: app.globalData.statusBarHeight || 20,
+      showBack: pages.length > 1
     });
     this.refreshI18n();
     setTimeout(() => this.setData({ showContent: true }), 150);
@@ -32,6 +29,7 @@ Page({
     this.setData({
       i18n: {
         appName: t('common.appName'),
+        welcomeTitle: t('login.welcomeTitle'),
         tagline: t('login.tagline'),
         loginBtn: t('login.loginBtn'),
         guestBtn: t('login.guestBtn'),
@@ -43,7 +41,19 @@ Page({
     });
   },
 
+  toggleAgree() {
+    this.setData({ agreed: !this.data.agreed });
+  },
+
+  onBack() {
+    wx.navigateBack({ delta: 1 });
+  },
+
   onLogin() {
+    if (!this.data.agreed) {
+      wx.showToast({ title: t('login.agreeRequired'), icon: 'none' });
+      return;
+    }
     wx.getUserProfile({
       desc: t('login.authDesc'),
       success: res => {

@@ -1,47 +1,43 @@
 <view class="login page-fade-in">
-  <view class="login-bg">
-    <view class="bg-pattern"></view>
-    <view class="bg-glow"></view>
+  <!-- 顶部品牌区（弧形过渡） -->
+  <view class="login-hero" style="padding-top: {{statusBarHeight}}px;">
+    <view class="hero-back tap-active" wx:if="{{showBack}}" bindtap="onBack">
+      <text class="hero-back-icon">‹</text>
+    </view>
+
+    <view class="hero-brand {{showContent ? 'visible' : ''}}">
+      <image class="logo-img" src="/images/brand/logo.png" mode="aspectFit" />
+      <text class="app-name title-serif">{{i18n.appName}}</text>
+      <text class="tagline">{{i18n.tagline}}</text>
+    </view>
+
+    <view class="hero-curve" aria-hidden="true"></view>
   </view>
 
-  <view class="login-body {{showContent ? 'visible' : ''}}" style="padding-top: {{statusBarHeight + 40}}px">
-    <!-- Logo -->
-    <view class="logo-section">
-      <image class="logo-img login-logo fade-in-item" src="/images/brand/logo.png" mode="aspectFit" />
-      <text class="app-name title-serif fade-in-item delay-1">{{i18n.appName}}</text>
-      <text class="tagline fade-in-item delay-2">{{i18n.tagline}}</text>
-    </view>
+  <!-- 底部登录操作区 -->
+  <view class="login-panel {{showContent ? 'visible' : ''}}">
+    <text class="welcome-title title-serif">{{i18n.welcomeTitle}}</text>
 
-    <!-- 品牌插画 -->
-    <view class="illus-section float-anim fade-in-item delay-3">
-      <view class="scroll-frame">
-        <view class="scroll-inner">
-          <image
-            wx:for="{{heritageCovers}}"
-            wx:key="*this"
-            class="heritage-thumb"
-            src="{{item}}"
-            mode="aspectFill"
-          />
+    <view class="action-section">
+      <button class="login-btn login-btn-primary tap-active" bindtap="onLogin">
+        <view class="btn-inner">
+          <view class="wx-badge">微</view>
+          <text>{{i18n.loginBtn}}</text>
         </view>
-        <view class="scroll-deco left"></view>
-        <view class="scroll-deco right"></view>
+      </button>
+      <button class="login-btn login-btn-outline tap-active" bindtap="onGuest">{{i18n.guestBtn}}</button>
+    </view>
+
+    <view class="agreement tap-active" bindtap="toggleAgree">
+      <view class="agree-check {{agreed ? 'checked' : ''}}">
+        <text wx:if="{{agreed}}" class="agree-check-mark">✓</text>
       </view>
-      <view class="pattern-overlay"></view>
-    </view>
-
-    <!-- 登录按钮 -->
-    <view class="action-section fade-in-item delay-4">
-      <button class="login-btn tap-active" bindtap="onLogin">{{i18n.loginBtn}}</button>
-      <view class="guest-btn tap-active" bindtap="onGuest">{{i18n.guestBtn}}</view>
-    </view>
-
-    <!-- 协议 -->
-    <view class="agreement fade-in-item delay-5">
-      <text class="agree-text">{{i18n.agreePrefix}}</text>
-      <text class="agree-link" data-type="user" bindtap="goAgreement">{{i18n.userAgreement}}</text>
-      <text class="agree-text">{{i18n.agreeAnd}}</text>
-      <text class="agree-link" data-type="privacy" bindtap="goAgreement">{{i18n.privacyPolicy}}</text>
+      <view class="agree-copy">
+        <text class="agree-text">{{i18n.agreePrefix}}</text>
+        <text class="agree-link" catchtap="goAgreement" data-type="user">{{i18n.userAgreement}}</text>
+        <text class="agree-text">{{i18n.agreeAnd}}</text>
+        <text class="agree-link" catchtap="goAgreement" data-type="privacy">{{i18n.privacyPolicy}}</text>
+      </view>
     </view>
   </view>
 </view>

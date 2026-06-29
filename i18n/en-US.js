@@ -37,6 +37,7 @@ module.exports = {
     decoInherit: 'Legacy'
   },
   login: {
+    welcomeTitle: 'Welcome',
     tagline: 'See Cities · See Arts · See Heritage',
     loginBtn: 'Sign in with WeChat',
     guestBtn: 'Continue as Guest',
@@ -44,6 +45,7 @@ module.exports = {
     userAgreement: 'User Agreement',
     privacyPolicy: 'Privacy Policy',
     agreeAnd: 'and',
+    agreeRequired: 'Please accept the agreements first',
     authFail: 'Authorization is required to sign in',
     authDesc: 'Used to personalize your experience'
   },
@@ -141,7 +143,7 @@ module.exports = {
     removePhoto: 'Remove',
     durationLabel: 'Duration',
     reasonLabel: 'Why this route',
-    errorNetwork: 'Cannot connect to AI service. Check network and add api.siliconflow.cn to request合法域名 in WeChat admin.',
+    errorNetwork: 'Cannot connect to AI. Enable WeChat Cloud + deploy cloudfunctions/aiProxy (see config/cloud.js), or add api.siliconflow.cn to request domains.',
     errorGeneric: 'Sorry, please try again later.',
     clearConfirmTitle: 'Clear chat',
     clearConfirmContent: 'Clear all messages with Xiao Yi?'
@@ -382,7 +384,11 @@ module.exports = {
     myExperience: 'My Bookings',
     loginTitle: 'Sign in required',
     loginForHistory: 'Sign in to sync browsing history. Go to login?',
-    goLogin: 'Sign In'
+    goLogin: 'Sign In',
+    cardGuestTitle: 'Sign in to sync favorites and history',
+    cardGuestBtn: 'Sign In',
+    cardUserTitle: 'My Exploration',
+    cardUserUnit: 'saved · views'
   },
   feedback: {
     title: 'Feedback',

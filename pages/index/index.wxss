@@ -108,6 +108,7 @@
 .highlight-cover {
   width: 280rpx;
   height: 168rpx;
+  background: var(--color-bg-paper);
 }
 
 .highlight-body {

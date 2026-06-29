@@ -5,6 +5,18 @@ const heritageList = require('./heritage-list.js');
 const citiesData = require('./cities-data.js');
 const images = require('./images.js');
 
+/** 引导页城市卡片封面：放在 onboarding 分包内，避免跨分包加载失败 */
+const ONBOARDING_COVER_DIR = '/package-onboarding/images/city-covers/';
+const DEFAULT_ONBOARDING_COVER = ONBOARDING_COVER_DIR + 'default.jpg';
+
+function remapCoverForOnboarding(cover) {
+  if (!cover) return DEFAULT_ONBOARDING_COVER;
+  if (cover.startsWith(ONBOARDING_COVER_DIR)) return cover;
+  const filename = (cover.split('/').pop() || '').trim();
+  if (!filename) return DEFAULT_ONBOARDING_COVER;
+  return ONBOARDING_COVER_DIR + filename;
+}
+
 function normalizeName(name) {
   return (name || '').replace(/(市|县|区|州|盟|地区|自治州|特别行政区)$/g, '').trim();
 }
@@ -45,15 +57,15 @@ function findCoverFromCitiesData(cityName) {
 
 function getCityCover(cityName, provinceShort) {
   const heritage = findHeritageForCity(cityName, provinceShort);
-  if (heritage && heritage.cover) return heritage.cover;
+  if (heritage && heritage.cover) return remapCoverForOnboarding(heritage.cover);
 
   const fromCityData = findCoverFromCitiesData(cityName);
-  if (fromCityData) return fromCityData;
+  if (fromCityData) return remapCoverForOnboarding(fromCityData);
 
   const pool = getHeritagesForProvince(provinceShort);
-  if (pool.length && pool[0].cover) return pool[0].cover;
+  if (pool.length && pool[0].cover) return remapCoverForOnboarding(pool[0].cover);
 
-  return images.defaultHeritage;
+  return remapCoverForOnboarding(images.defaultHeritage);
 }
 
 function buildCityCards(cityNames, provinceShort) {
@@ -80,11 +92,13 @@ function buildCityCards(cityNames, provinceShort) {
       ? heritage.cover
       : findCoverFromCitiesData(name) || getCityCover(name, provinceShort);
 
-    return { name, cover };
+    return { name, cover: remapCoverForOnboarding(cover) };
   });
 }
 
 module.exports = {
   getCityCover,
-  buildCityCards
+  buildCityCards,
+  remapCoverForOnboarding,
+  DEFAULT_ONBOARDING_COVER
 };

@@ -2,6 +2,7 @@
 const { getPersonalizedExperiences } = require('../../utils/recommendation');
 const { getHeritageById } = require('../../data/heritages');
 const storage = require('../../utils/storage');
+const { ensureAllMedia, isAllMediaReady } = require('../../utils/media-packages');
 const { t, getLocale } = require('../../i18n.js');
 
 function getDisplayCity(locale) {
@@ -66,11 +67,19 @@ Page({
 
   refreshContent() {
     const locale = getLocale();
-    this.setData({
-      displayCity: getDisplayCity(locale),
-      hotCities: getHotCities(8, locale),
-      travelRoutes: mapRoutes(getPersonalizedExperiences(5, locale), locale)
-    });
+    const apply = () => {
+      this.setData({
+        displayCity: getDisplayCity(locale),
+        hotCities: getHotCities(8, locale).map(item => ({ ...item })),
+        travelRoutes: mapRoutes(getPersonalizedExperiences(5, locale), locale).map(item => ({ ...item }))
+      });
+    };
+
+    if (isAllMediaReady()) {
+      apply();
+    } else {
+      ensureAllMedia().then(apply);
+    }
   },
 
   goCity(e) {

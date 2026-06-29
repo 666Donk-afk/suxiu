@@ -53,7 +53,10 @@ Page({
         myExperience: t('profile.myExperience'),
         feedback: t('profile.feedback'),
         language: t('profile.language'),
-        about: t('profile.about')
+        about: t('profile.about'),
+        cardGuestTitle: t('profile.cardGuestTitle'),
+        cardGuestBtn: t('profile.cardGuestBtn'),
+        cardUserTitle: t('profile.cardUserTitle')
       }
     });
   },
@@ -68,6 +71,10 @@ Page({
 
   goLogin() {
     wx.navigateTo({ url: '/package-user/pages/login/login' });
+  },
+
+  onUserRowTap() {
+    if (this.data.isGuest) this.goLogin();
   },
 
   goFavorite() {

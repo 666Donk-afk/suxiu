@@ -1,5 +1,6 @@
 ﻿const { getAllHeritages } = require('../../data/heritages');
 const { getInheritors } = require('../../data/inheritors');
+const { ensureAllMedia, isAllMediaReady } = require('../../utils/media-packages');
 const { t, getLocale } = require('../../i18n.js');
 const { toHeritageListItem } = require('../../utils/util');
 
@@ -57,20 +58,26 @@ Page({
   refreshList() {
     const locale = getLocale();
     const { activeFilter } = this.data;
-    wx.nextTick(() => {
+    const apply = () => {
       let all = getAllHeritages(locale);
       if (activeFilter !== 'all') {
         all = all.filter(h => h.categoryKey === activeFilter);
       }
       const items = all.map(h => toHeritageListItem(h));
-      const featured = items.length ? items[0] : null;
-      const list = items.slice(1, 8);
+      const featured = items.length ? { ...items[0] } : null;
+      const list = items.slice(1, 8).map(item => ({ ...item }));
       this.setData({
         featured,
         list,
-        inheritors: getInheritors(locale)
+        inheritors: getInheritors(locale).map(item => ({ ...item }))
       });
-    });
+    };
+
+    if (isAllMediaReady()) {
+      wx.nextTick(apply);
+    } else {
+      ensureAllMedia().then(() => wx.nextTick(apply));
+    }
   },
 
   onFilterTap(e) {

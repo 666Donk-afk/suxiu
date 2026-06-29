@@ -6,9 +6,21 @@ const { pickLocale } = require('../i18n/locale-field.js');
 const { getLocale } = require('../i18n.js');
 const { getCityIndexLetter, compareIndexLetters } = require('../utils/city-index-letter.js');
 
+/** 城市封面放主包，Tab 页与分包页均可稳定加载 */
+const CITY_COVER_DIR = '/images/city-covers/';
+const DEFAULT_CITY_COVER = CITY_COVER_DIR + 'default.jpg';
+
+function remapCityCover(cover) {
+  if (!cover) return DEFAULT_CITY_COVER;
+  if (cover.startsWith(CITY_COVER_DIR)) return cover;
+  const filename = (cover.split('/').pop() || '').trim();
+  if (!filename) return DEFAULT_CITY_COVER;
+  return CITY_COVER_DIR + filename;
+}
+
 const cities = citiesRaw.map(c => ({
   ...c,
-  cover: c.cover || '/package-media-a/images/heritage/hanju.jpg'
+  cover: remapCityCover(c.cover || '/package-media-a/images/heritage/hanju.jpg')
 }));
 
 function localizeCity(city, locale) {
@@ -69,5 +81,7 @@ module.exports = {
   getCityIndexGroups,
   getCityById,
   getCityByName,
-  getHotCities
+  getHotCities,
+  remapCityCover,
+  DEFAULT_CITY_COVER
 };

@@ -5,7 +5,7 @@ const {
 } = require('../../../data/provinces.js');
 const { getCitiesByProvinceCode } = require('../../../data/province-cities.js');
 const { hasProvinceMap } = require('../../../data/province-maps.js');
-const { buildCityCards } = require('../../../data/city-covers.js');
+const { buildCityCards, DEFAULT_ONBOARDING_COVER } = require('../../../data/city-covers.js');
 const { pickLocale } = require('../../../i18n/locale-field.js');
 const { getJourneyCategories } = require('../../../data/journey-categories');
 const { buildInterestBubbles } = require('../../data/category-covers.js');
@@ -259,6 +259,15 @@ Page({
     const { name } = e.currentTarget.dataset;
     this.applyCitySelection(name);
     this.setData({ showCitySheet: false });
+  },
+
+  onCityCoverError(e) {
+    const { name } = e.currentTarget.dataset;
+    if (!name) return;
+    const cards = this.data.sheetCityCards.map(item =>
+      item.name === name ? { ...item, cover: DEFAULT_ONBOARDING_COVER } : item
+    );
+    this.setData({ sheetCityCards: cards });
   },
 
   applyCitySelection(cityName) {

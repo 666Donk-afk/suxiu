@@ -24,7 +24,7 @@
           data-id="{{item.id}}"
           bindtap="goCity"
         >
-          <image class="city-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+          <image class="city-cover" src="{{item.cover}}" mode="aspectFill" lazy-load="{{false}}" />
           <text class="city-name title-serif">{{item.name}}</text>
         </view>
       </view>
@@ -43,7 +43,7 @@
         data-id="{{item.heritageId}}"
         bindtap="goRoute"
       >
-        <image class="route-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+        <image class="route-cover" src="{{item.cover}}" mode="aspectFill" lazy-load="{{false}}" />
         <view class="route-body">
           <text class="route-title title-serif ellipsis">{{item.title}}</text>
           <text class="route-desc">{{item.desc}}</text>

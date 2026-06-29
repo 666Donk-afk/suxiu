@@ -356,7 +356,7 @@
 
       <text class="sheet-hint">{{i18n.step2TapCityCardHint}}</text>
 
-      <scroll-view scroll-y class="city-card-scroll" enhanced show-scrollbar="{{false}}">
+      <scroll-view scroll-y class="city-card-scroll" enhanced show-scrollbar="{{false}}" enable-flex>
 
         <view class="city-card-grid">
 
@@ -374,7 +374,7 @@
 
           >
 
-            <image class="city-card-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+            <image class="city-card-cover" src="{{item.cover}}" mode="aspectFill" binderror="onCityCoverError" data-name="{{item.name}}" />
 
             <view class="city-card-mask"></view>
 
