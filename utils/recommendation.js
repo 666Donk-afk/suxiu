@@ -5,10 +5,31 @@ const storage = require('./storage');
 const { getHotCities, getCityByName } = require('../data/cities');
 const { findJourneyCityByName } = require('../data/journey-cities');
 const { getAllHeritages, getCityHeritageIds } = require('../data/heritages');
-const { getHotExperiences } = require('../data/experience.js');
-const { t, getLocale } = require('../i18n.js');
+const RAW_HOT = require('../data/experience-hot.js');
+const { pickLocale } = require('../i18n/locale-field.js');
+const { getLocale, t } = require('../i18n.js');
 
 const TRAVEL_BOOST_PLANS = ['within_week', 'within_month', 'within_three_months'];
+
+function localizeHotExperience(item, locale) {
+  const loc = locale || getLocale();
+  return {
+    id: item.id,
+    heritageId: item.heritageId,
+    title: pickLocale(item.title, loc),
+    city: pickLocale(item.city, loc),
+    province: pickLocale(item.province, loc),
+    location: `${pickLocale(item.city, loc)} · ${pickLocale(item.province, loc)}`,
+    cover: item.cover,
+    reservationType: item.reservationType,
+    hot: !!item.hot
+  };
+}
+
+function getHotExperiences(limit, locale) {
+  const loc = locale || getLocale();
+  return RAW_HOT.slice(0, limit).map(item => localizeHotExperience(item, loc));
+}
 
 function buildHeritageScores(prefs, locale) {
   const all = getAllHeritages(locale);

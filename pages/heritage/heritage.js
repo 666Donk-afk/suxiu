@@ -1,4 +1,4 @@
-const { getAllHeritages } = require('../../data/heritages');
+﻿const { getAllHeritages } = require('../../data/heritages');
 const { getInheritors } = require('../../data/inheritors');
 const { t, getLocale } = require('../../i18n.js');
 const { toHeritageListItem } = require('../../utils/util');
@@ -87,15 +87,15 @@ Page({
   goDetail(e) {
     const { id } = e.currentTarget.dataset;
     if (!id) return;
-    wx.navigateTo({ url: `/pages/heritage-detail/heritage-detail?id=${id}` });
+    wx.navigateTo({ url: `/package-detail/pages/heritage-detail/heritage-detail?id=${id}` });
   },
 
   goSearch() {
     const { activeFilter } = this.data;
     if (activeFilter === 'all') {
-      wx.navigateTo({ url: '/pages/search/search' });
+      wx.navigateTo({ url: '/package-detail/pages/search/search' });
       return;
     }
-    wx.navigateTo({ url: `/pages/search/search?category=${activeFilter}` });
+    wx.navigateTo({ url: `/package-detail/pages/search/search?category=${activeFilter}` });
   }
 });

@@ -1,5 +1,3 @@
-@import '../../styles/v0-theme.wxss';
-
 .header-deco {
   font-size: 48rpx;
   color: var(--color-primary);

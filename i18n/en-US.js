@@ -15,6 +15,7 @@ module.exports = {
     version: 'Version 1.0.0'
   },
   splash: {
+    brandName: 'Wenyun Explorer',
     slogan: 'Reviving traditional culture in the digital age.'
   },
   languageSelect: {

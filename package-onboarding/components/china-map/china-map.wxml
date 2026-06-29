@@ -1,0 +1,22 @@
+<view class="china-map">
+  <view class="map-frame">
+    <image
+      id="mapImage"
+      class="map-image"
+      src="/package-onboarding/images/maps/china-map.jpg"
+      mode="widthFix"
+      bindload="onMapImageLoad"
+    />
+
+    <view class="map-tap-catcher" bindtap="onMapTap"></view>
+
+    <view class="pin-layer" wx:if="{{pinProvince}}">
+      <image
+        class="map-pin"
+        src="/package-onboarding/images/maps/map-pin.png"
+        mode="aspectFit"
+        style="left: {{pinProvince.marker.x}}%; top: {{pinProvince.marker.y}}%;"
+      />
+    </view>
+  </view>
+</view>

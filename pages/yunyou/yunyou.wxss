@@ -1,5 +1,3 @@
-@import '../../styles/v0-theme.wxss';
-
 .yunyou-header {
   padding-bottom: 0;
 }

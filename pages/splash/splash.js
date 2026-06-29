@@ -25,7 +25,7 @@ Page({
   refreshI18n() {
     this.setData({
       i18n: {
-        appName: t('common.appName'),
+        appName: t('splash.brandName'),
         slogan: t('splash.slogan')
       }
     });
@@ -33,7 +33,7 @@ Page({
 
   navigateNext() {
     if (!storage.hasCompletedLaunch()) {
-      wx.redirectTo({ url: '/pages/journey-setup/journey-setup' });
+      wx.redirectTo({ url: '/package-onboarding/pages/journey-setup/journey-setup' });
       return;
     }
     wx.switchTab({ url: '/pages/index/index' });

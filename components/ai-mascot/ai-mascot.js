@@ -1,10 +1,5 @@
 const { getPoseSrc } = require('../../utils/ai-mascot');
 
-/**
- * 动态 AI 形象组件
- * status: idle | thinking | happy | error | speaking
- * size: sm | md | lg
- */
 Component({
   properties: {
     status: { type: String, value: 'idle' },

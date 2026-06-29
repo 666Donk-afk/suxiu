@@ -8,7 +8,7 @@ const { getCityIndexLetter, compareIndexLetters } = require('../utils/city-index
 
 const cities = citiesRaw.map(c => ({
   ...c,
-  cover: c.cover || '/images/heritage/hanju.jpg'
+  cover: c.cover || '/package-media-a/images/heritage/hanju.jpg'
 }));
 
 function localizeCity(city, locale) {

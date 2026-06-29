@@ -1,4 +1,5 @@
 /** 非遗寻迹 - 中国风视觉规范（宣纸 · 朱砂 · 墨色） */
+@import './styles/v0-theme.wxss';
 
 page {
   --color-primary: #9E2B25;

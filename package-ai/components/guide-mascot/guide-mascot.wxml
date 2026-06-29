@@ -1,0 +1,9 @@
+<view class="guide-mascot">
+  <view
+    class="guide-mascot-inner tap-active {{tapping ? 'tapping' : ''}}"
+    bindtap="onTap"
+  >
+    <ai-mascot status="{{tapping ? 'happy' : 'idle'}}" size="md" animated />
+    <view class="mascot-badge">{{label}}</view>
+  </view>
+</view>

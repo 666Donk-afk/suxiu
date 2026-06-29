@@ -1,0 +1,4 @@
+<view class="ai-mascot ai-mascot--{{size}} {{animated ? 'ai-mascot--animated' : ''}} ai-mascot--{{status}} {{ring ? 'ai-mascot--ring' : ''}}">
+  <view class="ai-mascot__glow" wx:if="{{animated && (status === 'thinking' || status === 'speaking')}}"></view>
+  <image class="ai-mascot__img" src="{{src}}" mode="widthFix" />
+</view>

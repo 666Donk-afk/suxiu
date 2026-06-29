@@ -67,11 +67,11 @@ Page({
   },
 
   goLogin() {
-    wx.navigateTo({ url: '/pages/login/login' });
+    wx.navigateTo({ url: '/package-user/pages/login/login' });
   },
 
   goFavorite() {
-    wx.navigateTo({ url: '/pages/favorite/favorite' });
+    wx.navigateTo({ url: '/package-user/pages/favorite/favorite' });
   },
 
   goHistory() {
@@ -87,18 +87,18 @@ Page({
       });
       return;
     }
-    wx.navigateTo({ url: '/pages/history/history' });
+    wx.navigateTo({ url: '/package-user/pages/history/history' });
   },
 
   goMyExperience() {
-    wx.navigateTo({ url: '/pages/my-reservation/my-reservation' });
+    wx.navigateTo({ url: '/package-user/pages/my-reservation/my-reservation' });
   },
 
   goFeedback() {
-    wx.navigateTo({ url: '/pages/feedback/feedback' });
+    wx.navigateTo({ url: '/package-user/pages/feedback/feedback' });
   },
 
   goAbout() {
-    wx.navigateTo({ url: '/pages/about/about' });
+    wx.navigateTo({ url: '/package-user/pages/about/about' });
   }
 });

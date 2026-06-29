@@ -1,4 +1,4 @@
-Component({
+﻿Component({
   properties: {
     item: { type: Object, value: {} },
     showFavorite: { type: Boolean, value: true },
@@ -84,7 +84,7 @@ Component({
     onTap() {
       const { id } = this.data.item;
       if (id) {
-        wx.navigateTo({ url: `/pages/heritage-detail/heritage-detail?id=${id}` });
+        wx.navigateTo({ url: `/package-detail/pages/heritage-detail/heritage-detail?id=${id}` });
       }
     },
 

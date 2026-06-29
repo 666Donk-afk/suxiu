@@ -3,7 +3,7 @@
  */
 const PROVINCE_MAPS = {
   hubei: {
-    image: '/images/maps/hubei-map.png',
+    image: '/package-onboarding/images/maps/hubei-map.png',
     cities: [
       { name: '武汉', marker: { x: 58, y: 42, radius: 9 } },
       { name: '黄冈', marker: { x: 72, y: 48, radius: 8 } },

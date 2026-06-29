@@ -1,4 +1,4 @@
-const { getHotCities } = require('../../data/cities');
+﻿const { getHotCities } = require('../../data/cities');
 const { getPersonalizedExperiences } = require('../../utils/recommendation');
 const { getHeritageById } = require('../../data/heritages');
 const storage = require('../../utils/storage');
@@ -75,20 +75,20 @@ Page({
 
   goCity(e) {
     const { id } = e.currentTarget.dataset;
-    wx.navigateTo({ url: `/pages/city-detail/city-detail?id=${id}` });
+    wx.navigateTo({ url: `/package-detail/pages/city-detail/city-detail?id=${id}` });
   },
 
   goCityIndex() {
-    wx.navigateTo({ url: '/pages/city/city' });
+    wx.navigateTo({ url: '/package-city/pages/city/city' });
   },
 
   goRoute(e) {
     const { id } = e.currentTarget.dataset;
     if (!id) return;
-    wx.navigateTo({ url: `/pages/heritage-detail/heritage-detail?id=${id}` });
+    wx.navigateTo({ url: `/package-detail/pages/heritage-detail/heritage-detail?id=${id}` });
   },
 
   goAiGuide() {
-    wx.navigateTo({ url: '/pages/ai-guide/ai-guide' });
+    wx.navigateTo({ url: '/package-ai/pages/ai-guide/ai-guide' });
   }
 });

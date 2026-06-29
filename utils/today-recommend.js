@@ -2,8 +2,8 @@
  * 今日推荐 - 从非遗库动态抽取「一个传说 / 一个非遗」
  */
 const listData = require('../data/heritage-list.js');
-const detailMap = require('../data/heritage-details.js');
 const enData = require('../data/heritage-i18n-en.js');
+const legendStories = require('../data/legend-stories.js');
 const storage = require('./storage');
 const { getAllHeritages, getCityHeritageIds } = require('../data/heritages');
 const { t, getLocale } = require('../i18n.js');
@@ -14,7 +14,7 @@ function getStoryForSlug(slug, locale) {
   if (locale === 'en-US' && enData[slug] && enData[slug].story) {
     return enData[slug].story;
   }
-  return (detailMap[slug] && detailMap[slug].story) || '';
+  return legendStories[slug] || '';
 }
 
 function getIdsWithStory(locale) {

@@ -101,7 +101,7 @@ Page({
   goRecommend(e) {
     const { id } = e.currentTarget.dataset;
     if (id) {
-      wx.navigateTo({ url: `/pages/heritage-detail/heritage-detail?id=${id}` });
+      wx.navigateTo({ url: `/package-detail/pages/heritage-detail/heritage-detail?id=${id}` });
     }
   },
 
@@ -116,20 +116,20 @@ Page({
   goBanner(e) {
     const { id } = e.currentTarget.dataset;
     if (id) {
-      wx.navigateTo({ url: `/pages/heritage-detail/heritage-detail?id=${id}` });
+      wx.navigateTo({ url: `/package-detail/pages/heritage-detail/heritage-detail?id=${id}` });
     }
   },
 
   goSearch() {
-    wx.navigateTo({ url: '/pages/search/search' });
+    wx.navigateTo({ url: '/package-detail/pages/search/search' });
   },
 
   goCitySelect() {
-    wx.navigateTo({ url: '/pages/city/city?pick=1' });
+    wx.navigateTo({ url: '/package-city/pages/city/city?pick=1' });
   },
 
   goAiGuide() {
-    wx.navigateTo({ url: '/pages/ai-guide/ai-guide' });
+    wx.navigateTo({ url: '/package-ai/pages/ai-guide/ai-guide' });
   },
 
   onShareAppMessage() {

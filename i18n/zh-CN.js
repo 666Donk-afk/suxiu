@@ -15,6 +15,7 @@ module.exports = {
     version: '版本 1.0.0'
   },
   splash: {
+    brandName: '纹韵探索',
     slogan: '让传统文化，在数字时代焕发新生。'
   },
   languageSelect: {

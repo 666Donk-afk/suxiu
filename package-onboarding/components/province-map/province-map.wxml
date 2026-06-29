@@ -1,0 +1,20 @@
+<view class="province-map" wx:if="{{mapData}}">
+  <view class="map-frame">
+    <image
+      id="provinceMapImage"
+      class="map-image"
+      src="{{mapData.image}}"
+      mode="widthFix"
+      bindload="onMapImageLoad"
+    />
+    <view class="map-tap-catcher" bindtap="onMapTap"></view>
+    <view class="pin-layer" wx:if="{{pinCity}}">
+      <image
+        class="map-pin"
+        src="/package-onboarding/images/maps/map-pin.png"
+        mode="aspectFit"
+        style="left: {{pinCity.marker.x}}%; top: {{pinCity.marker.y}}%;"
+      />
+    </view>
+  </view>
+</view>

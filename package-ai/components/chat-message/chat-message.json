@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "styleIsolation": "apply-shared",
+  "usingComponents": {
+    "route-card": "/package-ai/components/route-card/route-card",
+    "recognize-card": "/package-ai/components/recognize-card/recognize-card",
+    "ai-mascot": "/components/ai-mascot/ai-mascot"
+  }
+}

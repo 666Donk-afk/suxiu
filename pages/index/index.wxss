@@ -1,5 +1,3 @@
-@import '../../styles/v0-theme.wxss';
-
 .page {
   min-height: 100vh;
 }

@@ -1,0 +1,15 @@
+{
+
+  "navigationStyle": "custom",
+
+  "usingComponents": {
+
+    "china-map": "/package-onboarding/components/china-map/china-map",
+
+    "province-map": "/package-onboarding/components/province-map/province-map"
+
+  }
+
+}
+
+

@@ -1,34 +1,16 @@
 {
   "pages": [
     "pages/splash/splash",
-    "pages/journey-setup/journey-setup",
-    "pages/language-select/language-select",
-    "pages/onboarding/onboarding",
-    "pages/login/login",
     "pages/index/index",
     "pages/heritage/heritage",
     "pages/yunyou/yunyou",
-    "pages/profile/profile",
-    "pages/city/city",
-    "pages/favorite/favorite",
-    "pages/city-detail/city-detail",
-    "pages/heritage-detail/heritage-detail",
-    "pages/heritage-video/heritage-video",
-    "pages/search/search",
-    "pages/history/history",
-    "pages/about/about",
-    "pages/feedback/feedback",
-    "pages/agreement/agreement",
-    "pages/experience-guide/experience-guide",
-    "pages/my-reservation/my-reservation",
-    "pages/experience-history/experience-history",
-    "pages/ai-guide/ai-guide"
+    "pages/profile/profile"
   ],
+  "lazyCodeLoading": "requiredComponents",
   "window": {
     "navigationBarBackgroundColor": "#9E2B25",
     "navigationBarTitleText": "非遗寻迹",
     "navigationBarTextStyle": "white",
-    "navigationBarBorderStyle": "black",
     "backgroundColor": "#F5DCC0",
     "backgroundColorTop": "#9E2B25",
     "backgroundColorBottom": "#F5DCC0",
@@ -70,12 +52,76 @@
       "root": "package-media-b",
       "name": "mediaB",
       "pages": ["pages/stub/stub"]
+    },
+    {
+      "root": "package-detail",
+      "name": "detail",
+      "pages": [
+        "pages/heritage-detail/heritage-detail",
+        "pages/heritage-video/heritage-video",
+        "pages/experience-guide/experience-guide",
+        "pages/city-detail/city-detail",
+        "pages/search/search"
+      ]
+    },
+    {
+      "root": "package-user",
+      "name": "user",
+      "pages": [
+        "pages/login/login",
+        "pages/favorite/favorite",
+        "pages/my-reservation/my-reservation",
+        "pages/experience-history/experience-history",
+        "pages/history/history",
+        "pages/about/about",
+        "pages/feedback/feedback",
+        "pages/agreement/agreement"
+      ]
+    },
+    {
+      "root": "package-onboarding",
+      "name": "onboarding",
+      "pages": [
+        "pages/journey-setup/journey-setup",
+        "pages/language-select/language-select",
+        "pages/onboarding/onboarding"
+      ]
+    },
+    {
+      "root": "package-ai",
+      "name": "ai",
+      "pages": ["pages/ai-guide/ai-guide"]
+    },
+    {
+      "root": "package-city",
+      "name": "city",
+      "pages": ["pages/city/city"]
     }
   ],
   "preloadRule": {
-    "pages/heritage-detail/heritage-detail": {
+    "pages/splash/splash": {
       "network": "all",
       "packages": ["mediaA", "mediaB"]
+    },
+    "pages/index/index": {
+      "network": "all",
+      "packages": ["mediaA", "mediaB", "ai"]
+    },
+    "pages/heritage/heritage": {
+      "network": "all",
+      "packages": ["mediaA", "mediaB"]
+    },
+    "pages/yunyou/yunyou": {
+      "network": "all",
+      "packages": ["mediaA", "mediaB"]
+    },
+    "package-detail/pages/heritage-detail/heritage-detail": {
+      "network": "all",
+      "packages": ["mediaA", "mediaB"]
+    },
+    "package-onboarding/pages/journey-setup/journey-setup": {
+      "network": "all",
+      "packages": ["mediaA"]
     }
   },
   "sitemapLocation": "sitemap.json",

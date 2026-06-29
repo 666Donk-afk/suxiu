@@ -1,9 +1,0 @@
-.bubble-canvas-wrap {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-
-.bubble-canvas {
-  display: block;
-}
