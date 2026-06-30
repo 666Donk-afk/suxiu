@@ -2,46 +2,29 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--color-card, #FFFBF5);
+  background: #FFFBF5;
 }
 
 /* 顶部品牌区 */
 .login-hero {
   position: relative;
   flex-shrink: 0;
-  min-height: 42vh;
+  min-height: 44vh;
   padding: 24rpx 48rpx 120rpx;
-  background: linear-gradient(180deg, #F9E8C8 0%, #F5DCC0 72%, #F0D4B8 100%);
   overflow: hidden;
 }
 
-.login-hero::before {
-  content: '';
+.login-hero-bg {
   position: absolute;
-  top: -80rpx;
-  right: -60rpx;
-  width: 320rpx;
-  height: 320rpx;
-  border-radius: 50%;
-  background: rgba(158, 43, 37, 0.06);
-  pointer-events: none;
-}
-
-.login-hero::after {
-  content: '';
-  position: absolute;
-  bottom: 160rpx;
-  left: -100rpx;
-  width: 240rpx;
-  height: 240rpx;
-  border-radius: 50%;
-  background: rgba(158, 43, 37, 0.04);
-  pointer-events: none;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
 
 .hero-back {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   width: 64rpx;
   height: 64rpx;
   display: flex;
@@ -52,18 +35,18 @@
 .hero-back-icon {
   font-size: 52rpx;
   line-height: 1;
-  color: var(--color-text);
+  color: #4A3428;
   font-weight: 300;
 }
 
 .hero-brand {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: calc(42vh - 200rpx);
+  min-height: calc(44vh - 200rpx);
   opacity: 0;
   transform: translateY(20rpx);
   transition: opacity 400ms ease, transform 400ms ease;
@@ -75,32 +58,32 @@
 }
 
 .logo-img {
-  width: 128rpx;
-  height: 128rpx;
-  margin-bottom: 28rpx;
+  width: 132rpx;
+  height: 132rpx;
+  margin-bottom: 24rpx;
 }
 
 .app-name {
-  font-size: 48rpx;
+  font-size: 52rpx;
   font-weight: 700;
-  color: var(--color-primary);
-  letter-spacing: 8rpx;
+  color: #4A3428;
+  letter-spacing: 12rpx;
 }
 
 .tagline {
-  margin-top: 16rpx;
+  margin-top: 18rpx;
   font-size: 26rpx;
-  color: var(--color-text-secondary);
-  letter-spacing: 4rpx;
+  color: #6B5348;
+  letter-spacing: 6rpx;
 }
 
 .hero-curve {
   position: absolute;
-  left: -8%;
-  right: -8%;
-  bottom: -72rpx;
-  height: 140rpx;
-  background: var(--color-card, #FFFBF5);
+  left: -10%;
+  right: -10%;
+  bottom: -76rpx;
+  height: 148rpx;
+  background: #FFFBF5;
   border-radius: 50%;
   z-index: 2;
 }
@@ -111,7 +94,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 48rpx 48rpx calc(env(safe-area-inset-bottom) + 48rpx);
+  padding: 40rpx 48rpx calc(env(safe-area-inset-bottom) + 48rpx);
+  background: #FFFBF5;
   opacity: 0;
   transform: translateY(16rpx);
   transition: opacity 450ms ease 120ms, transform 450ms ease 120ms;
@@ -125,9 +109,9 @@
 .welcome-title {
   font-size: 44rpx;
   font-weight: 700;
-  color: var(--color-text);
+  color: #4A3428;
   letter-spacing: 4rpx;
-  margin-bottom: 64rpx;
+  margin-bottom: 56rpx;
 }
 
 .action-section {
@@ -161,9 +145,9 @@
 }
 
 .login-btn-primary {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-  color: #fff;
-  box-shadow: 0 10rpx 28rpx rgba(158, 43, 37, 0.28);
+  background: #E8D4B8;
+  color: #4A3428;
+  box-shadow: 0 8rpx 24rpx rgba(74, 52, 40, 0.08);
 }
 
 .login-btn-primary:active {
@@ -175,24 +159,24 @@
   width: 40rpx;
   height: 40rpx;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(74, 52, 40, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 22rpx;
   font-weight: 700;
-  color: #fff;
+  color: #4A3428;
 }
 
 .login-btn-outline {
-  background: transparent;
-  color: var(--color-text-secondary);
-  border: 2rpx solid var(--color-border, rgba(158, 43, 37, 0.18));
+  background: #FFFBF5;
+  color: #6B5348;
+  border: 2rpx solid rgba(74, 52, 40, 0.22);
   padding: 26rpx 0;
 }
 
 .login-btn-outline:active {
-  background: rgba(158, 43, 37, 0.04);
+  background: rgba(74, 52, 40, 0.04);
 }
 
 /* 协议 */
@@ -211,8 +195,8 @@
   margin-top: 4rpx;
   flex-shrink: 0;
   border-radius: 50%;
-  border: 2rpx solid var(--color-border, rgba(158, 43, 37, 0.25));
-  background: #fff;
+  border: 2rpx solid rgba(74, 52, 40, 0.22);
+  background: #FFFBF5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -220,8 +204,8 @@
 }
 
 .agree-check.checked {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
+  background: #8B5E3C;
+  border-color: #8B5E3C;
 }
 
 .agree-check-mark {
@@ -237,9 +221,9 @@
 }
 
 .agree-text {
-  color: var(--color-text-muted);
+  color: #8A7968;
 }
 
 .agree-link {
-  color: var(--color-primary);
+  color: #8B5E3C;
 }

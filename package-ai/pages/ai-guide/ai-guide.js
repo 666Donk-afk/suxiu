@@ -142,7 +142,7 @@ Page({
   onShow() {
     wx.setNavigationBarColor({
       frontColor: '#000000',
-      backgroundColor: '#FFFFFF'
+      backgroundColor: '#F5DCC0'
     });
     this.refreshI18n();
   },
@@ -822,7 +822,7 @@ Page({
 
       content: t('aiGuide.clearConfirmContent', locale),
 
-      confirmColor: '#A0301F',
+      confirmColor: '#9E2B25',
 
       success: res => {
 

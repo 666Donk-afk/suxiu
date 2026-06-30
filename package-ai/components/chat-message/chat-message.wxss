@@ -31,7 +31,7 @@
   width: 280rpx;
   height: 280rpx;
   border-radius: 20rpx;
-  background: #eee;
+  background: var(--color-bg-cream);
 }
 
 .msg-image-caption {
@@ -45,12 +45,15 @@
   max-width: 78%;
   padding: 20rpx 24rpx;
   border-radius: 24rpx;
-  background: #fff;
-  box-shadow: 0 4rpx 24rpx rgba(160, 48, 31, 0.06);
+  background: var(--color-card);
+  box-shadow: var(--shadow-soft);
+  border: 1rpx solid var(--color-border);
 }
 
 .msg-user .msg-bubble {
-  background: linear-gradient(135deg, #A0301F, #B34D2E);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  border-color: transparent;
+  box-shadow: 0 4rpx 12rpx rgba(158, 43, 37, 0.25);
 }
 
 .msg-user .msg-text {
@@ -60,11 +63,11 @@
 .msg-text {
   font-size: 28rpx;
   line-height: 1.75;
-  color: var(--color-text, #1A1A1A);
+  color: var(--color-text);
   white-space: pre-wrap;
   word-break: break-word;
 }
 
 .msg-error .msg-text {
-  color: #B34D2E;
+  color: var(--color-primary-light);
 }

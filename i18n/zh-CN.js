@@ -38,7 +38,7 @@ module.exports = {
   },
   login: {
     welcomeTitle: '欢迎登录',
-    tagline: '见城 · 见艺 · 见传承',
+    tagline: '见城 · 见才 · 见传承',
     loginBtn: '微信授权登录',
     guestBtn: '暂不登录，先逛逛',
     agreePrefix: '登录即表示您已阅读并同意',

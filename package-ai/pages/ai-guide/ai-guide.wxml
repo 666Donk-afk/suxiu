@@ -1,4 +1,6 @@
-<view class="page ai-guide-page">
+<view class="page ai-guide-page v0-page">
+  <page-deco />
+  <view class="page-body ai-guide-body">
   <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
     <view class="nav-inner" style="height: {{navBarHeight}}px; padding-right: {{headerPaddingRight}}px;">
       <view class="nav-back tap-active" bindtap="goBack">‹</view>
@@ -94,5 +96,6 @@
     <view class="send-btn tap-active {{(inputValue || pendingImage) && !sending ? 'active' : ''}}" bindtap="onSendTap">
       {{i18n.send}}
     </view>
+  </view>
   </view>
 </view>

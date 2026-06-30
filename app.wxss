@@ -64,7 +64,6 @@ view, text, image, scroll-view {
 /* 品牌 Logo */
 .logo-img {
   display: block;
-  border-radius: 50%;
   flex-shrink: 0;
 }
 

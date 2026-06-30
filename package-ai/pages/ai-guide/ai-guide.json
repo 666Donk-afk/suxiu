@@ -1,9 +1,10 @@
 {
   "navigationStyle": "custom",
-  "backgroundColor": "#FFFFFF",
-  "backgroundColorTop": "#FFFFFF",
+  "backgroundColor": "#F5DCC0",
+  "backgroundColorTop": "#F5DCC0",
   "disableScroll": true,
   "usingComponents": {
+    "page-deco": "/components/page-deco/page-deco",
     "chat-message": "/package-ai/components/chat-message/chat-message",
     "ai-mascot": "/components/ai-mascot/ai-mascot"
   }

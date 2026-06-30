@@ -1,9 +1,5 @@
 <view class="splash {{fading ? 'fade-out' : ''}}">
-  <view class="splash-bg">
-    <view class="deco-circle deco-1"></view>
-    <view class="deco-circle deco-2"></view>
-    <view class="deco-line"></view>
-  </view>
+  <image class="splash-bg-img" src="/images/brand/splash-bg.jpg" mode="aspectFill" />
 
   <view class="splash-content">
     <view class="logo-wrap {{showLogo ? 'visible' : ''}}">

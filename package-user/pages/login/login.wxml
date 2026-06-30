@@ -1,6 +1,8 @@
 <view class="login page-fade-in">
   <!-- 顶部品牌区（弧形过渡） -->
   <view class="login-hero" style="padding-top: {{statusBarHeight}}px;">
+    <image class="login-hero-bg" src="/images/brand/login-bg.jpg" mode="aspectFill" />
+
     <view class="hero-back tap-active" wx:if="{{showBack}}" bindtap="onBack">
       <text class="hero-back-icon">‹</text>
     </view>

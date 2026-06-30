@@ -24,26 +24,26 @@
   display: block;
   position: relative;
   z-index: 1;
-  filter: drop-shadow(0 6rpx 14rpx rgba(160, 48, 31, 0.16));
+  filter: drop-shadow(0 6rpx 14rpx rgba(158, 43, 37, 0.16));
 }
 
 .ai-mascot--ring .ai-mascot__img {
   border-radius: 50%;
   border: 3rpx solid rgba(255, 255, 255, 0.9);
   background: transparent;
-  box-shadow: 0 4rpx 16rpx rgba(160, 48, 31, 0.15);
+  box-shadow: 0 4rpx 16rpx rgba(158, 43, 37, 0.15);
 }
 
 .ai-mascot--ring.ai-mascot--md .ai-mascot__img {
   border-width: 4rpx;
-  box-shadow: 0 8rpx 28rpx rgba(160, 48, 31, 0.28);
+  box-shadow: 0 8rpx 28rpx rgba(158, 43, 37, 0.28);
 }
 
 .ai-mascot__glow {
   position: absolute;
   inset: -8rpx;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(179, 77, 46, 0.22) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(193, 78, 66, 0.22) 0%, transparent 70%);
   animation: mascot-glow 1.6s ease-in-out infinite;
   z-index: 0;
 }
